@@ -1,6 +1,6 @@
 # Projecte-Intermodular-26_27
 
-Benvinguts a la Landing Page d'Altercom21
+Benvinguts a la Landing Page d'Altercom21!
 ## Contingut
 
 
