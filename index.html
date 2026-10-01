@@ -1,156 +1,1289 @@
 <!DOCTYPE html>
+
 <html lang="ca">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Altercom21 | Ciberseguretat professional</title>
+
 <style>
-:root{--bg:#0b0f19;--p:#121a2b;--p2:#182238;--fg:#c9d6ea;--dim:#6b7c99;--ac:#00e5ff;--gr:#2bff88;--red:#ff4d6d}
-*{box-sizing:border-box;margin:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,Segoe UI,Arial,sans-serif}
-a{color:var(--ac);text-decoration:none}
-.w{max-width:1100px;margin:auto;padding:0 20px}
-nav{position:sticky;top:0;background:#0b0f19ee;border-bottom:1px solid var(--p2);z-index:9}
-nav .w{display:flex;justify-content:space-between;align-items:center;height:60px;flex-wrap:wrap}
-.logo{font-weight:800;font-size:1.3rem;color:#fff}.logo span{color:var(--ac)}
-nav a.l{margin-left:18px;color:var(--fg);font-size:.9rem}
-.btn{display:inline-block;background:var(--ac);color:var(--bg);font-weight:700;padding:11px 22px;border:0;border-radius:6px;cursor:pointer;font-size:1rem}
-.btn.o{background:none;border:1px solid var(--ac);color:var(--ac)}
-.hero{padding:90px 0 70px;text-align:center;background:radial-gradient(circle at 50% 0,#12315a,transparent 60%)}
-.hero h1{font-size:clamp(2rem,5vw,3.4rem);color:#fff;line-height:1.15}
-.hero h1 span{color:var(--ac)}
-.hero p{max-width:640px;margin:18px auto 28px;color:var(--dim)}
-.hero .btn{margin:6px}
-section{padding:70px 0}
-h2{color:#fff;font-size:1.9rem;margin-bottom:8px}
-.sub{color:var(--dim);margin-bottom:34px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
-.card{background:var(--p);border:1px solid var(--p2);border-radius:10px;padding:22px}
-.card:hover{border-color:var(--ac)}
-.card b{display:block;color:var(--ac);margin-bottom:6px;font-size:1.05rem}
-.card p{font-size:.92rem;color:var(--dim)}
-.alt{background:var(--p)}
-.alt .card{background:var(--bg)}
-.num{font-size:2rem;font-weight:800;color:var(--gr)}
-form{background:var(--p);border:1px solid var(--p2);border-radius:10px;padding:26px;display:grid;gap:14px}
-.alt form{background:var(--bg)}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-label{font-size:.85rem;color:var(--dim);display:block;margin-bottom:4px}
-input,select,textarea{width:100%;background:var(--bg);color:var(--fg);border:1px solid var(--p2);border-radius:6px;padding:10px;font:inherit}
-.alt input,.alt select,.alt textarea{background:var(--p)}
-input:focus,select:focus,textarea:focus{outline:1px solid var(--ac)}
-.chk{display:flex;gap:10px;align-items:flex-start;font-size:.88rem}
-.chk input{width:auto;margin-top:5px}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-pre{background:#05080f;border:1px solid var(--p2);border-radius:8px;padding:14px;overflow-x:auto;font:.85rem/1.5 Consolas,monospace;color:var(--gr);margin:8px 0 16px}
-ol{padding-left:20px}ol li{margin-bottom:10px}
-.warn{border-left:3px solid var(--red);background:#ff4d6d15;padding:12px 16px;border-radius:4px;font-size:.9rem;margin-top:14px}
-code{color:var(--gr)}
-footer{border-top:1px solid var(--p2);padding:34px 0;text-align:center;color:var(--dim);font-size:.9rem}
-@media(max-width:760px){.row,.two{grid-template-columns:1fr}nav a.l{display:none}}
-</style>
-</head>
-<body>
-<nav><div class="w"><a class="logo" href="#top">Alter<span>com21</span></a>
-<div><a class="l" href="#serveis">Serveis</a><a class="l" href="#vulnerabilitats">Vulnerabilitats</a><a class="l" href="#pressupost">Pressupost</a><a class="l" href="#pentest">Pentesting</a><a class="l" href="#descarrega">Descàrrega</a><a class="btn" style="padding:7px 16px;margin-left:18px" href="#contacte">Contacte</a></div></div></nav>
-
-<header class="hero" id="top"><div class="w">
-<h1>Protegim la teva empresa <span>abans que t'ataquin</span></h1>
-<p>A Altercom21 som especialistes en ciberseguretat. Detectem vulnerabilitats, reforcem els teus sistemes i t'ajudem a complir la normativa.</p>
-<a class="btn" href="#pressupost">Demanar pressupost</a><a class="btn o" href="#pentest">Sol·licitar auditoria</a>
-</div></header>
-
-<section id="serveis"><div class="w">
-<h2>Els nostres serveis</h2><p class="sub">Solucions completes de ciberseguretat per a pimes, centres educatius i grans empreses.</p>
-<div class="grid">
-<div class="card"><b>🛡️ Pentesting</b><p>Proves d'intrusió controlades i autoritzades sobre xarxes, webs i aplicacions per descobrir errors reals.</p></div>
-<div class="card"><b>🔍 Anàlisi de vulnerabilitats</b><p>Escaneig de ports, serveis i configuracions amb informe de riscos prioritzat (alt, mitjà, baix).</p></div>
-<div class="card"><b>🌐 Seguretat de xarxes</b><p>Disseny de segmentació, tallafocs, VPN, control d'accés i monitoratge del trànsit.</p></div>
-<div class="card"><b>💻 Seguretat web i apps</b><p>Revisió d'OWASP Top 10: injecció SQL, XSS, autenticació feble, APIs exposades.</p></div>
-<div class="card"><b>☁️ Seguretat al núvol</b><p>Auditoria de configuracions a AWS, Azure i Google Cloud, gestió d'identitats i permisos.</p></div>
-<div class="card"><b>🎣 Formació i phishing</b><p>Conscienciació per als empleats i simulacres de phishing per mesurar i reduir el risc humà.</p></div>
-<div class="card"><b>🚨 Resposta a incidents</b><p>Contenció, anàlisi forense i recuperació després de ransomware, fuites de dades o accessos no autoritzats.</p></div>
-<div class="card"><b>📋 Compliment normatiu</b><p>Adequació a RGPD, ENS i ISO 27001, amb polítiques, registres i plans de seguretat.</p></div>
-<div class="card"><b>📡 Monitoratge (SOC)</b><p>Vigilància contínua, alertes en temps real i gestió de logs per detectar amenaces a temps.</p></div>
-<div class="card"><b>💾 Còpies i continuïtat</b><p>Estratègies de còpia de seguretat, plans de recuperació davant de desastres i proves de restauració.</p></div>
-</div></div></section>
-
-<section class="alt" id="vulnerabilitats"><div class="w">
-<h2>Vulnerabilitats que detectem</h2><p class="sub">Serveis exposats que solen ser la porta d'entrada d'un atacant.</p>
-<div class="grid">
-<div class="card"><b style="color:var(--red)">Risc ALT</b><p>Telnet (23), SMB (445, 139), RDP (3389), VNC (5900), Redis (6379) i Elasticsearch (9200) accessibles des de la xarxa.</p></div>
-<div class="card"><b style="color:#ffa62b">Risc MITJÀ</b><p>FTP sense xifrar (21) i bases de dades exposades: MySQL, PostgreSQL, MSSQL i MongoDB.</p></div>
-<div class="card"><b style="color:#ffe066">Risc BAIX</b><p>HTTP sense xifrar (80, 8080). Recomanem migrar a HTTPS i revisar què ha d'estar publicat.</p></div>
-</div>
-<div class="grid" style="margin-top:34px;text-align:center">
-<div><div class="num">1</div>Reconeixement</div><div><div class="num">2</div>Escaneig</div><div><div class="num">3</div>Informe</div><div><div class="num">4</div>Correcció</div>
-</div></div></section>
-
-<section id="pressupost"><div class="w">
-<h2>Sol·licita el teu pressupost</h2><p class="sub">Explica'ns què necessites i et respondrem amb una proposta sense compromís.</p>
-<form id="fPres">
-<div class="row"><div><label>Nom i cognoms</label><input name="nom" required></div><div><label>Empresa</label><input name="empresa"></div></div>
-<div class="row"><div><label>Correu electrònic</label><input type="email" name="email" required></div><div><label>Telèfon</label><input type="tel" name="tel"></div></div>
-<div class="row"><div><label>Servei d'interès</label><select name="servei"><option>Pentesting</option><option>Anàlisi de vulnerabilitats</option><option>Seguretat de xarxes</option><option>Seguretat web i apps</option><option>Seguretat al núvol</option><option>Formació i phishing</option><option>Resposta a incidents</option><option>Compliment normatiu</option><option>Monitoratge (SOC)</option><option>Còpies i continuïtat</option><option>Diversos / no ho sé</option></select></div>
-<div><label>Mida de l'empresa</label><select name="mida"><option>1-10 empleats</option><option>11-50 empleats</option><option>51-250 empleats</option><option>Més de 250</option></select></div></div>
-<div><label>Descriu el teu projecte</label><textarea name="msg" rows="4"></textarea></div>
-<div class="chk"><input type="checkbox" required><span>Accepto que Altercom21 tracti les meves dades per respondre a aquesta sol·licitud.</span></div>
-<button class="btn" type="submit">Enviar sol·licitud</button>
-</form></div></section>
-
-<section class="alt" id="pentest"><div class="w">
-<h2>Reserva una auditoria de vulnerabilitats</h2><p class="sub">Simulem atacs reals de manera controlada per trobar els teus punts febles abans que ho faci un delinqüent.</p>
-<form id="fCita">
-<div class="row"><div><label>Nom i cognoms</label><input name="nom" required></div><div><label>Correu electrònic</label><input type="email" name="email" required></div></div>
-<div class="row"><div><label>Tipus de prova</label><select name="tipus"><option>Xarxa interna</option><option>Xarxa externa</option><option>Aplicació web</option><option>Wi-Fi</option><option>Enginyeria social / phishing</option><option>Infraestructura al núvol</option></select></div>
-<div><label>Abast (IPs, dominis)</label><input name="abast" placeholder="192.168.1.0/24, laemevaweb.com" required></div></div>
-<div class="row"><div><label>Data preferida</label><input type="date" name="data" required></div><div><label>Franja horària</label><select name="hora"><option>Matí (9-13 h)</option><option>Tarda (15-19 h)</option><option>Fora d'horari laboral</option></select></div></div>
-<div><label>Observacions</label><textarea name="msg" rows="3"></textarea></div>
-<div class="chk"><input type="checkbox" required><span>Declaro que sóc propietari o tinc autorització per escrit per analitzar els sistemes indicats. Altercom21 només fa proves amb consentiment signat.</span></div>
-<button class="btn" type="submit">Sol·licitar cita</button>
-</form></div></section>
-
-<section id="descarrega"><div class="w">
-<h2>Descarrega NEXUS</h2><p class="sub">La nostra eina educativa d'anàlisi de xarxes (Python + Tkinter, només biblioteca estàndard).</p>
-<div class="two">
-<div class="card"><b>📦 NEXUS Network Security Scanner</b>
-<p>Escàner de ports amb detecció de serveis, banner grabbing, ping, traceroute, WHOIS i indicadors de risc.</p><br>
-<a class="btn" href="projecte.zip" download>Descarregar ZIP</a>
-<div class="warn">⚠️ Utilitza-la únicament en equips i xarxes on tinguis autorització.</div></div>
-<div class="card"><b>⚙️ Instal·lació i permisos</b>
-<ol>
-<li>Instal·la <a href="https://www.python.org/downloads/">Python 3.8+</a> (a Windows marca «Add Python to PATH»). A Linux, instal·la Tkinter: <code>sudo apt install python3-tk</code></li>
-<li>Descomprimeix el ZIP i obre un terminal a la carpeta.</li>
-<li><b style="display:inline">Linux / macOS</b>, donar permisos d'execució:
-<pre>chmod +x nexus.py
-./nexus.py</pre></li>
-<li><b style="display:inline">Windows</b> (PowerShell o CMD):
-<pre>python nexus.py</pre></li>
-<li>Si Windows bloqueja el fitxer: clic dret → Propietats → «Desbloqueja». A Linux, <code>traceroute</code> pot requerir <code>sudo apt install traceroute</code>.</li>
-</ol></div>
-</div></div></section>
-
-<section class="alt" id="contacte"><div class="w" style="text-align:center">
-<h2>Contacte</h2><p class="sub">Prefereixes parlar directament? Escriu-nos.</p>
-<a class="btn" href="mailto:contacto@altercom21.com">contacto@altercom21.com</a>
-</div></section>
-
-<footer><div class="w"><b style="color:#fff">Altercom21</b> · Aaron Garcia · Lluc Jornet · Ramon Roda<br>© 2026 Altercom21. Projecte de classe. Ciberseguretat ètica i autoritzada.</div></footer>
-
-<script>
-const MAIL="contacto@altercom21.com";
-function send(id,subject){
-  document.getElementById(id).addEventListener("submit",e=>{
-    e.preventDefault();
-    const d=new FormData(e.target);
-    let body="";
-    d.forEach((v,k)=>{body+=k+": "+v+"\n"});
-    location.href="mailto:"+MAIL+"?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body);
-  });
+:root{
+    --bg:#0b0f19;
+    --p:#121a2b;
+    --p2:#182238;
+    --fg:#c9d6ea;
+    --dim:#6b7c99;
+    --ac:#00e5ff;
+    --gr:#2bff88;
+    --red:#ff4d6d
 }
-send("fPres","Sol·licitud de pressupost");
-send("fCita","Sol·licitud de cita d'auditoria");
-</script>
+
+*{
+    box-sizing:border-box;
+    margin:0
+}
+
+html{
+    scroll-behavior:smooth
+}
+
+body{
+    background:var(--bg);
+    color:var(--fg);
+    font:16px/1.6 system-ui,Segoe UI,Arial,sans-serif
+}
+
+a{
+    color:var(--ac);
+    text-decoration:none
+}
+
+.w{
+    max-width:1100px;
+    margin:auto;
+    padding:0 20px
+}
+
+nav{
+    position:sticky;
+    top:0;
+    background:#0b0f19ee;
+    border-bottom:1px solid var(--p2);
+    z-index:9
+}
+
+nav .w{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    height:60px;
+    flex-wrap:wrap
+}
+
+.logo{
+    font-weight:800;
+    font-size:1.3rem;
+    color:#fff
+}
+
+.logo span{
+    color:var(--ac)
+}
+
+nav a.l{
+    margin-left:18px;
+    color:var(--fg);
+    font-size:.9rem
+}
+
+.btn{
+    display:inline-block;
+    background:var(--ac);
+    color:var(--bg);
+    font-weight:700;
+    padding:11px 22px;
+    border:0;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:1rem
+}
+
+.btn.o{
+    background:none;
+    border:1px solid var(--ac);
+    color:var(--ac)
+}
+
+.hero{
+    padding:90px 0 70px;
+    text-align:center;
+    background:radial-gradient(circle at 50% 0,#12315a,transparent 60%)
+}
+
+.hero h1{
+    font-size:clamp(2rem,5vw,3.4rem);
+    color:#fff;
+    line-height:1.15
+}
+
+.hero h1 span{
+    color:var(--ac)
+}
+
+.hero p{
+    max-width:640px;
+    margin:18px auto 28px;
+    color:var(--dim)
+}
+
+.hero .btn{
+    margin:6px
+}
+
+section{
+    padding:70px 0
+}
+
+h2{
+    color:#fff;
+    font-size:1.9rem;
+    margin-bottom:8px
+}
+
+.sub{
+    color:var(--dim);
+    margin-bottom:34px
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:18px
+}
+
+.card{
+    background:var(--p);
+    border:1px solid var(--p2);
+    border-radius:10px;
+    padding:22px
+}
+
+.card:hover{
+    border-color:var(--ac)
+}
+
+.card b{
+    display:block;
+    color:var(--ac);
+    margin-bottom:6px;
+    font-size:1.05rem
+}
+
+.card p{
+    font-size:.92rem;
+    color:var(--dim)
+}
+
+.alt{
+    background:var(--p)
+}
+
+.alt .card{
+    background:var(--bg)
+}
+
+.num{
+    font-size:2rem;
+    font-weight:800;
+    color:var(--gr)
+}
+
+form{
+    background:var(--p);
+    border:1px solid var(--p2);
+    border-radius:10px;
+    padding:26px;
+    display:grid;
+    gap:14px
+}
+
+.alt form{
+    background:var(--bg)
+}
+
+.row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px
+}
+
+label{
+    font-size:.85rem;
+    color:var(--dim);
+    display:block;
+    margin-bottom:4px
+}
+
+input,select,textarea{
+    width:100%;
+    background:var(--bg);
+    color:var(--fg);
+    border:1px solid var(--p2);
+    border-radius:6px;
+    padding:10px;
+    font:inherit
+}
+
+.alt input,
+.alt select,
+.alt textarea{
+    background:var(--p)
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    outline:1px solid var(--ac)
+}
+
+.chk{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    font-size:.88rem
+}
+
+.chk input{
+    width:auto;
+    margin-top:5px
+}
+
+.two{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px
+}
+
+pre{
+    background:#05080f;
+    border:1px solid var(--p2);
+    border-radius:8px;
+    padding:14px;
+    overflow-x:auto;
+    font:.85rem/1.5 Consolas,monospace;
+    color:var(--gr);
+    margin:8px 0 16px
+}
+
+ol{
+    padding-left:20px
+}
+
+ol li{
+    margin-bottom:10px
+}
+
+.warn{
+    border-left:3px solid var(--red);
+    background:#ff4d6d15;
+    padding:12px 16px;
+    border-radius:4px;
+    font-size:.9rem;
+    margin-top:14px
+}
+
+code{
+    color:var(--gr)
+}
+
+footer{
+    border-top:1px solid var(--p2);
+    padding:34px 0;
+    text-align:center;
+    color:var(--dim);
+    font-size:.9rem
+}
+
+@media(max-width:760px){
+    .row,
+    .two{
+        grid-template-columns:1fr
+    }
+
+    nav a.l{
+        display:none
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- =========================
+     MENÚ
+========================= -->
+
+<nav>
+    <div class="w">
+
+```
+    <a class="logo" href="#top">
+        Alter<span>com21</span>
+    </a>
+
+    <div>
+
+        <a class="l" href="#serveis">
+            Serveis
+        </a>
+
+        <a class="l" href="#equip">
+            Equip
+        </a>
+
+        <a class="l" href="#vulnerabilitats">
+            Vulnerabilitats
+        </a>
+
+        <a class="l" href="#pressupost">
+            Pressupost
+        </a>
+
+        <a class="l" href="#pentest">
+            Pentesting
+        </a>
+
+        <a class="l" href="#descarrega">
+            Descàrrega
+        </a>
+
+        <a class="btn"
+           style="padding:7px 16px;margin-left:18px"
+           href="#contacte">
+            Contacte
+        </a>
+
+    </div>
+
+</div>
+```
+
+</nav>
+
+<!-- =========================
+     PORTADA
+========================= -->
+
+<header class="hero" id="top">
+
+```
+<div class="w">
+
+    <h1>
+        Protegim la teva empresa
+        <span>abans que t'ataquin</span>
+    </h1>
+
+    <p>
+        A Altercom21 som especialistes en ciberseguretat.
+        Detectem vulnerabilitats, reforcem els teus sistemes
+        i t'ajudem a complir la normativa.
+    </p>
+
+    <a class="btn" href="#pressupost">
+        Demanar pressupost
+    </a>
+
+    <a class="btn o" href="#pentest">
+        Sol·licitar auditoria
+    </a>
+
+</div>
+```
+
+</header>
+
+<!-- =========================
+     SERVEIS
+========================= -->
+
+<section id="serveis">
+
+```
+<div class="w">
+
+    <h2>Els nostres serveis</h2>
+
+    <p class="sub">
+        Solucions completes de ciberseguretat per a pimes,
+        centres educatius i grans empreses.
+    </p>
+
+    <div class="grid">
+
+        <div class="card">
+            <b>🛡️ Pentesting</b>
+            <p>
+                Proves d'intrusió controlades i autoritzades
+                sobre xarxes, webs i aplicacions per descobrir
+                errors reals.
+            </p>
+        </div>
+
+        <div class="card">
+            <b>🔍 Anàlisi de vulnerabilitats</b>
+            <p>
+                Escaneig de ports, serveis i configuracions
+                amb informe de riscos prioritzat
+                (alt, mitjà, baix).
+            </p>
+        </div>
+
+        <div class="card">
+            <b>🌐 Seguretat de xarxes</b>
+            <p>
+                Disseny de segmentació, tallafocs, VPN,
+                control d'accés i monitoratge del trànsit.
+            </p>
+        </div>
+
+        <div class="card">
+            <b>💻 Seguretat web i apps</b>
+            <p>
+                Revisió d'OWASP Top 10: injecció SQL, XSS,
+                autenticació feble, APIs exposades.
+            </p>
+        </div>
+
+        <div class="card">
+            <b>☁️ Seguretat al núvol</b>
+            <p>
+                Auditoria de configuracions a AWS, Azure
+                i Google Cloud, gestió d'identitats i permisos.
+            </p>
+        </div>
+
+        <div class="card">
+            <b>🎣 Formació i phishing</b>
+            <p>
+                Conscienciació per als empleats i simulacres
+                de phishing per mesurar i reduir el risc humà.
+            </p>
+        </div>
+
+        <div class="card">
+            <b>🚨 Resposta a incidents</b>
+            <p>
+                Contenció, anàlisi forense i recuperació després
+                de ransomware, fuites de dades o accessos
+                no autoritzats.
+            </p>
+        </div>
+
+        <div class="card">
+            <b>📋 Compliment normatiu</b>
+            <p>
+                Adequació a RGPD, ENS i ISO 27001,
+                amb polítiques, registres i plans de seguretat.
+            </p>
+        </div>
+
+        <div class="card">
+            <b>📡 Monitoratge (SOC)</b>
+            <p>
+                Vigilància contínua, alertes en temps real
+                i gestió de logs per detectar amenaces a temps.
+            </p>
+        </div>
+
+        <div class="card">
+            <b>💾 Còpies i continuïtat</b>
+            <p>
+                Estratègies de còpia de seguretat, plans de
+                recuperació davant de desastres i proves
+                de restauració.
+            </p>
+        </div>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- =========================
+     EQUIP
+========================= -->
+
+<section class="alt" id="equip">
+
+```
+<div class="w">
+
+    <h2>El nostre equip</h2>
+
+    <p class="sub">
+        Coneix les persones que formen part d'Altercom21
+        i les seves àrees de treball.
+    </p>
+
+    <div class="grid">
+
+        <div class="card">
+
+            <b>👨‍💻 Aaron Garcia</b>
+
+            <p>
+                <strong>Rol:</strong>
+                Administrador de sistemes i responsable
+                de ciberseguretat.
+            </p>
+
+            <p>
+                <strong>Especialitat:</strong>
+                Xarxes, sistemes Linux i Windows,
+                anàlisi de vulnerabilitats i eines
+                de ciberseguretat.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <b>🌐 Lluc Jornet</b>
+
+            <p>
+                <strong>Rol:</strong>
+                Especialista en xarxes i infraestructura.
+            </p>
+
+            <p>
+                <strong>Especialitat:</strong>
+                Xarxes, configuració de servidors,
+                seguretat de xarxes i infraestructura.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <b>🔐 Ramon Roda</b>
+
+            <p>
+                <strong>Rol:</strong>
+                Analista de ciberseguretat.
+            </p>
+
+            <p>
+                <strong>Especialitat:</strong>
+                Anàlisi de riscos, vulnerabilitats,
+                pentesting i seguretat d'aplicacions.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- =========================
+     VULNERABILITATS
+========================= -->
+
+<section class="alt" id="vulnerabilitats">
+
+```
+<div class="w">
+
+    <h2>Vulnerabilitats que detectem</h2>
+
+    <p class="sub">
+        Serveis exposats que solen ser la porta
+        d'entrada d'un atacant.
+    </p>
+
+    <div class="grid">
+
+        <div class="card">
+
+            <b style="color:var(--red)">
+                Risc ALT
+            </b>
+
+            <p>
+                Telnet (23), SMB (445, 139), RDP (3389),
+                VNC (5900), Redis (6379) i Elasticsearch
+                (9200) accessibles des de la xarxa.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <b style="color:#ffa62b">
+                Risc MITJÀ
+            </b>
+
+            <p>
+                FTP sense xifrar (21) i bases de dades
+                exposades: MySQL, PostgreSQL, MSSQL
+                i MongoDB.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <b style="color:#ffe066">
+                Risc BAIX
+            </b>
+
+            <p>
+                HTTP sense xifrar (80, 8080).
+                Recomanem migrar a HTTPS i revisar
+                què ha d'estar publicat.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="grid"
+         style="margin-top:34px;text-align:center">
+
+        <div>
+            <div class="num">1</div>
+            Reconeixement
+        </div>
+
+        <div>
+            <div class="num">2</div>
+            Escaneig
+        </div>
+
+        <div>
+            <div class="num">3</div>
+            Informe
+        </div>
+
+        <div>
+            <div class="num">4</div>
+            Correcció
+        </div>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- =========================
+     PRESSUPOST
+========================= -->
+
+<section id="pressupost">
+
+```
+<div class="w">
+
+    <h2>Sol·licita el teu pressupost</h2>
+
+    <p class="sub">
+        Explica'ns què necessites i et respondrem
+        amb una proposta sense compromís.
+    </p>
+
+    <form id="fPres">
+
+        <div class="row">
+
+            <div>
+                <label>Nom i cognoms</label>
+                <input name="nom" required>
+            </div>
+
+            <div>
+                <label>Empresa</label>
+                <input name="empresa">
+            </div>
+
+        </div>
+
+
+        <div class="row">
+
+            <div>
+                <label>Correu electrònic</label>
+                <input
+                    type="email"
+                    name="email"
+                    required
+                >
+            </div>
+
+            <div>
+                <label>Telèfon</label>
+                <input
+                    type="tel"
+                    name="tel"
+                >
+            </div>
+
+        </div>
+
+
+        <div class="row">
+
+            <div>
+
+                <label>Servei d'interès</label>
+
+                <select name="servei">
+
+                    <option>Pentesting</option>
+                    <option>Anàlisi de vulnerabilitats</option>
+                    <option>Seguretat de xarxes</option>
+                    <option>Seguretat web i apps</option>
+                    <option>Seguretat al núvol</option>
+                    <option>Formació i phishing</option>
+                    <option>Resposta a incidents</option>
+                    <option>Compliment normatiu</option>
+                    <option>Monitoratge (SOC)</option>
+                    <option>Còpies i continuïtat</option>
+                    <option>Diversos / no ho sé</option>
+
+                </select>
+
+            </div>
+
+
+            <div>
+
+                <label>Mida de l'empresa</label>
+
+                <select name="mida">
+
+                    <option>1-10 empleats</option>
+                    <option>11-50 empleats</option>
+                    <option>51-250 empleats</option>
+                    <option>Més de 250</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div>
+
+            <label>Descriu el teu projecte</label>
+
+            <textarea
+                name="msg"
+                rows="4"
+            ></textarea>
+
+        </div>
+
+
+        <div class="chk">
+
+            <input
+                type="checkbox"
+                required
+            >
+
+            <span>
+                Accepto que Altercom21 tracti les meves
+                dades per respondre a aquesta sol·licitud.
+            </span>
+
+        </div>
+
+
+        <button class="btn" type="submit">
+            Enviar sol·licitud
+        </button>
+
+    </form>
+
+</div>
+```
+
+</section>
+
+<!-- =========================
+     PENTESTING
+========================= -->
+
+<section class="alt" id="pentest">
+
+```
+<div class="w">
+
+    <h2>Reserva una auditoria de vulnerabilitats</h2>
+
+    <p class="sub">
+        Simulem atacs reals de manera controlada per
+        trobar els teus punts febles abans que ho faci
+        un delinqüent.
+    </p>
+
+
+    <form id="fCita">
+
+        <div class="row">
+
+            <div>
+
+                <label>Nom i cognoms</label>
+
+                <input
+                    name="nom"
+                    required
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>Correu electrònic</label>
+
+                <input
+                    type="email"
+                    name="email"
+                    required
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="row">
+
+            <div>
+
+                <label>Tipus de prova</label>
+
+                <select name="tipus">
+
+                    <option>Xarxa interna</option>
+                    <option>Xarxa externa</option>
+                    <option>Aplicació web</option>
+                    <option>Wi-Fi</option>
+                    <option>Enginyeria social / phishing</option>
+                    <option>Infraestructura al núvol</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div>
+
+            <label>Abast (IPs, dominis)</label>
+
+            <input
+                name="abast"
+                placeholder="192.168.1.0/24, laemevaweb.com"
+                required
+            >
+
+        </div>
+
+
+        <div class="row">
+
+            <div>
+
+                <label>Data preferida</label>
+
+                <input
+                    type="date"
+                    name="data"
+                    required
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>Franja horària</label>
+
+                <select name="hora">
+
+                    <option>Matí (9-13 h)</option>
+                    <option>Tarda (15-19 h)</option>
+                    <option>Fora d'horari laboral</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div>
+
+            <label>Observacions</label>
+
+            <textarea
+                name="msg"
+                rows="3"
+            ></textarea>
+
+        </div>
+
+
+        <div class="chk">
+
+            <input
+                type="checkbox"
+                required
+            >
+
+            <span>
+                Declaro que sóc propietari o tinc autorització
+                per escrit per analitzar els sistemes indicats.
+                Altercom21 només fa proves amb consentiment signat.
+            </span>
+
+        </div>
+
+
+        <button class="btn" type="submit">
+            Sol·licitar cita
+        </button>
+
+    </form>
+
+</div>
+```
+
+</section>
+
+<!-- =========================
+     DESCÀRREGA
+========================= -->
+
+<section id="descarrega">
+
+```
+<div class="w">
+
+    <h2>Descarrega NEXUS</h2>
+
+    <p class="sub">
+        La nostra eina educativa d'anàlisi de xarxes
+        (Python + Tkinter, només biblioteca estàndard).
+    </p>
+
+
+    <div class="two">
+
+        <div class="card">
+
+            <b>
+                📦 NEXUS Network Security Scanner
+            </b>
+
+            <p>
+                Escàner de ports amb detecció de serveis,
+                banner grabbing, ping, traceroute, WHOIS
+                i indicadors de risc.
+            </p>
+
+            <br>
+
+            <a
+                class="btn"
+                href="projecte.zip"
+                download
+            >
+                Descarregar ZIP
+            </a>
+
+            <div class="warn">
+                ⚠️ Utilitza-la únicament en equips
+                i xarxes on tinguis autorització.
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <b>
+                ⚙️ Instal·lació i permisos
+            </b>
+
+            <ol>
+
+                <li>
+                    Instal·la
+                    <a href="https://www.python.org/downloads/">
+                        Python 3.8+
+                    </a>
+                    (a Windows marca «Add Python to PATH»).
+                    A Linux, instal·la Tkinter:
+                    <code>sudo apt install python3-tk</code>
+                </li>
+
+                <li>
+                    Descomprimeix el ZIP i obre
+                    un terminal a la carpeta.
+                </li>
+
+                <li>
+                    <b style="display:inline">
+                        Linux / macOS
+                    </b>,
+                    donar permisos d'execució:
+
+                    <pre>chmod +x nexus.py
+```
+
+./nexus.py</pre>
+
+```
+                </li>
+
+                <li>
+
+                    <b style="display:inline">
+                        Windows
+                    </b>
+                    (PowerShell o CMD):
+
+                    <pre>python nexus.py</pre>
+
+                </li>
+
+                <li>
+                    Si Windows bloqueja el fitxer:
+                    clic dret → Propietats → «Desbloqueja».
+
+                    A Linux, <code>traceroute</code>
+                    pot requerir
+                    <code>sudo apt install traceroute</code>.
+                </li>
+
+            </ol>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- =========================
+     CONTACTE
+========================= -->
+
+<section class="alt" id="contacte">
+
+```
+<div class="w">
+
+    <h2>Contacta amb nosaltres</h2>
+
+    <p class="sub">
+        Explica'ns què necessites i ens posarem
+        en contacte amb tu.
+    </p>
+
+
+    <form
+        action="https://formspree.io/f/mqpajora"
+        method="POST"
+    >
+
+        <div class="row">
+
+            <div>
+
+                <label for="contactNom">
+                    Nom i cognoms
+                </label>
+
+                <input
+                    type="text"
+                    id="contactNom"
+                    name="nom"
+                    placeholder="El teu nom"
+                    required
+                >
+
+            </div>
+
+
+            <div>
+
+                <label for="contactEmail">
+                    Correu electrònic
+                </label>
+
+                <input
+                    type="email"
+                    id="contactEmail"
+                    name="email"
+                    placeholder="exemple@empresa.com"
+                    required
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="row">
+
+            <div>
+
+                <label for="contactEmpresa">
+                    Empresa
+                </label>
+
+                <input
+                    type="text"
+                    id="contactEmpresa"
+                    name="empresa"
+                    placeholder="Nom de l'empresa"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label for="contactMotiu">
+                    Motiu del contacte
+                </label>
+
+                <select
+                    id="contactMotiu"
+                    name="motiu"
+                    required
+                >
+
+                    <option value="">
+                        Selecciona una opció
+                    </option>
+
+                    <option>
+                        Consulta general
+                    </option>
+
+                    <option>
+                        Pressupost
+                    </option>
+
+                    <option>
+                        Pentesting
+                    </option>
+
+                    <option>
+                        Anàlisi de vulnerabilitats
+                    </option>
+
+                    <option>
+                        Seguretat de xarxes
+                    </option>
+
+                    <option>
+                        Seguretat web
+                    </option>
+
+                    <option>
+                        Altres
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div>
+
+            <label for="contactMissatge">
+                Missatge
+            </label>
+
+            <textarea
+                id="contactMissatge"
+                name="missatge"
+                rows="6"
+                placeholder="Explica'ns què necessites..."
+                required
+            ></textarea>
+
+        </div>
+
+
+        <div class="chk">
+
+            <input
+                type="checkbox"
+                name="privacitat"
+                value="Acceptada"
+                required
+            >
+
+            <span>
+                Accepto que Altercom21 tracti les meves
+                dades per respondre a aquesta sol·licitud.
+            </span>
+
+        </div>
+
+
+        <input
+            type="hidden"
+            name="_subject"
+            value="Nou contacte des d'Altercom21"
+        >
+
+
+        <button class="btn" type="submit">
+            📩 Enviar missatge
+        </button>
+
+    </form>
+
+</div>
+```
+
+</section>
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+```
+<div class="w">
+
+    <b style="color:#fff">
+        Altercom21
+    </b>
+
+    · Aaron Garcia
+    · Lluc Jornet
+    · Ramon Roda
+
+    <br>
+
+    © 2026 Altercom21.
+    Projecte de classe.
+    Ciberseguretat ètica i autoritzada.
+
+</div>
+```
+
+</footer>
+
 </body>
 </html>
