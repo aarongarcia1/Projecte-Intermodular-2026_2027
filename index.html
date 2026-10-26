@@ -1,14 +1,342 @@
+```html
 <!doctype html>
-<html lang="es">
+<html lang="ca">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Altercom21 | Portal de clientes</title><link rel="stylesheet" href="assets/css/styles.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Altercom21 | Ciberseguretat professional</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    .content-section{max-width:1120px;margin:0 auto;padding:65px 22px}
+    .content-section h2{font-size:1.8rem;margin-bottom:8px}
+    .section-sub{color:var(--muted);margin-bottom:28px}
+    .service-grid,.risk-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+    .service-card,.risk-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px}
+    .service-card h3,.risk-card h3{font-size:1rem;margin-bottom:8px}
+    .service-card p,.risk-card p{color:var(--muted);font-size:.93rem}
+    .service-icon{font-size:1.5rem;margin-bottom:10px}
+    .section-tint{background:#eaf3f5}
+    .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:28px}
+    .step{background:#fff;border-radius:12px;padding:18px}
+    .step strong{display:block;color:var(--brand-dark);font-size:1.8rem}
+    .content-form{background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px}
+    .content-form .form-grid{margin-bottom:17px}
+    .content-form label{margin-bottom:0}
+    .consent{display:flex;grid-template-columns:auto 1fr;align-items:flex-start;gap:10px;font-weight:400;margin:16px 0}
+    .consent input{width:auto;margin-top:5px}
+    .form-result{margin-top:12px}
+    .download-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .download-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px}
+    .download-card ol{padding-left:22px}
+    .download-card li{margin:10px 0}
+    .code-sample{display:block;background:#edf2f5;padding:10px;border-radius:7px;overflow-x:auto}
+    .callout{margin-left:22px;margin-right:22px}
+    @media(max-width:760px){
+      .service-grid,.risk-grid,.steps,.download-grid{grid-template-columns:1fr}
+      .content-section{padding:45px 18px}
+      .content-form{padding:20px}
+    }
+  </style>
 </head>
 <body>
-<header class="topbar"><a class="brand" href="index.html">ALTERCOM<span>21</span></a><nav><a href="index.html">Inicio</a><a href="login.html">Acceso clientes</a><a href="register.html" class="nav-cta">Crear cuenta</a></nav></header>
+
+<header class="topbar">
+  <a class="brand" href="index.html">ALTERCOM<span>21</span></a>
+  <nav>
+    <a href="#serveis">Serveis</a>
+    <a href="#vulnerabilitats">Vulnerabilitats</a>
+    <a href="#pressupost">Pressupost</a>
+    <a href="#auditoria">Auditories</a>
+    <a href="#nexus">NEXUS</a>
+    <a href="login.html">Iniciar sessió</a>
+    <a href="register.html" class="nav-cta">Crear compte</a>
+  </nav>
+</header>
+
 <main>
-  <section class="hero"><div class="eyebrow">TECNOLOGÍA · SEGURIDAD · CONFIANZA</div><h1>Tu empresa, más segura.<br><span>Tu tecnología, bajo control.</span></h1><p>Solicita una auditoría, pide un presupuesto y sigue cada paso desde tu área privada.</p><div class="actions"><a class="btn primary" href="register.html">Crear cuenta</a><a class="btn secondary" href="login.html">Entrar en mi área</a></div></section>
-  <section class="features"><article><div class="feature-icon">01</div><h2>Auditorías</h2><p>Solicita una revisión de tus sistemas y necesidades tecnológicas.</p></article><article><div class="feature-icon">02</div><h2>Presupuestos</h2><p>Envía una petición y consulta el estado de la propuesta.</p></article><article><div class="feature-icon">03</div><h2>Seguimiento</h2><p>Consulta el progreso de tus solicitudes desde un único lugar.</p></article></section>
-  <section class="callout"><div><h2>¿Ya eres cliente?</h2><p>Accede a tus solicitudes y a los datos de tu perfil.</p></div><a class="btn primary" href="login.html">Acceder al portal →</a></section>
-</main><footer>© <span id="year"></span> Altercom21 · Portal de clientes</footer><script>document.getElementById('year').textContent=new Date().getFullYear()</script>
-</body></html>
+  <section class="hero">
+    <div class="eyebrow">TECNOLOGIA · SEGURETAT · CONFIANÇA</div>
+    <h1>Protegim la teva empresa<br><span>abans que t'ataquin</span></h1>
+    <p>A Altercom21 som especialistes en ciberseguretat. Detectem vulnerabilitats, reforcem els teus sistemes i t'ajudem a complir la normativa.</p>
+    <div class="actions">
+      <a class="btn primary" href="#pressupost">Demanar pressupost</a>
+      <a class="btn secondary" href="#auditoria">Sol·licitar auditoria</a>
+    </div>
+  </section>
+
+  <section id="serveis" class="content-section">
+    <h2>Els nostres serveis</h2>
+    <p class="section-sub">Solucions completes de ciberseguretat per a pimes, centres educatius i grans empreses.</p>
+
+    <div class="service-grid">
+      <article class="service-card"><div class="service-icon">🛡️</div><h3>Pentesting</h3><p>Proves d'intrusió controlades i autoritzades sobre xarxes, webs i aplicacions per descobrir errors reals.</p></article>
+      <article class="service-card"><div class="service-icon">🔍</div><h3>Anàlisi de vulnerabilitats</h3><p>Escaneig de ports, serveis i configuracions amb informe de riscos prioritzat: alt, mitjà i baix.</p></article>
+      <article class="service-card"><div class="service-icon">🌐</div><h3>Seguretat de xarxes</h3><p>Disseny de segmentació, tallafocs, VPN, control d'accés i monitoratge del trànsit.</p></article>
+      <article class="service-card"><div class="service-icon">💻</div><h3>Seguretat web i apps</h3><p>Revisió d'OWASP Top 10: injecció SQL, XSS, autenticació feble i APIs exposades.</p></article>
+      <article class="service-card"><div class="service-icon">☁️</div><h3>Seguretat al núvol</h3><p>Auditoria de configuracions a AWS, Azure i Google Cloud, gestió d'identitats i permisos.</p></article>
+      <article class="service-card"><div class="service-icon">🎣</div><h3>Formació i phishing</h3><p>Conscienciació per als empleats i simulacres de phishing per mesurar i reduir el risc humà.</p></article>
+      <article class="service-card"><div class="service-icon">🚨</div><h3>Resposta a incidents</h3><p>Contenció, anàlisi forense i recuperació després de ransomware, fuites de dades o accessos no autoritzats.</p></article>
+      <article class="service-card"><div class="service-icon">📋</div><h3>Compliment normatiu</h3><p>Adequació a RGPD, ENS i ISO 27001, amb polítiques, registres i plans de seguretat.</p></article>
+      <article class="service-card"><div class="service-icon">📡</div><h3>Monitoratge (SOC)</h3><p>Vigilància contínua, alertes en temps real i gestió de logs per detectar amenaces a temps.</p></article>
+      <article class="service-card"><div class="service-icon">💾</div><h3>Còpies i continuïtat</h3><p>Estratègies de còpia de seguretat, plans de recuperació davant de desastres i proves de restauració.</p></article>
+    </div>
+  </section>
+
+  <section id="vulnerabilitats" class="content-section section-tint">
+    <h2>Vulnerabilitats que detectem</h2>
+    <p class="section-sub">Serveis exposats que poden convertir-se en una porta d'entrada per a un atacant.</p>
+
+    <div class="risk-grid">
+      <article class="risk-card"><h3 style="color:#b42318">Risc ALT</h3><p>Telnet (23), SMB (445, 139), RDP (3389), VNC (5900), Redis (6379) i Elasticsearch (9200) accessibles des de la xarxa.</p></article>
+      <article class="risk-card"><h3 style="color:#b66b00">Risc MITJÀ</h3><p>FTP sense xifrar (21) i bases de dades exposades: MySQL, PostgreSQL, MSSQL i MongoDB.</p></article>
+      <article class="risk-card"><h3 style="color:#8b7200">Risc BAIX</h3><p>HTTP sense xifrar (80, 8080). Recomanem migrar a HTTPS i revisar quins serveis han d'estar publicats.</p></article>
+    </div>
+
+    <div class="steps">
+      <div class="step"><strong>1</strong>Reconeixement</div>
+      <div class="step"><strong>2</strong>Escaneig</div>
+      <div class="step"><strong>3</strong>Informe</div>
+      <div class="step"><strong>4</strong>Correcció</div>
+    </div>
+  </section>
+
+  <section id="pressupost" class="content-section">
+    <h2>Sol·licita el teu pressupost</h2>
+    <p class="section-sub">Explica'ns què necessites i prepara la teva sol·licitud de pressupost.</p>
+
+    <form id="budget-form" class="content-form">
+      <div class="form-grid">
+        <label>Nom i cognoms
+          <input name="nom" required autocomplete="name">
+        </label>
+        <label>Empresa
+          <input name="empresa" autocomplete="organization">
+        </label>
+        <label>Correu electrònic
+          <input name="email" type="email" required autocomplete="email">
+        </label>
+        <label>Telèfon
+          <input name="tel" type="tel" autocomplete="tel">
+        </label>
+        <label>Servei d'interès
+          <select name="servei" required>
+            <option>Pentesting</option>
+            <option>Anàlisi de vulnerabilitats</option>
+            <option>Seguretat de xarxes</option>
+            <option>Seguretat web i apps</option>
+            <option>Seguretat al núvol</option>
+            <option>Formació i phishing</option>
+            <option>Resposta a incidents</option>
+            <option>Compliment normatiu</option>
+            <option>Monitoratge (SOC)</option>
+            <option>Còpies i continuïtat</option>
+            <option>Diversos / no ho sé</option>
+          </select>
+        </label>
+        <label>Mida de l'empresa
+          <select name="mida">
+            <option>1-10 empleats</option>
+            <option>11-50 empleats</option>
+            <option>51-250 empleats</option>
+            <option>Més de 250</option>
+          </select>
+        </label>
+        <label class="wide">Descriu el teu projecte
+          <textarea name="msg" rows="4" placeholder="Explica'ns què necessites..."></textarea>
+        </label>
+      </div>
+      <label class="consent"><input type="checkbox" name="consentiment" required><span>Accepto que Altercom21 tracti les meves dades per gestionar aquesta sol·licitud.</span></label>
+      <button class="btn primary" type="submit">Enviar sol·licitud</button>
+      <p id="budget-message" class="message form-result" aria-live="polite"></p>
+      <p class="muted">Per enviar la sol·licitud, inicia sessió o crea un compte.</p>
+      <div class="actions">
+        <a href="login.html" class="btn secondary">Iniciar sessió</a>
+        <a href="register.html" class="btn secondary">Crear compte</a>
+      </div>
+    </form>
+  </section>
+
+  <section id="auditoria" class="content-section section-tint">
+    <h2>Reserva una auditoria de vulnerabilitats</h2>
+    <p class="section-sub">Simulem atacs reals de manera controlada per trobar els teus punts febles abans que ho faci un delinqüent.</p>
+
+    <form id="audit-form" class="content-form">
+      <div class="form-grid">
+        <label>Nom i cognoms
+          <input name="nom" required autocomplete="name">
+        </label>
+        <label>Correu electrònic
+          <input name="email" type="email" required autocomplete="email">
+        </label>
+        <label>Tipus de prova
+          <select name="tipus">
+            <option>Xarxa interna</option>
+            <option>Xarxa externa</option>
+            <option>Aplicació web</option>
+            <option>Wi-Fi</option>
+            <option>Enginyeria social / phishing</option>
+            <option>Infraestructura al núvol</option>
+          </select>
+        </label>
+        <label>Abast (IPs, dominis)
+          <input name="abast" placeholder="Indica els sistemes autoritzats" required>
+        </label>
+        <label>Data preferida
+          <input type="date" name="data" required>
+        </label>
+        <label>Franja horària
+          <select name="hora">
+            <option>Matí (9-13 h)</option>
+            <option>Tarda (15-19 h)</option>
+            <option>Fora d'horari laboral</option>
+          </select>
+        </label>
+        <label class="wide">Observacions
+          <textarea name="msg" rows="3"></textarea>
+        </label>
+      </div>
+      <label class="consent"><input type="checkbox" name="autoritzacio" required><span>Declaro que sóc propietari o tinc autorització per escrit per analitzar els sistemes indicats. Les proves només es faran amb consentiment.</span></label>
+      <button class="btn primary" type="submit">Sol·licitar auditoria</button>
+      <p id="audit-message" class="message form-result" aria-live="polite"></p>
+      <p class="muted">Per enviar la sol·licitud, inicia sessió o crea un compte.</p>
+      <div class="actions">
+        <a href="login.html" class="btn secondary">Iniciar sessió</a>
+        <a href="register.html" class="btn secondary">Crear compte</a>
+      </div>
+    </form>
+  </section>
+
+  <section id="nexus" class="content-section">
+    <h2>Descarrega NEXUS</h2>
+    <p class="section-sub">La nostra eina educativa d'anàlisi de xarxes, desenvolupada amb Python i Tkinter.</p>
+
+    <div class="download-grid">
+      <article class="download-card">
+        <h3>📦 NEXUS Network Security Scanner</h3>
+        <p>Escàner de ports amb detecció de serveis, banner grabbing, ping, traceroute, WHOIS i indicadors de risc.</p>
+        <p style="margin:20px 0"><a class="btn primary" href="descargas/NEXUS.zip" download>Descarregar ZIP</a></p>
+        <p class="muted">Utilitza l'eina únicament en equips i xarxes on tinguis autorització.</p>
+      </article>
+
+      <article class="download-card">
+        <h3>⚙️ Instal·lació i permisos</h3>
+        <ol>
+          <li>Instal·la <a href="https://www.python.org/downloads/">Python 3.8 o superior</a>. A Windows, marca «Add Python to PATH».</li>
+          <li>Descomprimeix el ZIP i obre un terminal a la carpeta.</li>
+          <li>Linux / macOS:
+            <code class="code-sample">chmod +x nexus.py<br>./nexus.py</code>
+          </li>
+          <li>Windows (PowerShell o CMD):
+            <code class="code-sample">python nexus.py</code>
+          </li>
+          <li>A Linux, si cal, instal·la Tkinter amb <code>sudo apt install python3-tk</code>. Per a traceroute, pots necessitar <code>sudo apt install traceroute</code>.</li>
+        </ol>
+      </article>
+    </div>
+  </section>
+
+  <section class="callout">
+    <div>
+      <h2>Accedeix al teu portal de clients</h2>
+      <p>Consulta les teves sol·licituds i segueix-ne l'estat des de la teva àrea privada.</p>
+    </div>
+    <div class="actions">
+      <a class="btn primary" href="login.html">Iniciar sessió</a>
+      <a class="btn secondary" href="register.html">Crear compte</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <strong>Altercom21</strong> · Aaron Garcia · Lluc Jornet · Ramon Roda<br>
+  © <span id="year"></span> Altercom21 · Projecte de classe · Ciberseguretat ètica i autoritzada.
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+  const today = new Date();
+  document.querySelector('input[name="data"]').min =
+    `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,"0")}-${String(today.getDate()).padStart(2,"0")}`;
+</script>
+
+<script type="module">
+  import { supabase, showMessage } from "./assets/js/supabase-client.js";
+
+  async function submitRequest(form, messageElement, isAudit) {
+    const button = form.querySelector('button[type="submit"]');
+    button.disabled = true;
+    showMessage(messageElement, "Enviant la sol·licitud…");
+
+    try {
+      const { data: { user }, error: authError } = await supabase.auth.getUser();
+
+      if (authError || !user) {
+        showMessage(messageElement, "Primer inicia sessió o crea un compte. Després podràs enviar aquesta sol·licitud.", "error");
+        return;
+      }
+
+      const fields = new FormData(form);
+      const company = String(fields.get("empresa") || "").trim();
+      const name = String(fields.get("nom") || "").trim();
+      const email = String(fields.get("email") || "").trim();
+      const phone = String(fields.get("tel") || "").trim();
+      let serviceType;
+      let description;
+
+      if (isAudit) {
+        serviceType = "Auditoria: " + String(fields.get("tipus"));
+        description = [
+          "SOL·LICITUD D'AUDITORIA",
+          "Nom: " + name,
+          "Correu: " + email,
+          "Tipus de prova: " + fields.get("tipus"),
+          "Abast autoritzat: " + fields.get("abast"),
+          "Data preferida: " + fields.get("data"),
+          "Franja horària: " + fields.get("hora"),
+          "Telèfon: " + phone,
+          "Observacions: " + (fields.get("msg") || ""),
+          "Autorització declarada pel sol·licitant."
+        ].join("\n");
+      } else {
+        serviceType = String(fields.get("servei"));
+        description = [
+          "SOL·LICITUD DE PRESSUPOST",
+          "Nom: " + name,
+          "Correu: " + email,
+          "Telèfon: " + phone,
+          "Mida de l'empresa: " + fields.get("mida"),
+          "Descripció del projecte: " + (fields.get("msg") || "")
+        ].join("\n");
+      }
+
+      const { error } = await supabase.from("audit_requests").insert({
+        user_id: user.id,
+        service_type: serviceType,
+        company_name: company || null,
+        description
+      });
+
+      if (error) throw error;
+
+      showMessage(messageElement, "Sol·licitud enviada correctament. Ja la pots consultar al portal de clients.", "success");
+      form.reset();
+    } catch (error) {
+      showMessage(messageElement, "No s'ha pogut enviar la sol·licitud: " + (error.message || "error desconegut"), "error");
+    } finally {
+      button.disabled = false;
+    }
+  }
+
+  document.getElementById("budget-form").addEventListener("submit", event => {
+    event.preventDefault();
+    submitRequest(event.currentTarget, document.getElementById("budget-message"), false);
+  });
+
+  document.getElementById("audit-form").addEventListener("submit", event => {
+    event.preventDefault();
+    submitRequest(event.currentTarget, document.getElementById("audit-message"), true);
+  });
+</script>
+</body>
+</html>
+```
