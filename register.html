@@ -1,5 +1,49 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Crear cuenta | Altercom21</title><link rel="stylesheet" href="assets/css/styles.css"></head>
-<body><header class="topbar"><a class="brand" href="index.html">ALTERCOM<span>21</span></a><nav><a href="index.html">Inicio</a><a href="login.html">Iniciar sesión</a></nav></header>
-<main class="auth-wrap"><section class="auth-card"><div class="eyebrow">NUEVA CUENTA</div><h1>Crear cuenta</h1><p class="muted">Regístrate para solicitar servicios y seguirlos.</p>
-<form id="register-form"><label>Nombre completo<input name="full_name" autocomplete="name" required maxlength="120"></label><label>Empresa (opcional)<input name="company" autocomplete="organization" maxlength="160"></label><label>Teléfono (opcional)<input name="phone" autocomplete="tel" maxlength="40"></label><label>Correo electrónico<input type="email" name="email" autocomplete="email" required></label><label>Contraseña<input type="password" name="password" autocomplete="new-password" required minlength="8"><small>Usa al menos 8 caracteres.</small></label><button class="btn primary full" type="submit">Crear cuenta</button><p id="message" class="message" aria-live="polite"></p></form><div class="auth-links"><span>¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a></span></div></section></main><script type="module" src="assets/js/register.js"></script></body></html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Crear cuenta · Altercom21</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<div class="auth">
+  <aside class="auth-aside">
+    <a class="brand" href="index.html"><span class="brand-mark"><svg class="i"><use href="assets/img/icons.svg#shield-check"/></svg></span><span>Altercom<b>21</b></span></a>
+    <div>
+      <blockquote>Tu portal de cliente: solicitudes, presupuestos, pagos y seguimiento de cada proyecto en un único lugar.</blockquote>
+      <ul>
+        <li><svg class="i"><use href="assets/img/icons.svg#check-circle"/></svg>Presupuestos con IVA desglosado y validez garantizada</li>
+        <li><svg class="i"><use href="assets/img/icons.svg#check-circle"/></svg>Pago por transferencia, Bizum o tarjeta</li>
+        <li><svg class="i"><use href="assets/img/icons.svg#check-circle"/></svg>Datos protegidos con control de acceso por usuario</li>
+      </ul>
+    </div>
+    <span class="small">© Altercom21 · Ciberseguridad ética y autorizada</span>
+  </aside>
+  <main class="auth-main">
+    <div class="auth-box">
+      <a class="auth-back" href="index.html"><svg class="i" style="width:16px;height:16px"><use href="assets/img/icons.svg#arrow-left"/></svg>Volver a la web</a>
+      <h1>Crea tu cuenta</h1>
+      <p>Regístrate para solicitar presupuestos, auditorías y hacer seguimiento.</p>
+      <form id="register-form">
+        <label class="field"><span>Nombre completo<span class="req">*</span></span><input name="full_name" autocomplete="name" required maxlength="120"></label>
+        <div class="form-grid">
+          <label class="field"><span>Empresa</span><input name="company" autocomplete="organization" maxlength="160"></label>
+          <label class="field"><span>Teléfono</span><input name="phone" type="tel" autocomplete="tel" maxlength="40"></label>
+        </div>
+        <label class="field"><span>Correo electrónico<span class="req">*</span></span><input type="email" name="email" autocomplete="email" required placeholder="nombre@empresa.com"></label>
+        <label class="field"><span>Contraseña<span class="req">*</span></span><input type="password" name="password" autocomplete="new-password" required minlength="8"><span class="hint">Mínimo 8 caracteres. Combina letras, números y símbolos.</span></label>
+        <label class="check"><input type="checkbox" name="terms" required><span>Acepto que Altercom21 trate mis datos para gestionar mis solicitudes y la relación comercial.</span></label>
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Crear cuenta</button>
+        <p id="message" class="alert" role="status" hidden></p>
+      </form>
+      <div class="auth-links"><span>¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a></span></div>
+    </div>
+  </main>
+</div>
+<script type="module" src="assets/js/register.js"></script>
+</body>
+</html>

@@ -3,19 +3,22 @@
 Portal estático para GitHub Pages con autenticación y base de datos en Supabase.
 
 ## Qué incluye
-- Registro, inicio de sesión y cierre de sesión.
-- Recuperación y cambio de contraseña.
-- Perfil de cliente.
-- Solicitudes de auditoría/presupuesto y seguimiento.
-- Vista de administrador para consultar solicitudes y actualizar estado/presupuesto.
-- SQL con tablas, trigger de perfil, políticas RLS y función de comprobación de administrador.
+- Web corporativa (`index.html`) con servicios, metodología, planes de auditoría, presupuesto y métodos de pago.
+- Registro, inicio de sesión, recuperación y cambio de contraseña.
+- Perfil de cliente con **datos de facturación** (NIF/CIF, dirección fiscal).
+- Formulario profesional de **presupuesto** y **auditoría** (`solicitud.html`): contacto, sector, urgencia, alcance autorizado, ventana de pruebas, requisitos normativos y declaración de autorización. Si el usuario no ha iniciado sesión, el borrador se guarda y se recupera tras el login.
+- Área de cliente (`dashboard.html`): KPIs, línea de tiempo del estado, **aceptar/rechazar presupuesto**, importe con IVA desglosado.
+- **Pago** (`pago.html`): transferencia bancaria, Bizum o tarjeta (pasarela externa). Cada pago tiene una referencia única (`ALT-AAMM-XXXXXX`) y el importe se calcula siempre en el servidor.
+- Panel de administración (`admin.html`): solicitudes con filtros y buscador, envío de presupuestos con validez, verificación de cobros y listado de clientes.
+- SQL con tablas, triggers, políticas RLS y funciones seguras (`respond_quote`, `create_payment`, `mark_payment_sent`).
 
 ## 1. Crear el proyecto Supabase
 1. Entra en https://supabase.com/ y crea un proyecto.
 2. Abre **SQL Editor**.
 3. Copia y ejecuta todo `supabase/schema.sql`.
-4. Ve a **Project Settings → API** (la ubicación puede variar en el panel).
-5. Copia la Project URL y la publishable/anon key pública.
+4. Después, copia y ejecuta todo `supabase/02_presupuestos_pagos.sql` (presupuestos, auditorías y pagos). Si ya tenías la base de datos creada, **solo necesitas ejecutar este segundo archivo**: no borra datos y se puede ejecutar varias veces.
+5. Ve a **Project Settings → API** (la ubicación puede variar en el panel).
+6. Copia la Project URL y la publishable/anon key pública.
 
 ## 2. Configurar el frontend
 Edita `assets/js/config.js` y reemplaza:
@@ -23,6 +26,14 @@ Edita `assets/js/config.js` y reemplaza:
 - `SUPABASE_ANON_KEY` por la clave pública (publishable/anon).
 
 Nunca pongas una `service_role` o secret key en archivos publicados en GitHub.
+
+### Métodos de pago
+En el mismo `assets/js/config.js`, rellena `PAYMENT_CONFIG`:
+- `transfer.iban` / `beneficiary`: datos de la cuenta donde recibir transferencias.
+- `bizum.phone`: teléfono asociado a Bizum (vacío = método desactivado).
+- `card.paymentUrl`: enlace de pago de una pasarela externa, por ejemplo un **Stripe Payment Link** (vacío = desactivado). Se le añade `client_reference_id` con la referencia del pago.
+
+La web **nunca** pide ni guarda datos de tarjeta. El flujo es: el administrador envía el presupuesto → el cliente lo acepta → elige método y paga → pulsa «Ya he realizado el pago» → el administrador comprueba el cobro y pulsa «Confirmar cobro» en la pestaña *Pagos* (la solicitud pasa automáticamente a «En curso»).
 
 ## 3. Configurar Auth en Supabase
 En **Authentication → URL Configuration**:

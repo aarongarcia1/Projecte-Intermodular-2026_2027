@@ -3,9 +3,9 @@ const form = document.querySelector("#forgot-form");
 const msg = document.querySelector("#message");
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
-  const email = new FormData(form).get("email").trim();
+  const email = String(new FormData(form).get("email")).trim();
   const button = form.querySelector("button[type=submit]");
-  button.disabled = true; showMessage(msg, "Enviando enlace…");
+  button.disabled = true; showMessage(msg, "Enviando enlace…", "info");
   const redirectTo = new URL("reset-password.html", location.href).href;
   const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo });
   button.disabled = false;

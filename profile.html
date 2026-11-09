@@ -1,4 +1,72 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mi perfil | Altercom21</title><link rel="stylesheet" href="assets/css/styles.css"></head>
-<body><header class="topbar"><a class="brand" href="index.html">ALTERCOM<span>21</span></a><nav><a href="dashboard.html">Mi área</a><button class="nav-button" id="logout">Cerrar sesión</button></nav></header>
-<main class="auth-wrap"><section class="auth-card wide-card"><div class="eyebrow">DATOS PERSONALES</div><h1>Mi perfil</h1><form id="profile-form"><label>Nombre completo<input name="full_name" required maxlength="120"></label><label>Empresa<input name="company" maxlength="160"></label><label>Teléfono<input name="phone" maxlength="40"></label><label>Correo electrónico<input id="email" disabled></label><button class="btn primary full" type="submit">Guardar cambios</button><p id="message" class="message" aria-live="polite"></p></form><div class="auth-links"><a href="dashboard.html">Volver a mis solicitudes</a></div></section></main><script type="module" src="assets/js/profile.js"></script></body></html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Perfil y facturación · Altercom21</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<header class="app-header">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html"><span class="brand-mark"><svg class="i"><use href="assets/img/icons.svg#shield-check"/></svg></span><span>Altercom<b>21</b></span></a>
+    <nav class="main-nav" aria-label="Área de cliente">
+      <a href="dashboard.html">Mis solicitudes</a>
+      <a href="solicitud.html">Nueva solicitud</a>
+      <a href="profile.html" class="active" aria-current="page">Perfil y facturación</a>
+      <a href="admin.html" data-admin-only hidden>Administración</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="btn btn-ghost" href="login.html" data-guest hidden>Acceder</a>
+      <span class="user-chip" data-member><span class="avatar" data-user-initials></span><span data-user-name></span></span>
+      <button class="btn btn-ghost btn-sm" id="logout" data-member type="button"><svg class="i"><use href="assets/img/icons.svg#logout"/></svg>Salir</button>
+    </div>
+    <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false"><svg class="i"><use href="assets/img/icons.svg#menu"/></svg></button>
+  </div>
+</header>
+<main class="app-main">
+  <div class="container">
+    <div class="page-head">
+      <div>
+        <div class="breadcrumb"><a href="dashboard.html">Área de cliente</a> / Perfil</div>
+        <h1>Perfil y facturación</h1>
+        <p>Estos datos se usan para contactarte y para emitir tus facturas.</p>
+      </div>
+    </div>
+    <form id="profile-form" class="card" style="max-width:860px">
+      <div class="card-body">
+        <section class="form-section">
+          <div class="form-section-head"><h3>Datos personales</h3></div>
+          <div class="form-grid">
+            <label class="field"><span>Nombre completo<span class="req">*</span></span><input name="full_name" required maxlength="120" autocomplete="name"></label>
+            <label class="field"><span>Correo electrónico</span><input id="email" disabled><span class="hint">El correo de acceso no se puede cambiar desde aquí.</span></label>
+            <label class="field"><span>Empresa</span><input name="company" maxlength="160" autocomplete="organization"></label>
+            <label class="field"><span>Teléfono</span><input name="phone" type="tel" maxlength="40" autocomplete="tel"></label>
+          </div>
+        </section>
+        <section class="form-section">
+          <div class="form-section-head"><h3>Datos de facturación</h3><p>Se rellenarán automáticamente al pagar un presupuesto.</p></div>
+          <div class="form-grid">
+            <label class="field"><span>NIF / CIF</span><input name="tax_id" maxlength="20" style="text-transform:uppercase"></label>
+            <label class="field"><span>País</span><input name="country" maxlength="60" autocomplete="country-name"></label>
+            <label class="field full"><span>Dirección fiscal</span><input name="billing_address" maxlength="250" autocomplete="street-address"></label>
+            <label class="field"><span>Código postal</span><input name="postal_code" maxlength="12" autocomplete="postal-code"></label>
+            <label class="field"><span>Ciudad</span><input name="city" maxlength="100" autocomplete="address-level2"></label>
+          </div>
+        </section>
+        <p id="message" class="alert" role="status" hidden></p>
+        <div class="form-actions">
+          <a class="btn btn-ghost" href="forgot-password.html">Cambiar contraseña</a>
+          <button class="btn btn-primary" type="submit">Guardar cambios</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</main>
+<footer class="app-footer"><div class="container">© Altercom21 · Portal de clientes · <a href="index.html">Volver a la web</a></div></footer>
+<script type="module" src="assets/js/profile.js"></script>
+</body>
+</html>

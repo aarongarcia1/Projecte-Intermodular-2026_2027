@@ -1,53 +1,78 @@
-
 <!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Administración | Altercom21</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Administración · Altercom21</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="index.html">ALTERCOM<span>21</span></a>
-    <nav>
-      <a href="dashboard.html">Portal</a>
-      <button class="nav-button" id="logout">Cerrar sesión</button>
+<header class="app-header">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html"><span class="brand-mark"><svg class="i"><use href="assets/img/icons.svg#shield-check"/></svg></span><span>Altercom<b>21</b></span></a>
+    <nav class="main-nav" aria-label="Área de cliente">
+      <a href="dashboard.html">Mis solicitudes</a>
+      <a href="solicitud.html">Nueva solicitud</a>
+      <a href="profile.html">Perfil y facturación</a>
+      <a href="admin.html" data-admin-only hidden class="active" aria-current="page">Administración</a>
     </nav>
-  </header>
-
-  <main class="page">
-    <div class="page-heading">
-      <div>
-        <div class="eyebrow">GESTIÓN INTERNA</div>
-        <h1>Panel de administración</h1>
-        <p class="muted">Gestiona clientes, solicitudes y presupuestos.</p>
-      </div>
-      <button id="refresh" class="btn secondary">Actualizar solicitudes</button>
+    <div class="nav-actions">
+      <a class="btn btn-ghost" href="login.html" data-guest hidden>Acceder</a>
+      <span class="user-chip" data-member><span class="avatar" data-user-initials></span><span data-user-name></span></span>
+      <button class="btn btn-ghost btn-sm" id="logout" data-member type="button"><svg class="i"><use href="assets/img/icons.svg#logout"/></svg>Salir</button>
     </div>
-
-    <section class="panel">
-      <div id="admin-message" class="message" aria-live="polite"></div>
-
-      <h2>Usuarios registrados</h2>
-      <p class="muted">Consulta los perfiles de los clientes registrados.</p>
-      <button id="refresh-users" class="btn secondary" type="button">
-        Actualizar usuarios
-      </button>
-      <div id="admin-users" aria-live="polite">
-        <p class="muted">Cargando usuarios…</p>
+    <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false"><svg class="i"><use href="assets/img/icons.svg#menu"/></svg></button>
+  </div>
+</header>
+<main class="app-main">
+  <div class="container">
+    <div class="page-head">
+      <div>
+        <div class="breadcrumb">Gestión interna</div>
+        <h1>Panel de administración</h1>
+        <p>Solicitudes, presupuestos, cobros y clientes.</p>
       </div>
-    </section>
+      <button id="refresh" class="btn btn-secondary" type="button"><svg class="i"><use href="assets/img/icons.svg#refresh"/></svg>Actualizar</button>
+    </div>
+    <p id="admin-message" class="alert" role="status" hidden></p>
 
-    <section class="panel">
-      <h2>Solicitudes y presupuestos</h2>
-      <div id="admin-requests">
-        <p class="muted">Cargando solicitudes…</p>
+    <div id="admin-app" hidden>
+      <div class="kpis">
+        <div class="kpi"><span>Nuevas por revisar</span><b id="k-new">—</b></div>
+        <div class="kpi"><span>Presupuestos enviados</span><b id="k-quoted">—</b></div>
+        <div class="kpi"><span>Pagos por verificar</span><b id="k-verify">—</b></div>
+        <div class="kpi highlight"><span>Facturado (cobrado)</span><b id="k-revenue">—</b></div>
       </div>
-    </section>
-  </main>
 
-  <footer>© Altercom21 · Administración</footer>
-  <script type="module" src="assets/js/admin.js"></script>
+      <div class="tabs" role="tablist">
+        <button class="tab" role="tab" aria-selected="true" data-tab="requests">Solicitudes <span class="count" id="c-requests">0</span></button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="payments">Pagos <span class="count" id="c-payments">0</span></button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="clients">Clientes <span class="count" id="c-clients">0</span></button>
+      </div>
+
+      <section data-panel="requests">
+        <div class="toolbar" style="margin-bottom:16px">
+          <input type="search" id="q" placeholder="Buscar cliente, empresa, servicio o referencia…" style="flex:1 1 280px">
+          <select id="f-status"><option value="">Todos los estados</option></select>
+          <select id="f-kind"><option value="">Presupuestos y auditorías</option><option value="budget">Solo presupuestos</option><option value="audit">Solo auditorías</option></select>
+        </div>
+        <div id="admin-requests" class="req-list"><div class="skeleton"></div></div>
+      </section>
+
+      <section data-panel="payments" hidden>
+        <div class="card"><div class="table-wrap" id="admin-payments"></div></div>
+      </section>
+
+      <section data-panel="clients" hidden>
+        <div class="card"><div class="table-wrap" id="admin-users"></div></div>
+      </section>
+    </div>
+  </div>
+</main>
+<footer class="app-footer"><div class="container">© Altercom21 · Portal de clientes · <a href="index.html">Volver a la web</a></div></footer>
+<script type="module" src="assets/js/admin.js"></script>
 </body>
 </html>

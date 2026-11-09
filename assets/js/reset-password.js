@@ -9,7 +9,7 @@ form.addEventListener("submit", async (e) => {
   const fd = new FormData(form);
   if (fd.get("password") !== fd.get("confirm")) return showMessage(msg, "Las contraseñas no coinciden.", "error");
   const button = form.querySelector("button[type=submit]");
-  button.disabled = true; showMessage(msg, "Guardando contraseña…");
+  button.disabled = true; showMessage(msg, "Guardando contraseña…", "info");
   const { error } = await supabase.auth.updateUser({ password: fd.get("password") });
   button.disabled = false;
   if (error) return showMessage(msg, error.message, "error");

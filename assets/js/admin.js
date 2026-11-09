@@ -1,383 +1,249 @@
-
+import { supabase, requireUser, getProfile, signOut } from "./supabase-client.js";
 import {
-  supabase,
-  requireUser,
-  signOut,
-  showMessage,
-  escapeHtml
-} from "./supabase-client.js";
+  initAppShell, escapeHtml, fmtMoney, fmtDate, fmtDateTime, shortRef, statusBadge, paymentBadge,
+  calcTotals, showMessage, toast, REQUEST_STATUS, REQUEST_KIND, URGENCY, PAYMENT_METHODS
+} from "./ui.js";
 
-const list = document.querySelector("#admin-requests");
-const msg = document.querySelector("#admin-message");
-const usersList = document.querySelector("#admin-users");
-const refreshUsersButton = document.querySelector("#refresh-users");
+const $ = s => document.querySelector(s);
+const msg = $("#admin-message");
+const requestsEl = $("#admin-requests");
+const paymentsEl = $("#admin-payments");
+const usersEl = $("#admin-users");
 
-document.querySelector("#logout").addEventListener("click", signOut);
-document.querySelector("#refresh").addEventListener("click", load);
+$("#logout").addEventListener("click", signOut);
 
 const user = await requireUser();
+const me = await getProfile(user.id);
+initAppShell(me, user);
 
-const {
-  data: profile,
-  error: profileError
-} = await supabase
-  .from("profiles")
-  .select("role")
-  .eq("id", user.id)
-  .single();
-
-if (profileError || profile?.role !== "admin") {
-  list.innerHTML =
-    '<p class="message error">No tienes permisos para acceder al panel de administración.</p>';
-
-  if (usersList) {
-    usersList.innerHTML = "";
-  }
-
+if (me?.role !== "admin") {
+  showMessage(msg, "No tienes permisos para acceder al panel de administración.", "error");
   throw new Error("Acceso de administrador denegado");
 }
+$("#admin-app").hidden = false;
 
-const labels = {
-  received: "Recibida",
-  reviewing: "En revisión",
-  quoted: "Presupuesto enviado",
-  in_progress: "En curso",
-  completed: "Completada",
-  rejected: "Rechazada"
-};
+let requests = [];
+let payments = [];
+let profiles = new Map();
 
-// ------------------------------------------
-// GESTIÓN DE USUARIOS
-// ------------------------------------------
+// Estados en el filtro.
+$("#f-status").insertAdjacentHTML("beforeend",
+  Object.entries(REQUEST_STATUS).map(([v, s]) => `<option value="${v}">${s.label}</option>`).join(""));
 
-async function loadUsers() {
-  if (!usersList) {
-    return;
-  }
-
-  usersList.innerHTML =
-    '<p class="muted">Cargando usuarios…</p>';
-
-  const { data, error } = await supabase
-    .from("profiles")
-    .select("id, full_name, company, phone, role, created_at")
-    .order("created_at", { ascending: false });
-
-  if (error) {
-    usersList.innerHTML =
-      `<p class="message error">${escapeHtml(error.message)}</p>`;
-    return;
-  }
-
-  if (!data || data.length === 0) {
-    usersList.innerHTML =
-      '<p class="muted">No hay perfiles registrados todavía.</p>';
-    return;
-  }
-
-  usersList.innerHTML = data.map((client) => `
-    <article class="admin-request">
-      <div class="admin-request-head">
-        <div>
-          <span class="pill">
-            ${escapeHtml(client.role || "client")}
-          </span>
-          <h3>${escapeHtml(client.full_name || "Sin nombre")}</h3>
-          <p class="muted">
-            ${escapeHtml(client.company || "Sin empresa")}
-          </p>
-        </div>
-      </div>
-
-      <p>
-        <strong>Teléfono:</strong>
-        ${escapeHtml(client.phone || "No indicado")}
-      </p>
-
-      <p>
-        <strong>Fecha de registro:</strong>
-        ${
-          client.created_at
-            ? new Date(client.created_at).toLocaleDateString("es-ES")
-            : "No disponible"
-        }
-      </p>
-
-      <button
-        class="btn secondary small view-user-requests"
-        type="button"
-        data-user-id="${escapeHtml(client.id)}"
-      >
-        Ver solicitudes de este cliente
-      </button>
-
-      <div
-        class="user-requests"
-        id="user-requests-${escapeHtml(client.id)}"
-        hidden
-      ></div>
-    </article>
-  `).join("");
-
-  usersList.querySelectorAll(".view-user-requests")
-    .forEach((button) => {
-      button.addEventListener("click", async () => {
-        await loadUserRequests(button.dataset.userId);
-      });
-    });
-}
-
-async function loadUserRequests(userId) {
-  const container = document.getElementById(`user-requests-${userId}`);
-
-  if (!container) {
-    return;
-  }
-
-  if (!container.hidden) {
-    container.hidden = true;
-    return;
-  }
-
-  container.hidden = false;
-  container.innerHTML =
-    '<p class="muted">Cargando solicitudes del cliente…</p>';
-
-  const { data, error } = await supabase
-    .from("audit_requests")
-    .select("id, service_type, description, status, budget_amount, created_at")
-    .eq("user_id", userId)
-    .order("created_at", { ascending: false });
-
-  if (error) {
-    container.innerHTML =
-      `<p class="message error">${escapeHtml(error.message)}</p>`;
-    return;
-  }
-
-  if (!data || data.length === 0) {
-    container.innerHTML =
-      '<p class="muted">Este cliente todavía no tiene solicitudes.</p>';
-    return;
-  }
-
-  container.innerHTML = data.map((request) => `
-    <div class="panel">
-      <h4>${escapeHtml(request.service_type || "Solicitud")}</h4>
-      <p>${escapeHtml(request.description || "")}</p>
-      <p>
-        <strong>Estado:</strong>
-        ${escapeHtml(labels[request.status] || request.status || "Sin estado")}
-      </p>
-      <p>
-        <strong>Presupuesto:</strong>
-        ${
-          request.budget_amount == null
-            ? "Pendiente"
-            : `${Number(request.budget_amount).toLocaleString("es-ES", {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-              })} €`
-        }
-      </p>
-      <p class="muted">
-        ${
-          request.created_at
-            ? new Date(request.created_at).toLocaleString("es-ES")
-            : ""
-        }
-      </p>
-    </div>
-  `).join("");
-}
-
-if (refreshUsersButton) {
-  refreshUsersButton.addEventListener("click", loadUsers);
-}
-
-// ------------------------------------------
-// GESTIÓN DE SOLICITUDES Y PRESUPUESTOS
-// ------------------------------------------
-
+// ---------- Carga ----------
 async function load() {
-  list.innerHTML =
-    '<p class="muted">Cargando solicitudes…</p>';
-
-  const {
-    data,
-    error
-  } = await supabase
-    .from("audit_requests")
-    .select(`
-      id,
-      user_id,
-      service_type,
-      company_name,
-      description,
-      status,
-      budget_amount,
-      admin_notes,
-      created_at,
-      profiles(full_name, company)
-    `)
-    .order("created_at", { ascending: false });
-
-  if (error) {
-    list.innerHTML =
-      `<p class="message error">${escapeHtml(error.message)}</p>`;
+  const [r, p, u] = await Promise.all([
+    supabase.from("audit_requests").select("*").order("created_at", { ascending: false }),
+    supabase.from("payments").select("*").order("created_at", { ascending: false }),
+    supabase.from("profiles").select("*").order("created_at", { ascending: false })
+  ]);
+  const err = r.error || p.error || u.error;
+  if (err) {
+    const hint = /payments|column|schema cache/i.test(err.message) ? " Ejecuta supabase/02_presupuestos_pagos.sql en Supabase." : "";
+    showMessage(msg, `Error al cargar los datos: ${err.message}.${hint}`, "error");
     return;
   }
+  showMessage(msg, "", "");
+  requests = r.data;
+  payments = p.data;
+  profiles = new Map(u.data.map(x => [x.id, x]));
+  renderKpis();
+  renderRequests();
+  renderPayments();
+  renderUsers();
+}
 
-  if (!data || data.length === 0) {
-    list.innerHTML =
-      '<p class="muted">No hay solicitudes todavía.</p>';
-    return;
-  }
+const clientName = id => profiles.get(id)?.full_name || "Cliente";
+const paymentFor = id => payments.find(p => p.request_id === id && ["pending", "under_review", "paid"].includes(p.status));
 
-  list.innerHTML = data.map((request) => `
-    <article
-      class="admin-request"
-      data-id="${escapeHtml(request.id)}"
-    >
-      <div class="admin-request-head">
-        <div>
-          <span class="pill">
-            ${escapeHtml(labels[request.status] || request.status)}
-          </span>
+function renderKpis() {
+  $("#k-new").textContent = requests.filter(r => ["received", "reviewing"].includes(r.status)).length;
+  $("#k-quoted").textContent = requests.filter(r => r.status === "quoted").length;
+  $("#k-verify").textContent = payments.filter(p => p.status === "under_review").length;
+  $("#k-revenue").textContent = fmtMoney(payments.filter(p => p.status === "paid").reduce((s, p) => s + Number(p.total), 0));
+  $("#c-requests").textContent = requests.length;
+  $("#c-payments").textContent = payments.length;
+  $("#c-clients").textContent = profiles.size;
+}
 
-          <h3>${escapeHtml(request.service_type)}</h3>
+// ---------- Solicitudes ----------
+function detail(r) {
+  const rows = [
+    ["Contacto", r.contact_name], ["Correo", r.contact_email], ["Teléfono", r.contact_phone],
+    ["Sector", r.sector], ["Tamaño", r.company_size], ["Presupuesto orientativo", r.budget_range],
+    ["Fecha límite", r.deadline && fmtDate(r.deadline)], ["Entorno", r.audit_environment],
+    ["Inicio preferido", r.preferred_date && fmtDate(r.preferred_date)], ["Ventana", r.time_slot],
+    ["Autorización", r.request_kind === "audit" ? (r.authorization_confirmed ? "Declarada por el cliente" : "NO declarada") : null],
+    ["Respuesta del cliente", r.quote_responded_at && `${fmtDateTime(r.quote_responded_at)}${r.client_response_note ? " · " + r.client_response_note : ""}`]
+  ].filter(([, v]) => v);
+  return `<dl class="dl">${rows.map(([k, v]) => `<div><dt>${k}</dt><dd>${escapeHtml(v)}</dd></div>`).join("")}</dl>`;
+}
 
-          <p class="muted">
-            ${escapeHtml(request.profiles?.full_name || "Cliente")}
-            ·
-            ${escapeHtml(
-              request.profiles?.company ||
-              request.company_name ||
-              "Sin empresa"
-            )}
-            ·
-            ${
-              request.created_at
-                ? new Date(request.created_at).toLocaleString("es-ES")
-                : ""
-            }
-          </p>
+function requestCard(r) {
+  const pay = paymentFor(r.id);
+  const t = calcTotals(r.budget_amount);
+  const locked = ["accepted", "in_progress", "completed"].includes(r.status) && pay;
+  return `<article class="req">
+    <div class="req-head">
+      <div class="req-title">
+        <span class="tag">${REQUEST_KIND[r.request_kind] || "Solicitud"} · <span class="mono">${shortRef(r.id)}</span></span>
+        <h3>${escapeHtml(r.service_type)}</h3>
+        <div class="req-meta">
+          <span><strong>${escapeHtml(clientName(r.user_id))}</strong></span>
+          <span>${escapeHtml(r.company_name || profiles.get(r.user_id)?.company || "Sin empresa")}</span>
+          <span>${fmtDateTime(r.created_at)}</span>
+          <span>Urgencia: ${escapeHtml(URGENCY[r.urgency] || "Normal")}</span>
         </div>
-
-        <small>ID ${escapeHtml(request.id.slice(0, 8))}</small>
       </div>
-
-      <p>${escapeHtml(request.description || "")}</p>
-
-      <form class="admin-edit" data-id="${escapeHtml(request.id)}">
-        <label>
-          Estado
-          <select name="status">
-            ${Object.entries(labels).map(([value, label]) => `
-              <option
-                value="${value}"
-                ${value === request.status ? "selected" : ""}
-              >
-                ${label}
-              </option>
-            `).join("")}
-          </select>
-        </label>
-
-        <label>
-          Presupuesto (€)
-          <input
-            name="budget_amount"
-            type="number"
-            min="0"
-            step="0.01"
-            value="${request.budget_amount ?? ""}"
-            placeholder="Sin presupuesto"
-          >
-        </label>
-
-        <label class="wide">
-          Nota visible para el cliente
-          <textarea
-            name="admin_notes"
-            rows="2"
-            maxlength="3000"
-          >${escapeHtml(request.admin_notes || "")}</textarea>
-        </label>
-
-        <div class="wide">
-          <button class="btn primary small" type="submit">
-            Guardar cambios
-          </button>
-        </div>
-      </form>
-    </article>
-  `).join("");
-
-  list.querySelectorAll(".admin-edit").forEach((form) => {
-    form.addEventListener("submit", save);
-  });
+      <div class="req-amount"><small>Total con IVA</small><b>${r.budget_amount == null ? "—" : fmtMoney(t.total)}</b></div>
+    </div>
+    <div class="req-body">
+      <div style="display:flex;gap:8px;flex-wrap:wrap">${statusBadge(r.status)}${pay ? paymentBadge(pay.status) : ""}</div>
+      <details class="more"><summary>Ver solicitud completa</summary>
+        ${detail(r)}
+        ${r.audit_scope ? `<p class="req-desc"><strong>Alcance autorizado</strong>\n${escapeHtml(r.audit_scope)}</p>` : ""}
+        <p class="req-desc">${escapeHtml(r.description)}</p>
+      </details>
+    </div>
+    <form class="admin-edit" data-id="${r.id}">
+      <label class="field"><span>Estado</span>
+        <select name="status">${Object.entries(REQUEST_STATUS).map(([v, s]) =>
+          `<option value="${v}"${v === r.status ? " selected" : ""}>${s.label}</option>`).join("")}</select>
+      </label>
+      <label class="field"><span>Importe base (sin IVA)</span>
+        <input name="budget_amount" type="number" min="0" step="0.01" value="${r.budget_amount ?? ""}" placeholder="0,00 €"${locked ? " readonly title=\"Ya existe un pago asociado\"" : ""}>
+        <span class="hint" data-total>${r.budget_amount == null ? "Total con IVA: —" : `Total con IVA: ${fmtMoney(t.total)}`}</span>
+      </label>
+      <label class="field"><span>Validez del presupuesto</span>
+        <input name="quote_valid_until" type="date" value="${r.quote_valid_until ?? ""}">
+        <span class="hint">Por defecto, 30 días desde el envío.</span>
+      </label>
+      <label class="field full"><span>Mensaje para el cliente</span>
+        <textarea name="admin_notes" rows="2" maxlength="3000" placeholder="Alcance, entregables, plazos o próximos pasos…">${escapeHtml(r.admin_notes || "")}</textarea>
+      </label>
+      <div class="row-actions">
+        ${r.status !== "quoted" && !pay ? `<button class="btn btn-secondary btn-sm" type="submit" data-send-quote>Enviar presupuesto</button>` : ""}
+        <button class="btn btn-primary btn-sm" type="submit">Guardar cambios</button>
+      </div>
+    </form>
+  </article>`;
 }
 
-async function save(event) {
-  event.preventDefault();
+function renderRequests() {
+  const q = $("#q").value.trim().toLowerCase();
+  const fs = $("#f-status").value;
+  const fk = $("#f-kind").value;
+  const visible = requests.filter(r => {
+    if (fs && r.status !== fs) return false;
+    if (fk && r.request_kind !== fk) return false;
+    if (!q) return true;
+    const p = profiles.get(r.user_id);
+    return [r.service_type, r.company_name, r.contact_name, r.contact_email, p?.full_name, p?.company, shortRef(r.id), r.description]
+      .some(v => String(v || "").toLowerCase().includes(q));
+  });
+  requestsEl.innerHTML = visible.length ? visible.map(requestCard).join("")
+    : `<div class="card empty"><h3>Sin resultados</h3><p>No hay solicitudes que coincidan con los filtros.</p></div>`;
+}
 
-  const form = event.currentTarget;
-  const formData = new FormData(form);
-  const id = form.dataset.id;
+requestsEl.addEventListener("input", e => {
+  if (e.target.name !== "budget_amount") return;
+  const hint = e.target.closest(".field").querySelector("[data-total]");
+  const v = e.target.value;
+  hint.textContent = v === "" ? "Total con IVA: —" : `Total con IVA: ${fmtMoney(calcTotals(v).total)}`;
+});
 
-  const rawBudget = String(
-    formData.get("budget_amount") ?? ""
-  ).trim();
-
+requestsEl.addEventListener("submit", async e => {
+  e.preventDefault();
+  const form = e.target;
+  const fd = new FormData(form);
+  const raw = String(fd.get("budget_amount") ?? "").trim();
   const update = {
-    status: formData.get("status"),
-    budget_amount: rawBudget === "" ? null : Number(rawBudget),
-    admin_notes: String(
-      formData.get("admin_notes") ?? ""
-    ).trim() || null
+    status: e.submitter?.hasAttribute("data-send-quote") ? "quoted" : fd.get("status"),
+    budget_amount: raw === "" ? null : Number(raw),
+    quote_valid_until: fd.get("quote_valid_until") || null,
+    admin_notes: String(fd.get("admin_notes") ?? "").trim() || null
   };
+  if (update.budget_amount !== null && (!Number.isFinite(update.budget_amount) || update.budget_amount < 0)) {
+    return toast("Introduce un importe válido.", "error");
+  }
+  if (update.status === "quoted" && update.budget_amount === null) {
+    return toast("Indica el importe antes de enviar el presupuesto.", "error");
+  }
+  form.querySelectorAll("button").forEach(b => (b.disabled = true));
+  const { error } = await supabase.from("audit_requests").update(update).eq("id", form.dataset.id);
+  form.querySelectorAll("button").forEach(b => (b.disabled = false));
+  if (error) return toast(error.message, "error");
+  toast(update.status === "quoted" ? "Presupuesto enviado al cliente" : "Solicitud actualizada");
+  await load();
+});
 
-  if (
-    update.budget_amount !== null &&
-    (
-      !Number.isFinite(update.budget_amount) ||
-      update.budget_amount < 0
-    )
-  ) {
-    showMessage(msg, "Introduce un presupuesto válido.", "error");
+["#q", "#f-status", "#f-kind"].forEach(s => $(s).addEventListener("input", renderRequests));
+
+// ---------- Pagos ----------
+function renderPayments() {
+  if (!payments.length) {
+    paymentsEl.innerHTML = `<div class="empty"><h3>Sin pagos todavía</h3><p>Aparecerán aquí cuando un cliente acepte un presupuesto y elija método de pago.</p></div>`;
     return;
   }
-
-  const button = form.querySelector('button[type="submit"]');
-  button.disabled = true;
-
-  try {
-    const { error } = await supabase
-      .from("audit_requests")
-      .update(update)
-      .eq("id", id);
-
-    if (error) {
-      showMessage(msg, error.message, "error");
-      return;
-    }
-
-    showMessage(msg, "Solicitud actualizada.", "success");
-    await load();
-  } catch (error) {
-    showMessage(
-      msg,
-      error.message || "No se pudo actualizar la solicitud.",
-      "error"
-    );
-  } finally {
-    button.disabled = false;
-  }
+  const reqById = new Map(requests.map(r => [r.id, r]));
+  paymentsEl.innerHTML = `<table class="table">
+    <thead><tr><th>Referencia</th><th>Cliente</th><th>Método</th><th class="num">Importe</th><th>Estado</th><th>Fecha</th><th></th></tr></thead>
+    <tbody>${payments.map(p => {
+      const r = reqById.get(p.request_id);
+      const actions = p.status === "pending" || p.status === "under_review"
+        ? `<button class="btn btn-primary btn-sm" data-pay="${p.id}" data-status="paid">Confirmar cobro</button>
+           <button class="btn btn-danger btn-sm" data-pay="${p.id}" data-status="failed">Fallido</button>`
+        : p.status === "paid" ? `<button class="btn btn-secondary btn-sm" data-pay="${p.id}" data-status="refunded">Reembolsar</button>` : "";
+      return `<tr>
+        <td><div class="cell-title mono">${escapeHtml(p.reference)}</div><div class="cell-sub">${escapeHtml(r?.service_type || "")}</div></td>
+        <td><div class="cell-title">${escapeHtml(p.billing_name)}</div><div class="cell-sub">${escapeHtml(p.billing_tax_id)} · ${escapeHtml(clientName(p.user_id))}</div></td>
+        <td>${escapeHtml(PAYMENT_METHODS[p.method]?.short || p.method)}</td>
+        <td class="num"><div class="cell-title">${fmtMoney(p.total)}</div><div class="cell-sub">${fmtMoney(p.subtotal)} + IVA</div></td>
+        <td>${paymentBadge(p.status)}</td>
+        <td><div>${fmtDate(p.created_at)}</div><div class="cell-sub">${p.paid_at ? "Cobrado " + fmtDate(p.paid_at) : p.client_marked_at ? "Avisado " + fmtDate(p.client_marked_at) : ""}</div></td>
+        <td class="num"><div style="display:flex;gap:6px;justify-content:flex-end">${actions}</div></td>
+      </tr>`;
+    }).join("")}</tbody></table>`;
 }
 
-// Cargar ambas secciones al entrar al panel.
-await Promise.all([
-  load(),
-  loadUsers()
-]);
+paymentsEl.addEventListener("click", async e => {
+  const btn = e.target.closest("[data-pay]");
+  if (!btn) return;
+  const labels = { paid: "confirmar el cobro de", failed: "marcar como fallido", refunded: "marcar como reembolsado" };
+  const p = payments.find(x => x.id === btn.dataset.pay);
+  if (!confirm(`¿Seguro que quieres ${labels[btn.dataset.status]} el pago ${p.reference} (${fmtMoney(p.total)})?`)) return;
+  btn.disabled = true;
+  const { error } = await supabase.from("payments").update({ status: btn.dataset.status }).eq("id", p.id);
+  if (error) { btn.disabled = false; return toast(error.message, "error"); }
+  toast("Pago actualizado");
+  await load();
+});
+
+// ---------- Clientes ----------
+function renderUsers() {
+  const rows = [...profiles.values()];
+  if (!rows.length) { usersEl.innerHTML = `<div class="empty"><h3>No hay clientes registrados</h3></div>`; return; }
+  usersEl.innerHTML = `<table class="table">
+    <thead><tr><th>Cliente</th><th>Contacto</th><th>Facturación</th><th class="num">Solicitudes</th><th class="num">Pagado</th><th>Alta</th></tr></thead>
+    <tbody>${rows.map(u => {
+      const count = requests.filter(r => r.user_id === u.id).length;
+      const paid = payments.filter(p => p.user_id === u.id && p.status === "paid").reduce((s, p) => s + Number(p.total), 0);
+      return `<tr>
+        <td><div class="cell-title">${escapeHtml(u.full_name || "Sin nombre")} ${u.role === "admin" ? '<span class="badge badge-brand">Admin</span>' : ""}</div><div class="cell-sub">${escapeHtml(u.company || "Sin empresa")}</div></td>
+        <td>${escapeHtml(u.phone || "—")}</td>
+        <td><div>${escapeHtml(u.tax_id || "—")}</div><div class="cell-sub">${escapeHtml(u.city || "")}</div></td>
+        <td class="num">${count}</td>
+        <td class="num">${fmtMoney(paid)}</td>
+        <td>${fmtDate(u.created_at)}</td>
+      </tr>`;
+    }).join("")}</tbody></table>`;
+}
+
+// ---------- Pestañas ----------
+document.querySelectorAll(".tab[data-tab]").forEach(tab => tab.addEventListener("click", () => {
+  document.querySelectorAll(".tab[data-tab]").forEach(t => t.setAttribute("aria-selected", String(t === tab)));
+  document.querySelectorAll("[data-panel]").forEach(p => (p.hidden = p.dataset.panel !== tab.dataset.tab));
+}));
+
+$("#refresh").addEventListener("click", load);
+await load();
