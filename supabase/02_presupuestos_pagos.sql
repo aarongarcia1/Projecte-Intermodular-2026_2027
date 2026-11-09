@@ -304,6 +304,10 @@ $$;
 revoke all on function public.respond_quote(uuid, boolean, text) from public;
 revoke all on function public.create_payment(uuid, text, text, text, text) from public;
 revoke all on function public.mark_payment_sent(uuid) from public;
+-- Supabase concede EXECUTE a "anon" por defecto en funciones nuevas: se retira explícitamente.
+revoke execute on function public.respond_quote(uuid, boolean, text) from anon;
+revoke execute on function public.create_payment(uuid, text, text, text, text) from anon;
+revoke execute on function public.mark_payment_sent(uuid) from anon;
 grant execute on function public.respond_quote(uuid, boolean, text) to authenticated;
 grant execute on function public.create_payment(uuid, text, text, text, text) to authenticated;
 grant execute on function public.mark_payment_sent(uuid) to authenticated;
