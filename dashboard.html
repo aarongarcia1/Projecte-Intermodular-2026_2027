@@ -1,6 +1,63 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mi área | Altercom21</title><link rel="stylesheet" href="assets/css/styles.css"></head>
-<body><header class="topbar"><a class="brand" href="index.html">ALTERCOM<span>21</span></a><nav><a href="dashboard.html">Mi área</a><a href="profile.html">Mi perfil</a><button class="nav-button" id="logout">Cerrar sesión</button></nav></header>
-<main class="page"><div class="page-heading"><div><div class="eyebrow">PORTAL DE CLIENTES</div><h1>Mi área</h1><p id="welcome" class="muted">Cargando tu cuenta…</p></div><a class="btn primary" href="#new-request">+ Nueva solicitud</a></div>
-<section class="panel" id="new-request"><h2>Solicitar servicio</h2><form id="request-form" class="form-grid"><label>Tipo de solicitud<select name="service_type" required><option value="Auditoría de seguridad">Auditoría de seguridad</option><option value="Presupuesto IT">Presupuesto IT</option><option value="Consultoría tecnológica">Consultoría tecnológica</option><option value="Otro">Otro</option></select></label><label>Empresa<input name="company_name" maxlength="160" placeholder="Nombre de la empresa"></label><label class="wide">Describe lo que necesitas<textarea name="description" rows="4" required minlength="10" maxlength="5000" placeholder="Explica brevemente tu necesidad…"></textarea></label><div class="wide"><button class="btn primary" type="submit">Enviar solicitud</button><p id="request-message" class="message" aria-live="polite"></p></div></form></section>
-<section class="panel"><div class="section-head"><h2>Mis solicitudes</h2><button id="refresh" class="btn secondary small">Actualizar</button></div><div id="requests" class="request-list"><p class="muted">Cargando solicitudes…</p></div></section></main><footer>© Altercom21 · Portal de clientes</footer><script type="module" src="assets/js/dashboard.js"></script></body></html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mis solicitudes · Altercom21</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<header class="app-header">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html"><span class="brand-mark"><svg class="i"><use href="assets/img/icons.svg#shield-check"/></svg></span><span>Altercom<b>21</b></span></a>
+    <nav class="main-nav" aria-label="Área de cliente">
+      <a href="dashboard.html" class="active" aria-current="page">Mis solicitudes</a>
+      <a href="solicitud.html">Nueva solicitud</a>
+      <a href="profile.html">Perfil y facturación</a>
+      <a href="admin.html" data-admin-only hidden>Administración</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="btn btn-ghost" href="login.html" data-guest hidden>Acceder</a>
+      <span class="user-chip" data-member><span class="avatar" data-user-initials></span><span data-user-name></span></span>
+      <button class="btn btn-ghost btn-sm" id="logout" data-member type="button"><svg class="i"><use href="assets/img/icons.svg#logout"/></svg>Salir</button>
+    </div>
+    <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false"><svg class="i"><use href="assets/img/icons.svg#menu"/></svg></button>
+  </div>
+</header>
+<main class="app-main">
+  <div class="container">
+    <div class="page-head">
+      <div>
+        <div class="breadcrumb">Área de cliente</div>
+        <h1 id="welcome">Mis solicitudes</h1>
+        <p>Consulta el estado de tus proyectos, acepta presupuestos y gestiona tus pagos.</p>
+      </div>
+      <a class="btn btn-primary" href="solicitud.html"><svg class="i"><use href="assets/img/icons.svg#plus"/></svg>Nueva solicitud</a>
+    </div>
+
+    <p id="profile-warning" class="alert alert-warning" hidden>Completa tus <a href="profile.html">datos de facturación</a> para agilizar los pagos y la emisión de facturas.</p>
+
+    <div class="kpis">
+      <div class="kpi"><span>Solicitudes activas</span><b id="k-active">—</b></div>
+      <div class="kpi"><span>Presupuestos por revisar</span><b id="k-quotes">—</b></div>
+      <div class="kpi"><span>Pagos pendientes</span><b id="k-pending">—</b></div>
+      <div class="kpi highlight"><span>Total abonado</span><b id="k-paid">—</b></div>
+    </div>
+
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="true" data-filter="all">Todas <span class="count" data-count="all">0</span></button>
+      <button class="tab" role="tab" aria-selected="false" data-filter="action">Requieren acción <span class="count" data-count="action">0</span></button>
+      <button class="tab" role="tab" aria-selected="false" data-filter="open">En curso <span class="count" data-count="open">0</span></button>
+      <button class="tab" role="tab" aria-selected="false" data-filter="closed">Cerradas <span class="count" data-count="closed">0</span></button>
+    </div>
+    <p id="list-message" class="alert" role="status" hidden></p>
+    <div id="requests" class="req-list"><div class="skeleton"></div><div class="skeleton"></div></div>
+  </div>
+</main>
+<footer class="app-footer"><div class="container">© Altercom21 · Portal de clientes · <a href="index.html">Volver a la web</a></div></footer>
+<script type="module" src="assets/js/dashboard.js"></script>
+</body>
+</html>
