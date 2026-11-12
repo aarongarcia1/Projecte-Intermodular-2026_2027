@@ -494,3 +494,16 @@ table.table { width: 100%; border-collapse: collapse; font-size: .9rem; }
 /* Iconos (sprite assets/img/icons.svg) */
 svg.i { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
 [aria-invalid="true"] { border-color: var(--danger) !important; box-shadow: 0 0 0 3px rgba(185, 28, 28, .1); }
+
+/* ---------- Escaneos de la app NEXUS (dashboard) ---------- */
+.nexus-section { margin-top: 44px; }
+.nexus-section .section-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; margin-bottom: 16px; }
+.nexus-section h2 { display: flex; align-items: center; gap: 10px; font-size: 1.35rem; margin: 2px 0 4px; }
+.nexus-section .section-head p { margin: 0; }
+.nexus-table { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: .88rem; }
+.nexus-table th, .nexus-table td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.nexus-table th { font-size: .74rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); background: var(--surface-2); }
+.nexus-table td.small { overflow-wrap: anywhere; }
+.nexus-findings { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 10px; }
+.nexus-findings li { padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); }
+.nexus-findings .badge { margin-right: 8px; }

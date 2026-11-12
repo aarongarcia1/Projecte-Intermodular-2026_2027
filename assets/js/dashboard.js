@@ -1,6 +1,6 @@
 import { supabase, requireUser, getProfile, signOut } from "./supabase-client.js";
 import {
-  initAppShell, escapeHtml, fmtMoney, fmtDate, shortRef, statusBadge, paymentBadge,
+  initAppShell, escapeHtml, fmtMoney, fmtDate, fmtDateTime, shortRef, statusBadge, paymentBadge, badge,
   timelineHtml, calcTotals, showMessage, toast, REQUEST_KIND, URGENCY, PAYMENT_METHODS
 } from "./ui.js";
 
@@ -172,4 +172,101 @@ list.addEventListener("click", async (e) => {
   }
 });
 
+// ---------- Escaneos de la app NEXUS (supabase/03_nexus_app.sql) ----------
+const nexusSection = document.querySelector("#nexus");
+const nexusList = document.querySelector("#nexus-list");
+let scans = [];
+
+const RATING = {
+  "BAIX": { label: "Riesgo bajo", tone: "success" },
+  "MODERAT": { label: "Riesgo moderado", tone: "warning" },
+  "ALT": { label: "Riesgo alto", tone: "danger" },
+  "CRÍTIC": { label: "Riesgo crítico", tone: "danger" }
+};
+const LEVEL = {
+  "CRÍTIC": { label: "Crítico", tone: "danger" }, "ALT": { label: "Alto", tone: "danger" },
+  "MITJÀ": { label: "Medio", tone: "warning" }, "BAIX": { label: "Bajo", tone: "info" },
+  "INFO": { label: "Info", tone: "neutral" }
+};
+
+function scanCard(s) {
+  const r = RATING[s.rating] || { label: s.rating || "Sin valorar", tone: "neutral" };
+  const ports = Array.isArray(s.open_ports) ? s.open_ports : [];
+  const findings = Array.isArray(s.findings) ? s.findings : [];
+  const counts = Object.keys(LEVEL).map(l => [l, findings.filter(f => f.level === l).length]).filter(([, n]) => n);
+  const portRows = ports.map(p => `<tr><td class="mono">${Number(p.port)}/${escapeHtml(p.proto || "TCP")}</td>
+      <td>${escapeHtml(p.service || "")}</td><td class="mono small">${escapeHtml(p.banner || "—")}</td></tr>`).join("");
+  const findingRows = findings.map(f => `<li>${badge(LEVEL[f.level]?.label || f.level, LEVEL[f.level]?.tone || "neutral")}
+      <strong>${escapeHtml(f.title)}</strong>${f.port ? ` <span class="muted">· puerto ${Number(f.port)}</span>` : ""}
+      <div class="small muted">${escapeHtml(f.remediation || "")}</div></li>`).join("");
+  return `<article class="req">
+    <div class="req-head">
+      <div class="req-title">
+        <span class="tag">NEXUS · <span class="mono">ESC-${escapeHtml(String(s.id).slice(0, 8).toUpperCase())}</span></span>
+        <h3>${escapeHtml(s.target)}</h3>
+        <div class="req-meta">
+          <span class="mono">${escapeHtml(s.ip || "")}</span>
+          <span>${fmtDateTime(s.started_at || s.created_at)}</span>
+          <span>${Number(s.ports_scanned) || 0} puertos analizados</span>
+          ${s.completed ? "" : "<span>Escaneo interrumpido</span>"}
+        </div>
+      </div>
+      <div class="req-amount"><small>Puntuación de riesgo</small><b>${Number(s.score) || 0}/100</b><small>${badge(r.label, r.tone)}</small></div>
+    </div>
+    <div class="req-body">
+      <details class="more"><summary>Ver ${ports.length} puertos abiertos y ${findings.length} hallazgos</summary>
+        ${ports.length ? `<div class="table-wrap"><table class="nexus-table"><thead><tr><th>Puerto</th><th>Servicio</th><th>Banner</th></tr></thead><tbody>${portRows}</tbody></table></div>` : `<p class="muted">No se detectaron puertos abiertos.</p>`}
+        ${findings.length ? `<ul class="nexus-findings">${findingRows}</ul>` : ""}
+      </details>
+    </div>
+    <div class="req-foot">
+      <div style="display:flex;gap:8px;flex-wrap:wrap">${badge(`${ports.length} puertos abiertos`, "brand")}${counts.map(([l, n]) => badge(`${n} ${LEVEL[l].label.toLowerCase()}`, LEVEL[l].tone)).join("")}</div>
+      <div class="actions">
+        <button class="btn btn-ghost btn-sm" type="button" data-scan-action="delete" data-id="${escapeHtml(s.id)}">Eliminar</button>
+        <a class="btn btn-primary btn-sm" href="solicitud.html">Solicitar auditoría</a>
+      </div>
+    </div>
+  </article>`;
+}
+
+function renderScans() {
+  document.querySelector("#nexus-count").textContent = scans.length;
+  nexusList.innerHTML = scans.length ? scans.map(scanCard).join("")
+    : `<div class="card empty"><div class="icon-box"><svg class="i"><use href="assets/img/icons.svg#shield-check"/></svg></div>
+      <h3>Todavía no has sincronizado escaneos</h3>
+      <p>Abre la app NEXUS, inicia sesión con esta cuenta y sube un escaneo (o activa la subida automática).</p></div>`;
+}
+
+async function loadScans() {
+  const { data, error } = await supabase
+    .from("nexus_scans")
+    .select("id,target,ip,score,rating,ports_scanned,open_ports,findings,completed,started_at,created_at")
+    .eq("user_id", user.id)
+    .order("created_at", { ascending: false })
+    .limit(50);
+  if (error) {
+    // Si todavía no se ha ejecutado supabase/03_nexus_app.sql la sección permanece oculta.
+    console.info("Escaneos NEXUS no disponibles:", error.message);
+    return;
+  }
+  scans = data || [];
+  nexusSection.hidden = false;
+  renderScans();
+}
+
+nexusList.addEventListener("click", async (e) => {
+  const btn = e.target.closest("button[data-scan-action]");
+  if (!btn) return;
+  const s = scans.find(x => x.id === btn.dataset.id);
+  if (!s || !confirm(`¿Eliminar el escaneo de ${s.target}? También desaparecerá de la app NEXUS.`)) return;
+  btn.disabled = true;
+  const { error } = await supabase.from("nexus_scans").delete().eq("id", s.id);
+  if (error) { btn.disabled = false; return toast(error.message, "error"); }
+  scans = scans.filter(x => x.id !== s.id);
+  renderScans();
+  toast("Escaneo eliminado.");
+});
+
 await load();
+await loadScans();
+if (location.hash === "#nexus" && !nexusSection.hidden) nexusSection.scrollIntoView({ behavior: "smooth" });

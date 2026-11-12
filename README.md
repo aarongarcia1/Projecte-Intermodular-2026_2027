@@ -75,6 +75,17 @@ Esta carpeta contiene un portal autónomo de ejemplo. Si quieres integrarlo en t
 - Entra como administrador y prueba cambiar el estado y el presupuesto.
 - Prueba la recuperación de contraseña desde la pantalla de login.
 
+## 7. App de escritorio NEXUS (opcional)
+La app de escritorio **Altercom21 NEXUS** (Python + Tkinter) usa **las mismas cuentas** que esta web:
+- Una cuenta creada en la app se crea también aquí (Supabase Auth + `profiles`), con la misma confirmación por correo, y al revés.
+- El perfil y los datos de facturación son los mismos en la app y en `profile.html`.
+- Desde la app se pueden crear solicitudes de auditoría o presupuesto a partir de un escaneo; aparecen en `dashboard.html` y siguen el flujo normal (presupuesto → aceptación → pago en la web).
+- Los escaneos que la app sube se muestran en `dashboard.html`, en la sección **Escaneos de NEXUS**.
+
+Para activar la sincronización de escaneos, ejecuta una vez `supabase/03_nexus_app.sql` en el SQL Editor (crea la tabla `nexus_scans` con RLS: cada usuario solo ve y borra sus escaneos, y el administrador puede leerlos todos). Si no se ejecuta, la web y la app siguen funcionando, pero la sección de escaneos permanece oculta.
+
+La app solo usa la clave pública (publishable/anon), igual que la web.
+
 ## Seguridad y límites
 - GitHub Pages solo sirve archivos estáticos; Supabase proporciona Auth y PostgreSQL.
 - La clave pública de Supabase puede estar en el navegador; RLS es imprescindible.
