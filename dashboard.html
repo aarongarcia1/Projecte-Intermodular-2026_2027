@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="es">
+<html lang="ca">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mis solicitudes · Altercom21</title>
+  <title>Les meves sol·licituds · Altercom21</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -13,45 +13,45 @@
 <header class="app-header">
   <div class="container nav-inner">
     <a class="brand" href="index.html"><span class="brand-mark"><svg class="i"><use href="assets/img/icons.svg#shield-check"/></svg></span><span>Altercom<b>21</b></span></a>
-    <nav class="main-nav" aria-label="Área de cliente">
-      <a href="dashboard.html" class="active" aria-current="page">Mis solicitudes</a>
-      <a href="solicitud.html">Nueva solicitud</a>
-      <a href="profile.html">Perfil y facturación</a>
-      <a href="admin.html" data-admin-only hidden>Administración</a>
+    <nav class="main-nav" aria-label="Àrea de client">
+      <a href="dashboard.html" class="active" aria-current="page">Les meves sol·licituds</a>
+      <a href="solicitud.html">Nova sol·licitud</a>
+      <a href="profile.html">Perfil i facturació</a>
+      <a href="admin.html" data-admin-only hidden>Administració</a>
     </nav>
     <div class="nav-actions">
-      <a class="btn btn-ghost" href="login.html" data-guest hidden>Acceder</a>
+      <a class="btn btn-ghost" href="login.html" data-guest hidden>Accedeix</a>
       <span class="user-chip" data-member><span class="avatar" data-user-initials></span><span data-user-name></span></span>
-      <button class="btn btn-ghost btn-sm" id="logout" data-member type="button"><svg class="i"><use href="assets/img/icons.svg#logout"/></svg>Salir</button>
+      <button class="btn btn-ghost btn-sm" id="logout" data-member type="button"><svg class="i"><use href="assets/img/icons.svg#logout"/></svg>Surt</button>
     </div>
-    <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false"><svg class="i"><use href="assets/img/icons.svg#menu"/></svg></button>
+    <button class="nav-toggle" aria-label="Obre el menú" aria-expanded="false"><svg class="i"><use href="assets/img/icons.svg#menu"/></svg></button>
   </div>
 </header>
 <main class="app-main">
   <div class="container">
     <div class="page-head">
       <div>
-        <div class="breadcrumb">Área de cliente</div>
-        <h1 id="welcome">Mis solicitudes</h1>
-        <p>Consulta el estado de tus proyectos, acepta presupuestos y gestiona tus pagos.</p>
+        <div class="breadcrumb">Àrea de client</div>
+        <h1 id="welcome">Les meves sol·licituds</h1>
+        <p>Consulta l'estat dels teus projectes, accepta pressupostos i gestiona els teus pagaments.</p>
       </div>
-      <a class="btn btn-primary" href="solicitud.html"><svg class="i"><use href="assets/img/icons.svg#plus"/></svg>Nueva solicitud</a>
+      <a class="btn btn-primary" href="solicitud.html"><svg class="i"><use href="assets/img/icons.svg#plus"/></svg>Nova sol·licitud</a>
     </div>
 
-    <p id="profile-warning" class="alert alert-warning" hidden>Completa tus <a href="profile.html">datos de facturación</a> para agilizar los pagos y la emisión de facturas.</p>
+    <p id="profile-warning" class="alert alert-warning" hidden>Completa les teves <a href="profile.html">dades de facturació</a> per agilitzar els pagaments i l'emissió de factures.</p>
 
     <div class="kpis">
-      <div class="kpi"><span>Solicitudes activas</span><b id="k-active">—</b></div>
-      <div class="kpi"><span>Presupuestos por revisar</span><b id="k-quotes">—</b></div>
-      <div class="kpi"><span>Pagos pendientes</span><b id="k-pending">—</b></div>
-      <div class="kpi highlight"><span>Total abonado</span><b id="k-paid">—</b></div>
+      <div class="kpi"><span>Sol·licituds actives</span><b id="k-active">—</b></div>
+      <div class="kpi"><span>Pressupostos per revisar</span><b id="k-quotes">—</b></div>
+      <div class="kpi"><span>Pagaments pendents</span><b id="k-pending">—</b></div>
+      <div class="kpi highlight"><span>Total abonat</span><b id="k-paid">—</b></div>
     </div>
 
     <div class="tabs" role="tablist">
-      <button class="tab" role="tab" aria-selected="true" data-filter="all">Todas <span class="count" data-count="all">0</span></button>
-      <button class="tab" role="tab" aria-selected="false" data-filter="action">Requieren acción <span class="count" data-count="action">0</span></button>
-      <button class="tab" role="tab" aria-selected="false" data-filter="open">En curso <span class="count" data-count="open">0</span></button>
-      <button class="tab" role="tab" aria-selected="false" data-filter="closed">Cerradas <span class="count" data-count="closed">0</span></button>
+      <button class="tab" role="tab" aria-selected="true" data-filter="all">Totes <span class="count" data-count="all">0</span></button>
+      <button class="tab" role="tab" aria-selected="false" data-filter="action">Requereixen acció <span class="count" data-count="action">0</span></button>
+      <button class="tab" role="tab" aria-selected="false" data-filter="open">En curs <span class="count" data-count="open">0</span></button>
+      <button class="tab" role="tab" aria-selected="false" data-filter="closed">Tancades <span class="count" data-count="closed">0</span></button>
     </div>
     <p id="list-message" class="alert" role="status" hidden></p>
     <div id="requests" class="req-list"><div class="skeleton"></div><div class="skeleton"></div></div>
@@ -59,16 +59,16 @@
     <section id="nexus" class="nexus-section" hidden aria-labelledby="nexus-title">
       <div class="section-head">
         <div>
-          <div class="breadcrumb">App de escritorio</div>
-          <h2 id="nexus-title">Escaneos de NEXUS <span class="badge badge-brand" id="nexus-count">0</span></h2>
-          <p class="muted">Resultados sincronizados desde la aplicación NEXUS con esta misma cuenta.</p>
+          <div class="breadcrumb">App d'escriptori</div>
+          <h2 id="nexus-title">Escanejos de NEXUS <span class="badge badge-brand" id="nexus-count">0</span></h2>
+          <p class="muted">Resultats sincronitzats des de l'aplicació NEXUS amb aquest mateix compte.</p>
         </div>
       </div>
       <div id="nexus-list" class="req-list"></div>
     </section>
   </div>
 </main>
-<footer class="app-footer"><div class="container">© Altercom21 · Portal de clientes · <a href="index.html">Volver a la web</a></div></footer>
+<footer class="app-footer"><div class="container">© Altercom21 · Portal de clients · <a href="index.html">Torna a la web</a></div></footer>
 <script type="module" src="assets/js/dashboard.js"></script>
 </body>
 </html>

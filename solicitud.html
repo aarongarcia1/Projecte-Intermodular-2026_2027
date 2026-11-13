@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="es">
+<html lang="ca">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Nueva solicitud · Altercom21</title>
+  <title>Nova sol·licitud · Altercom21</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -13,38 +13,38 @@
 <header class="app-header">
   <div class="container nav-inner">
     <a class="brand" href="index.html"><span class="brand-mark"><svg class="i"><use href="assets/img/icons.svg#shield-check"/></svg></span><span>Altercom<b>21</b></span></a>
-    <nav class="main-nav" aria-label="Área de cliente">
-      <a href="dashboard.html">Mis solicitudes</a>
-      <a href="solicitud.html" class="active" aria-current="page">Nueva solicitud</a>
-      <a href="profile.html">Perfil y facturación</a>
-      <a href="admin.html" data-admin-only hidden>Administración</a>
+    <nav class="main-nav" aria-label="Àrea de client">
+      <a href="dashboard.html">Les meves sol·licituds</a>
+      <a href="solicitud.html" class="active" aria-current="page">Nova sol·licitud</a>
+      <a href="profile.html">Perfil i facturació</a>
+      <a href="admin.html" data-admin-only hidden>Administració</a>
     </nav>
     <div class="nav-actions">
-      <a class="btn btn-ghost" href="login.html" data-guest hidden>Acceder</a>
+      <a class="btn btn-ghost" href="login.html" data-guest hidden>Accedeix</a>
       <span class="user-chip" data-member><span class="avatar" data-user-initials></span><span data-user-name></span></span>
-      <button class="btn btn-ghost btn-sm" id="logout" data-member type="button"><svg class="i"><use href="assets/img/icons.svg#logout"/></svg>Salir</button>
+      <button class="btn btn-ghost btn-sm" id="logout" data-member type="button"><svg class="i"><use href="assets/img/icons.svg#logout"/></svg>Surt</button>
     </div>
-    <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false"><svg class="i"><use href="assets/img/icons.svg#menu"/></svg></button>
+    <button class="nav-toggle" aria-label="Obre el menú" aria-expanded="false"><svg class="i"><use href="assets/img/icons.svg#menu"/></svg></button>
   </div>
 </header>
 <main class="app-main">
   <div class="container">
     <div class="page-head">
       <div>
-        <div class="breadcrumb"><a href="dashboard.html">Área de cliente</a> / Nueva solicitud</div>
-        <h1>Solicita un presupuesto o una auditoría</h1>
-        <p>Cuanta más información nos des, más precisa será la propuesta. Respondemos en 24–48 h laborables.</p>
+        <div class="breadcrumb"><a href="dashboard.html">Àrea de client</a> / Nova sol·licitud</div>
+        <h1>Demana un pressupost o una auditoria</h1>
+        <p>Com més informació ens donis, més precisa serà la proposta. Responem en 24–48 h laborables.</p>
       </div>
     </div>
 
     <div class="checkout">
       <div class="card">
         <div class="card-head">
-          <div class="segmented" role="tablist" aria-label="Tipo de solicitud">
-            <button type="button" role="tab" data-kind="budget" aria-selected="true">Presupuesto</button>
-            <button type="button" role="tab" data-kind="audit" aria-selected="false">Auditoría de seguridad</button>
+          <div class="segmented" role="tablist" aria-label="Tipus de sol·licitud">
+            <button type="button" role="tab" data-kind="budget" aria-selected="true">Pressupost</button>
+            <button type="button" role="tab" data-kind="audit" aria-selected="false">Auditoria de seguretat</button>
           </div>
-          <span class="small muted"><span class="req" style="color:var(--danger)">*</span> Campos obligatorios</span>
+          <span class="small muted"><span class="req" style="color:var(--danger)">*</span> Camps obligatoris</span>
         </div>
         <div class="card-body">
           <p id="draft-note" class="alert alert-info" hidden></p>
@@ -53,24 +53,24 @@
             <input type="hidden" name="request_kind" value="budget">
 
             <section class="form-section">
-              <div class="form-section-head"><h3>1. Datos de contacto</h3><p>Persona y empresa con la que trataremos la propuesta.</p></div>
+              <div class="form-section-head"><h3>1. Dades de contacte</h3><p>Persona i empresa amb qui parlarem de la proposta.</p></div>
               <div class="form-grid">
-                <label class="field"><span>Nombre y apellidos<span class="req">*</span></span><input name="contact_name" required maxlength="120" autocomplete="name"></label>
-                <label class="field"><span>Correo electrónico<span class="req">*</span></span><input name="contact_email" type="email" required maxlength="160" autocomplete="email"></label>
-                <label class="field"><span>Teléfono</span><input name="contact_phone" type="tel" maxlength="40" autocomplete="tel"></label>
-                <label class="field"><span>Empresa / organización<span class="req">*</span></span><input name="company_name" required maxlength="160" autocomplete="organization"></label>
+                <label class="field"><span>Nom i cognoms<span class="req">*</span></span><input name="contact_name" required maxlength="120" autocomplete="name"></label>
+                <label class="field"><span>Correu electrònic<span class="req">*</span></span><input name="contact_email" type="email" required maxlength="160" autocomplete="email"></label>
+                <label class="field"><span>Telèfon</span><input name="contact_phone" type="tel" maxlength="40" autocomplete="tel"></label>
+                <label class="field"><span>Empresa / organització<span class="req">*</span></span><input name="company_name" required maxlength="160" autocomplete="organization"></label>
                 <label class="field"><span>Sector</span>
                   <select name="sector">
                     <option value="">Selecciona…</option>
-                    <option>Tecnología y software</option><option>Comercio y e-commerce</option><option>Industria</option>
-                    <option>Salud</option><option>Educación</option><option>Finanzas y seguros</option>
-                    <option>Administración pública</option><option>Servicios profesionales</option><option>Otro</option>
+                    <option>Tecnologia i programari</option><option>Comerç i e-commerce</option><option>Industria</option>
+                    <option>Salut</option><option>Educació</option><option>Finances i assegurances</option>
+                    <option>Administració pública</option><option>Serveis professionals</option><option>Altres</option>
                   </select>
                 </label>
-                <label class="field"><span>Tamaño de la empresa</span>
+                <label class="field"><span>Mida de l'empresa</span>
                   <select name="company_size">
                     <option value="">Selecciona…</option>
-                    <option>1–10 empleados</option><option>11–50 empleados</option><option>51–250 empleados</option><option>Más de 250 empleados</option>
+                    <option>1–10 treballadors</option><option>11–50 treballadors</option><option>51–250 treballadors</option><option>Més de 250 treballadors</option>
                   </select>
                 </label>
               </div>
@@ -78,94 +78,94 @@
 
             <!-- PRESUPUESTO -->
             <section class="form-section" data-for="budget">
-              <div class="form-section-head"><h3>2. Necesidad</h3><p>Qué servicio te interesa y en qué plazos.</p></div>
+              <div class="form-section-head"><h3>2. Necessitat</h3><p>Quin servei t'interessa i en quins terminis.</p></div>
               <div class="form-grid">
-                <label class="field"><span>Servicio de interés<span class="req">*</span></span>
+                <label class="field"><span>Servei d'interès<span class="req">*</span></span>
                   <select name="service" required>
-                    <option value="">Selecciona un servicio…</option>
-                    <option>Pentesting</option><option>Análisis de vulnerabilidades</option><option>Seguridad de redes</option>
-                    <option>Seguridad web y apps</option><option>Seguridad en la nube</option><option>Formación y phishing</option>
-                    <option>SOC y respuesta a incidentes</option><option>Cumplimiento normativo</option><option>Copias y continuidad</option>
-                    <option>Varios / necesito asesoramiento</option>
+                    <option value="">Selecciona un servei…</option>
+                    <option>Pentesting</option><option>Anàlisi de vulnerabilitats</option><option>Seguretat de xarxes</option>
+                    <option>Seguretat web i apps</option><option>Seguretat al núvol</option><option>Formació i phishing</option>
+                    <option>SOC i resposta a incidents</option><option>Compliment normatiu</option><option>Còpies i continuïtat</option>
+                    <option>Diversos / necessito assessorament</option>
                   </select>
                 </label>
-                <label class="field"><span>Presupuesto orientativo</span>
+                <label class="field"><span>Pressupost orientatiu</span>
                   <select name="budget_range">
-                    <option value="">Sin definir</option>
-                    <option>Menos de 1.000 €</option><option>1.000 € – 3.000 €</option><option>3.000 € – 10.000 €</option><option>Más de 10.000 €</option>
+                    <option value="">Sense definir</option>
+                    <option>Menys de 1.000 €</option><option>1.000 € – 3.000 €</option><option>3.000 € – 10.000 €</option><option>Més de 10.000 €</option>
                   </select>
                 </label>
-                <div class="field full"><span class="label">Urgencia</span>
-                  <div class="chips"><label class="chip"><input type="radio" name="urgency_b" value="low"><span>Baja · sin prisa</span></label><label class="chip"><input type="radio" name="urgency_b" value="normal" checked><span>Normal · este mes</span></label><label class="chip"><input type="radio" name="urgency_b" value="high"><span>Alta · esta semana</span></label><label class="chip"><input type="radio" name="urgency_b" value="critical"><span>Crítica · incidente activo</span></label></div>
+                <div class="field full"><span class="label">Urgència</span>
+                  <div class="chips"><label class="chip"><input type="radio" name="urgency_b" value="low"><span>Baixa · sense pressa</span></label><label class="chip"><input type="radio" name="urgency_b" value="normal" checked><span>Normal · aquest mes</span></label><label class="chip"><input type="radio" name="urgency_b" value="high"><span>Alta · aquesta setmana</span></label><label class="chip"><input type="radio" name="urgency_b" value="critical"><span>Crítica · incident actiu</span></label></div>
                 </div>
-                <label class="field"><span>Fecha límite deseada</span><input type="date" name="deadline"></label>
-                <div class="field full"><span class="label">Requisitos normativos <span class="hint">(opcional)</span></span>
+                <label class="field"><span>Data límit desitjada</span><input type="date" name="deadline"></label>
+                <div class="field full"><span class="label">Requisits normatius <span class="hint">(opcional)</span></span>
                   <div class="chips"><label class="chip"><input type="checkbox" name="compliance" value="RGPD"><span>RGPD</span></label><label class="chip"><input type="checkbox" name="compliance" value="ENS"><span>ENS</span></label><label class="chip"><input type="checkbox" name="compliance" value="ISO 27001"><span>ISO 27001</span></label><label class="chip"><input type="checkbox" name="compliance" value="NIS2"><span>NIS2</span></label><label class="chip"><input type="checkbox" name="compliance" value="PCI-DSS"><span>PCI-DSS</span></label><label class="chip"><input type="checkbox" name="compliance" value="DORA"><span>DORA</span></label></div>
                 </div>
-                <label class="field full"><span>Describe el proyecto<span class="req">*</span></span>
-                  <textarea name="description_b" rows="5" minlength="30" maxlength="4000" placeholder="Contexto, sistemas implicados, objetivos y cualquier detalle relevante…"></textarea>
-                  <span class="hint"><span data-count="description_b">0</span> / 4000 · mínimo 30 caracteres</span>
+                <label class="field full"><span>Descriu el projecte<span class="req">*</span></span>
+                  <textarea name="description_b" rows="5" minlength="30" maxlength="4000" placeholder="Context, sistemes implicats, objectius i qualsevol detall rellevant…"></textarea>
+                  <span class="hint"><span data-count="description_b">0</span> / 4000 · mínim 30 caràcters</span>
                 </label>
               </div>
             </section>
 
             <!-- AUDITORÍA -->
             <section class="form-section" data-for="audit" hidden>
-              <div class="form-section-head"><h3>2. Tipo de auditoría</h3><p>Elige el nivel; lo ajustaremos contigo en la reunión de alcance.</p></div>
+              <div class="form-section-head"><h3>2. Tipus d'auditoria</h3><p>Tria el nivell; l'ajustarem amb tu a la reunió d'abast.</p></div>
               <div class="options cols-2" style="margin-bottom:22px">
-                <label class="option"><input type="radio" name="plan" value="Esencial"><span class="option-body"><span><strong>Esencial</strong><small>Exposición externa · 3–5 días</small></span></span></label>
-                <label class="option"><input type="radio" name="plan" value="Avanzada" checked><span class="option-body"><span><strong>Avanzada</strong><small>Externa + interna + web · 1–2 semanas</small></span></span></label>
-                <label class="option"><input type="radio" name="plan" value="Integral"><span class="option-body"><span><strong>Integral</strong><small>Incluye cloud, phishing y normativa</small></span></span></label>
-                <label class="option"><input type="radio" name="plan" value="A medida"><span class="option-body"><span><strong>A medida</strong><small>Definimos el alcance juntos</small></span></span></label>
+                <label class="option"><input type="radio" name="plan" value="Essencial"><span class="option-body"><span><strong>Essencial</strong><small>Exposició externa · 3–5 dies</small></span></span></label>
+                <label class="option"><input type="radio" name="plan" value="Avançada" checked><span class="option-body"><span><strong>Avançada</strong><small>Externa + interna + web · 1–2 setmanes</small></span></span></label>
+                <label class="option"><input type="radio" name="plan" value="Integral"><span class="option-body"><span><strong>Integral</strong><small>Inclou núvol, phishing i normativa</small></span></span></label>
+                <label class="option"><input type="radio" name="plan" value="A mida"><span class="option-body"><span><strong>A mida</strong><small>Definim l'abast junts</small></span></span></label>
               </div>
               <div class="form-grid">
-                <div class="field full"><span class="label">Pruebas a realizar<span class="req">*</span></span>
-                  <div class="chips"><label class="chip"><input type="checkbox" name="tests" value="Red externa"><span>Red externa</span></label><label class="chip"><input type="checkbox" name="tests" value="Red interna"><span>Red interna</span></label><label class="chip"><input type="checkbox" name="tests" value="Aplicación web"><span>Aplicación web</span></label><label class="chip"><input type="checkbox" name="tests" value="API"><span>API</span></label><label class="chip"><input type="checkbox" name="tests" value="Wi-Fi"><span>Wi-Fi</span></label><label class="chip"><input type="checkbox" name="tests" value="Cloud"><span>Cloud</span></label><label class="chip"><input type="checkbox" name="tests" value="Ingeniería social / phishing"><span>Ingeniería social / phishing</span></label></div>
+                <div class="field full"><span class="label">Proves a fer<span class="req">*</span></span>
+                  <div class="chips"><label class="chip"><input type="checkbox" name="tests" value="Xarxa externa"><span>Xarxa externa</span></label><label class="chip"><input type="checkbox" name="tests" value="Xarxa interna"><span>Xarxa interna</span></label><label class="chip"><input type="checkbox" name="tests" value="Aplicació web"><span>Aplicació web</span></label><label class="chip"><input type="checkbox" name="tests" value="API"><span>API</span></label><label class="chip"><input type="checkbox" name="tests" value="Wi-Fi"><span>Wi-Fi</span></label><label class="chip"><input type="checkbox" name="tests" value="Núvol"><span>Núvol</span></label><label class="chip"><input type="checkbox" name="tests" value="Enginyeria social / phishing"><span>Enginyeria social / phishing</span></label></div>
                 </div>
-                <label class="field full"><span>Alcance autorizado<span class="req">*</span></span>
-                  <textarea name="audit_scope" rows="3" maxlength="2000" placeholder="Rangos IP, dominios, URLs o aplicaciones incluidas. Indica también lo que queda EXCLUIDO."></textarea>
+                <label class="field full"><span>Abast autoritzat<span class="req">*</span></span>
+                  <textarea name="audit_scope" rows="3" maxlength="2000" placeholder="Rangs d'IP, dominis, URL o aplicacions incloses. Indica també el que queda EXCLÒS."></textarea>
                 </label>
-                <label class="field"><span>Entorno</span>
-                  <select name="audit_environment"><option>Producción</option><option>Preproducción</option><option>Desarrollo / laboratorio</option></select>
+                <label class="field"><span>Entorn</span>
+                  <select name="audit_environment"><option>Producció</option><option>Preproducció</option><option>Desenvolupament / laboratori</option></select>
                 </label>
-                <label class="field"><span>Nº aproximado de activos</span>
-                  <select name="assets"><option>1–5</option><option>6–20</option><option>21–100</option><option>Más de 100</option></select>
+                <label class="field"><span>Nombre aproximat d'actius</span>
+                  <select name="assets"><option>1–5</option><option>6–20</option><option>21–100</option><option>Més de 100</option></select>
                 </label>
-                <label class="field"><span>Fecha de inicio preferida<span class="req">*</span></span><input type="date" name="preferred_date"></label>
-                <label class="field"><span>Ventana de pruebas</span>
-                  <select name="time_slot"><option>Horario laboral (9–18 h)</option><option>Mañanas (9–13 h)</option><option>Tardes (15–19 h)</option><option>Fuera de horario laboral</option><option>Fin de semana</option></select>
+                <label class="field"><span>Data d'inici preferida<span class="req">*</span></span><input type="date" name="preferred_date"></label>
+                <label class="field"><span>Finestra de proves</span>
+                  <select name="time_slot"><option>Horari laboral (9–18 h)</option><option>Matins (9–13 h)</option><option>Tardes (15–19 h)</option><option>Fora d'horari laboral</option><option>Cap de setmana</option></select>
                 </label>
-                <div class="field full"><span class="label">Urgencia</span>
-                  <div class="chips"><label class="chip"><input type="radio" name="urgency_a" value="low"><span>Baja</span></label><label class="chip"><input type="radio" name="urgency_a" value="normal" checked><span>Normal</span></label><label class="chip"><input type="radio" name="urgency_a" value="high"><span>Alta</span></label><label class="chip"><input type="radio" name="urgency_a" value="critical"><span>Crítica · incidente activo</span></label></div>
+                <div class="field full"><span class="label">Urgència</span>
+                  <div class="chips"><label class="chip"><input type="radio" name="urgency_a" value="low"><span>Baixa</span></label><label class="chip"><input type="radio" name="urgency_a" value="normal" checked><span>Normal</span></label><label class="chip"><input type="radio" name="urgency_a" value="high"><span>Alta</span></label><label class="chip"><input type="radio" name="urgency_a" value="critical"><span>Crítica · incident actiu</span></label></div>
                 </div>
-                <label class="field full"><span>Observaciones</span>
-                  <textarea name="description_a" rows="3" maxlength="3000" placeholder="Contacto técnico, restricciones, sistemas sensibles, auditorías anteriores…"></textarea>
+                <label class="field full"><span>Observacions</span>
+                  <textarea name="description_a" rows="3" maxlength="3000" placeholder="Contacte tècnic, restriccions, sistemes sensibles, auditories anteriors…"></textarea>
                 </label>
               </div>
             </section>
 
             <section class="form-section">
-              <div class="form-section-head"><h3>3. Confirmación</h3></div>
+              <div class="form-section-head"><h3>3. Confirmació</h3></div>
               <div style="display:grid;gap:12px">
-                <label class="check check-card" data-for="audit" hidden><input type="checkbox" name="authorization"><span><strong>Declaro que soy titular de los sistemas indicados o que dispongo de autorización por escrito</strong> para que sean analizados. Entiendo que antes de empezar se firmará un acuerdo de alcance y reglas de actuación.</span></label>
-                <label class="check"><input type="checkbox" name="privacy" required><span>Acepto que Altercom21 trate mis datos para elaborar la propuesta y gestionar esta solicitud.</span></label>
+                <label class="check check-card" data-for="audit" hidden><input type="checkbox" name="authorization"><span><strong>Declaro que sóc titular dels sistemes indicats o que disposo d'autorització per escrit</strong> perquè s'analitzin. Entenc que abans de començar se signarà un acord d'abast i regles d'actuació.</span></label>
+                <label class="check"><input type="checkbox" name="privacy" required><span>Accepto que Altercom21 tracti les meves dades per elaborar la proposta i gestionar aquesta sol·licitud.</span></label>
               </div>
             </section>
 
             <p id="form-message" class="alert" role="status" hidden></p>
             <div class="form-actions">
-              <span class="small muted" id="auth-hint">Necesitarás una cuenta para enviar. Guardaremos lo que has escrito.</span>
-              <button class="btn btn-primary btn-lg" type="submit">Enviar solicitud <svg class="i"><use href="assets/img/icons.svg#arrow-right"/></svg></button>
+              <span class="small muted" id="auth-hint">Necessitaràs un compte per enviar-la. Guardarem el que has escrit.</span>
+              <button class="btn btn-primary btn-lg" type="submit">Envia la sol·licitud <svg class="i"><use href="assets/img/icons.svg#arrow-right"/></svg></button>
             </div>
           </form>
 
           <div id="success" class="success-hero" hidden>
             <div class="icon-box"><svg class="i"><use href="assets/img/icons.svg#check"/></svg></div>
-            <h2>Solicitud enviada</h2>
-            <p class="muted">Referencia <b class="mono" id="success-ref"></b>. Te avisaremos cuando la propuesta esté disponible en tu área de cliente.</p>
+            <h2>Sol·licitud enviada</h2>
+            <p class="muted">Referencia <b class="mono" id="success-ref"></b>. T'avisarem quan la proposta estigui disponible a la teva àrea de client.</p>
             <div class="hero-actions" style="justify-content:center;margin:22px 0 10px">
-              <a class="btn btn-primary" href="dashboard.html">Ver mis solicitudes</a>
-              <a class="btn btn-secondary" href="solicitud.html">Crear otra solicitud</a>
+              <a class="btn btn-primary" href="dashboard.html">Veure les meves sol·licituds</a>
+              <a class="btn btn-secondary" href="solicitud.html">Crea una altra sol·licitud</a>
             </div>
           </div>
         </div>
@@ -173,19 +173,19 @@
 
       <aside class="summary">
         <div class="card card-pad">
-          <h3 style="font-size:1rem">¿Qué pasa después?</h3>
+          <h3 style="font-size:1rem">Què passa després?</h3>
           <ol class="steps-list" style="gap:18px;margin-top:18px">
-            <li><span class="num">1</span><div><h4>Análisis</h4><p>Un consultor revisa tu solicitud y, si hace falta, te contacta.</p></div></li>
-            <li><span class="num">2</span><div><h4>Propuesta</h4><p>Recibes el presupuesto con IVA desglosado en tu área de cliente.</p></div></li>
-            <li><span class="num">3</span><div><h4>Aceptación y pago</h4><p>Lo aceptas y pagas online por transferencia, Bizum o tarjeta.</p></div></li>
+            <li><span class="num">1</span><div><h4>Anàlisi</h4><p>Un consultor revisa la teva sol·licitud i, si cal, et contacta.</p></div></li>
+            <li><span class="num">2</span><div><h4>Proposta</h4><p>Reps el pressupost amb l'IVA desglossat a la teva àrea de client.</p></div></li>
+            <li><span class="num">3</span><div><h4>Acceptació i pagament</h4><p>L'acceptes i el pagues en línia per transferència, Bizum o targeta.</p></div></li>
           </ol>
         </div>
-        <div class="secure-note" style="margin-top:16px"><svg class="i"><use href="assets/img/icons.svg#lock"/></svg><span>Tus datos se guardan cifrados en tránsito y solo son visibles para ti y nuestro equipo.</span></div>
+        <div class="secure-note" style="margin-top:16px"><svg class="i"><use href="assets/img/icons.svg#lock"/></svg><span>Les teves dades viatgen xifrades i només són visibles per a tu i el nostre equip.</span></div>
       </aside>
     </div>
   </div>
 </main>
-<footer class="app-footer"><div class="container">© Altercom21 · Portal de clientes · <a href="index.html">Volver a la web</a></div></footer>
+<footer class="app-footer"><div class="container">© Altercom21 · Portal de clients · <a href="index.html">Torna a la web</a></div></footer>
 <script type="module" src="assets/js/solicitud.js"></script>
 </body>
 </html>

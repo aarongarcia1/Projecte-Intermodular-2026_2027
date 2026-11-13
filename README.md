@@ -12,6 +12,13 @@ Portal estático para GitHub Pages con autenticación y base de datos en Supabas
 - Panel de administración (`admin.html`): solicitudes con filtros y buscador, envío de presupuestos con validez, verificación de cobros y listado de clientes.
 - SQL con tablas, triggers, políticas RLS y funciones seguras (`respond_quote`, `create_payment`, `mark_payment_sent`).
 
+## Món 3D (pàgina d'inici)
+La secció «Món 3D» d'`index.html` és un recorregut de càmera controlat pel scroll, inspirat en
+[scroll-world](https://github.com/oso95/scroll-world). En comptes de vídeos generats amb IA (de pagament),
+el món es dibuixa en temps real amb Three.js a `assets/js/world3d.js`: cinc escenes (reconeixement, xarxa,
+servidors, núvol i protecció) amb textos per a cada escena. Si el navegador no té WebGL o l'usuari ha activat
+«reduir moviment», les escenes es mostren com a targetes estàtiques.
+
 ## 1. Crear el proyecto Supabase
 1. Entra en https://supabase.com/ y crea un proyecto.
 2. Abre **SQL Editor**.

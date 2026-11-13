@@ -2,42 +2,42 @@
 import { PAYMENT_CONFIG } from "./config.js";
 
 export const REQUEST_STATUS = {
-  received:    { label: "Recibida",            tone: "neutral" },
-  reviewing:   { label: "En revisión",         tone: "info" },
-  quoted:      { label: "Presupuesto enviado", tone: "warning" },
-  accepted:    { label: "Presupuesto aceptado", tone: "info" },
-  declined:    { label: "Presupuesto rechazado", tone: "neutral" },
-  in_progress: { label: "En curso",            tone: "brand" },
+  received:    { label: "Rebuda",            tone: "neutral" },
+  reviewing:   { label: "En revisió",         tone: "info" },
+  quoted:      { label: "Pressupost enviat", tone: "warning" },
+  accepted:    { label: "Pressupost acceptat", tone: "info" },
+  declined:    { label: "Pressupost rebutjat", tone: "neutral" },
+  in_progress: { label: "En curs",            tone: "brand" },
   completed:   { label: "Completada",          tone: "success" },
   rejected:    { label: "Descartada",          tone: "danger" }
 };
 
 export const PAYMENT_STATUS = {
-  pending:      { label: "Pendiente de pago",   tone: "warning" },
-  under_review: { label: "Verificando pago",    tone: "info" },
-  paid:         { label: "Pagado",              tone: "success" },
-  failed:       { label: "Pago fallido",        tone: "danger" },
-  refunded:     { label: "Reembolsado",         tone: "neutral" },
-  cancelled:    { label: "Cancelado",           tone: "neutral" }
+  pending:      { label: "Pendent de pagament",   tone: "warning" },
+  under_review: { label: "Verificant el pagament",    tone: "info" },
+  paid:         { label: "Pagat",              tone: "success" },
+  failed:       { label: "Pagament fallit",        tone: "danger" },
+  refunded:     { label: "Reemborsat",         tone: "neutral" },
+  cancelled:    { label: "Cancel·lat",           tone: "neutral" }
 };
 
 export const PAYMENT_METHODS = {
-  transfer: { label: "Transferencia bancaria", short: "Transferencia" },
+  transfer: { label: "Transferència bancària", short: "Transferència" },
   bizum:    { label: "Bizum",                  short: "Bizum" },
-  card:     { label: "Tarjeta de crédito o débito", short: "Tarjeta" }
+  card:     { label: "Targeta de crèdit o dèbit", short: "Targeta" }
 };
 
-export const REQUEST_KIND = { budget: "Presupuesto", audit: "Auditoría" };
+export const REQUEST_KIND = { budget: "Pressupost", audit: "Auditoria" };
 
 export const URGENCY = {
-  low: "Baja", normal: "Normal", high: "Alta", critical: "Crítica"
+  low: "Baixa", normal: "Normal", high: "Alta", critical: "Crítica"
 };
 
 // Flujo que ve el cliente en la línea de tiempo de cada solicitud.
 const FLOW = ["received", "reviewing", "quoted", "accepted", "in_progress", "completed"];
-const FLOW_LABELS = ["Recibida", "Análisis", "Presupuesto", "Aceptado", "En curso", "Entregado"];
+const FLOW_LABELS = ["Rebuda", "Anàlisi", "Pressupost", "Acceptat", "En curs", "Lliurat"];
 
-const money = new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR" });
+const money = new Intl.NumberFormat("ca-ES", { style: "currency", currency: "EUR" });
 
 export function escapeHtml(value = "") {
   return String(value ?? "").replace(/[&<>"']/g, ch => ({
@@ -46,8 +46,8 @@ export function escapeHtml(value = "") {
 }
 
 export const fmtMoney = (n) => (n == null || n === "" ? "—" : money.format(Number(n)));
-export const fmtDate = (d) => (d ? new Date(d).toLocaleDateString("es-ES", { day: "2-digit", month: "short", year: "numeric" }) : "—");
-export const fmtDateTime = (d) => (d ? new Date(d).toLocaleString("es-ES", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" }) : "—");
+export const fmtDate = (d) => (d ? new Date(d).toLocaleDateString("ca-ES", { day: "2-digit", month: "short", year: "numeric" }) : "—");
+export const fmtDateTime = (d) => (d ? new Date(d).toLocaleString("ca-ES", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" }) : "—");
 export const shortRef = (id = "") => "SOL-" + String(id).slice(0, 8).toUpperCase();
 
 export function badge(label, tone = "neutral") {
@@ -86,9 +86,37 @@ export function isMethodAvailable(method) {
   return false;
 }
 
+// Missatges d'error de la base de dades (supabase/*.sql) i de Supabase Auth, en català.
+const ERRORS = {
+  "Solicitud no encontrada.": "No s'ha trobat la sol·licitud.",
+  "Este presupuesto no está pendiente de respuesta.": "Aquest pressupost no està pendent de resposta.",
+  "El presupuesto ha caducado. Solicita uno actualizado.": "El pressupost ha caducat. Demana'n un d'actualitzat.",
+  "Método de pago no válido.": "Mètode de pagament no vàlid.",
+  "Completa los datos de facturación.": "Completa les dades de facturació.",
+  "Primero debes aceptar el presupuesto.": "Primer has d'acceptar el pressupost.",
+  "La solicitud todavía no tiene importe.": "La sol·licitud encara no té import.",
+  "Esta solicitud ya está pagada.": "Aquesta sol·licitud ja està pagada.",
+  "Ya hay un pago pendiente de verificación para esta solicitud.": "Ja hi ha un pagament pendent de verificació per a aquesta sol·licitud.",
+  "No se ha encontrado un pago pendiente con ese identificador.": "No s'ha trobat cap pagament pendent amb aquest identificador.",
+  "Indica el importe antes de enviar el presupuesto.": "Indica l'import abans d'enviar el pressupost.",
+  "No se puede cambiar el propietario ni la fecha de creación de una solicitud.": "No es pot canviar el propietari ni la data de creació d'una sol·licitud.",
+  "User already registered": "Ja existeix un compte amb aquest correu.",
+  "Password should be at least 6 characters": "La contrasenya ha de tenir almenys 6 caràcters.",
+  "Unable to validate email address: invalid format": "El format del correu no és vàlid.",
+  "Email rate limit exceeded": "S'han enviat massa correus. Torna-ho a provar d'aquí a una estona.",
+  "New password should be different from the old password.": "La contrasenya nova ha de ser diferent de l'anterior.",
+  "Auth session missing!": "La sessió ha caducat. Torna a obrir l'enllaç del correu.",
+  "Failed to fetch": "No s'ha pogut connectar amb el servidor. Comprova la connexió."
+};
+export function translateError(text = "") {
+  let out = String(text ?? "");
+  for (const [es, ca] of Object.entries(ERRORS)) out = out.split(es).join(ca);
+  return out;
+}
+
 export function showMessage(el, message, kind = "") {
   if (!el) return;
-  el.textContent = message;
+  el.textContent = translateError(message);
   el.className = `alert ${kind ? "alert-" + kind : ""}`.trim();
   el.hidden = !message;
 }
@@ -103,7 +131,7 @@ export function toast(message, kind = "success") {
   }
   const t = document.createElement("div");
   t.className = `toast toast-${kind}`;
-  t.textContent = message;
+  t.textContent = translateError(message);
   host.append(t);
   setTimeout(() => t.classList.add("out"), 3600);
   setTimeout(() => t.remove(), 4000);
@@ -128,7 +156,7 @@ export function initNav() {
 // Cabecera de las páginas privadas: nombre del usuario y enlace de administración.
 export function initAppShell(profile, user) {
   initNav();
-  const name = profile?.full_name || user?.email || "Mi cuenta";
+  const name = profile?.full_name || user?.email || "El meu compte";
   document.querySelectorAll("[data-user-name]").forEach(el => (el.textContent = name));
   document.querySelectorAll("[data-user-initials]").forEach(el => {
     el.textContent = name.split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join("").toUpperCase() || "A";
