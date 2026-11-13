@@ -16,7 +16,7 @@ const user = session?.user || null;
 let profile = null;
 if (user) {
   profile = await getProfile(user.id);
-  document.querySelector("#auth-hint").textContent = `Enviarás la solicitud como ${user.email}.`;
+  document.querySelector("#auth-hint").textContent = `Enviaràs la sol·licitud com a ${user.email}.`;
 } else {
   document.querySelectorAll("[data-member]").forEach(el => (el.hidden = true));
   document.querySelectorAll("[data-guest]").forEach(el => (el.hidden = false));
@@ -74,14 +74,15 @@ if (draft) {
   restore(draft);
   if (user) {
     draftNote.hidden = false;
-    draftNote.textContent = "Hemos recuperado la solicitud que estabas preparando. Revísala y pulsa «Enviar solicitud».";
+    draftNote.textContent = "Hem recuperat la sol·licitud que estaves preparant. Revisa-la i prem «Envia la sol·licitud».";
   }
 } else {
   const tipo = params.get("tipo");
   setKind(tipo === "auditoria" ? "audit" : "budget");
   const plan = params.get("plan");
   if (plan) {
-    const radio = [...form.elements.plan].find(r => r.value.toLowerCase() === plan.toLowerCase());
+    const norm = v => v.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    const radio = [...form.elements.plan].find(r => norm(r.value) === norm(plan));
     if (radio) radio.checked = true;
   }
   if (params.get("servicio")) form.elements.service.value = params.get("servicio");
@@ -101,22 +102,22 @@ function validate(kind) {
   const f = form.elements;
   const errors = [];
   const need = (el, text) => { if (!String(el.value).trim()) { errors.push(text); el.setAttribute("aria-invalid", "true"); } else el.removeAttribute("aria-invalid"); };
-  need(f.contact_name, "nombre de contacto");
+  need(f.contact_name, "nom de contacte");
   need(f.company_name, "empresa");
-  if (!f.contact_email.value.trim() || !f.contact_email.checkValidity()) { errors.push("correo electrónico válido"); f.contact_email.setAttribute("aria-invalid", "true"); }
+  if (!f.contact_email.value.trim() || !f.contact_email.checkValidity()) { errors.push("un correu electrònic vàlid"); f.contact_email.setAttribute("aria-invalid", "true"); }
   else f.contact_email.removeAttribute("aria-invalid");
 
   if (kind === "budget") {
-    need(f.service, "servicio de interés");
-    if (f.description_b.value.trim().length < 30) { errors.push("descripción del proyecto (mínimo 30 caracteres)"); f.description_b.setAttribute("aria-invalid", "true"); }
+    need(f.service, "servei d'interès");
+    if (f.description_b.value.trim().length < 30) { errors.push("descripció del projecte (mínim 30 caràcters)"); f.description_b.setAttribute("aria-invalid", "true"); }
     else f.description_b.removeAttribute("aria-invalid");
   } else {
-    if (!form.querySelectorAll('input[name="tests"]:checked').length) errors.push("al menos una prueba a realizar");
-    need(f.audit_scope, "alcance autorizado");
-    need(f.preferred_date, "fecha de inicio preferida");
-    if (!f.authorization.checked) errors.push("declaración de autorización");
+    if (!form.querySelectorAll('input[name="tests"]:checked').length) errors.push("almenys una prova a fer");
+    need(f.audit_scope, "abast autoritzat");
+    need(f.preferred_date, "data d'inici preferida");
+    if (!f.authorization.checked) errors.push("declaració d'autorització");
   }
-  if (!f.privacy.checked) errors.push("aceptación del tratamiento de datos");
+  if (!f.privacy.checked) errors.push("acceptació del tractament de dades");
   return errors;
 }
 
@@ -138,7 +139,7 @@ function buildPayload(kind) {
 
   if (kind === "budget") {
     const compliance = checked("compliance");
-    const text = [f.description_b.value.trim(), compliance.length ? `\nRequisitos normativos: ${compliance.join(", ")}` : ""].join("");
+    const text = [f.description_b.value.trim(), compliance.length ? `\nRequisits normatius: ${compliance.join(", ")}` : ""].join("");
     return {
       ...base,
       service_type: val("service"),
@@ -149,12 +150,12 @@ function buildPayload(kind) {
     };
   }
 
-  const plan = checked("plan")[0] || "A medida";
+  const plan = checked("plan")[0] || "A mida";
   const tests = checked("tests");
   const notes = f.description_a.value.trim();
   return {
     ...base,
-    service_type: `Auditoría ${plan}`,
+    service_type: `Auditoria ${plan}`,
     urgency: checked("urgency_a")[0] || "normal",
     audit_scope: val("audit_scope"),
     audit_environment: val("audit_environment"),
@@ -162,9 +163,9 @@ function buildPayload(kind) {
     time_slot: val("time_slot"),
     authorization_confirmed: f.authorization.checked,
     description: [
-      `Pruebas solicitadas: ${tests.join(", ")}`,
-      `Nº aproximado de activos: ${f.assets.value}`,
-      notes ? `\nObservaciones:\n${notes}` : ""
+      `Proves sol·licitades: ${tests.join(", ")}`,
+      `Nombre aproximat d'actius: ${f.assets.value}`,
+      notes ? `\nObservacions:\n${notes}` : ""
     ].join("\n").trim()
   };
 }
@@ -175,7 +176,7 @@ form.addEventListener("submit", async (e) => {
   const kind = form.elements.request_kind.value;
   const errors = validate(kind);
   if (errors.length) {
-    showMessage(msg, `Revisa los siguientes campos: ${errors.join(", ")}.`, "error");
+    showMessage(msg, `Revisa aquests camps: ${errors.join(", ")}.`, "error");
     msg.scrollIntoView({ behavior: "smooth", block: "center" });
     return;
   }
@@ -188,15 +189,15 @@ form.addEventListener("submit", async (e) => {
 
   const button = form.querySelector('button[type="submit"]');
   button.disabled = true;
-  showMessage(msg, "Enviando solicitud…", "info");
+  showMessage(msg, "Enviant la sol·licitud…", "info");
 
   const { data, error } = await supabase.from("audit_requests").insert(buildPayload(kind)).select("id").single();
   button.disabled = false;
 
   if (error) {
     const hint = /column|schema cache/i.test(error.message)
-      ? " (¿Has ejecutado supabase/02_presupuestos_pagos.sql en Supabase?)" : "";
-    showMessage(msg, `No se ha podido enviar la solicitud: ${error.message}${hint}`, "error");
+      ? " (Has executat supabase/02_presupuestos_pagos.sql a Supabase?)" : "";
+    showMessage(msg, `No s'ha pogut enviar la sol·licitud: ${error.message}${hint}`, "error");
     return;
   }
 

@@ -9,7 +9,7 @@ form.addEventListener("submit", async (e) => {
   const fd = new FormData(form);
   const button = form.querySelector("button[type=submit]");
   button.disabled = true;
-  showMessage(msg, "Creando cuenta…", "info");
+  showMessage(msg, "Creant el compte…", "info");
   const { data, error } = await supabase.auth.signUp({
     email: String(fd.get("email")).trim(),
     password: fd.get("password"),
@@ -27,6 +27,6 @@ form.addEventListener("submit", async (e) => {
   if (data.session) location.href = next;
   else {
     form.reset();
-    showMessage(msg, "Cuenta creada. Revisa tu correo para confirmar la dirección y después inicia sesión.", "success");
+    showMessage(msg, "Compte creat. Revisa el correu per confirmar l'adreça i després inicia la sessió.", "success");
   }
 });

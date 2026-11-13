@@ -24,7 +24,7 @@ let payment = null;
 function fail(text) {
   $("#pay-sub").textContent = "";
   showMessage(msg, text, "error");
-  msg.insertAdjacentHTML("beforeend", ' <a href="dashboard.html">Volver a mis solicitudes</a>');
+  msg.insertAdjacentHTML("beforeend", ' <a href="dashboard.html">Torna a les meves sol·licituds</a>');
 }
 
 function show(step) {
@@ -46,7 +46,7 @@ function renderSummary() {
   $("#sum-total").textContent = fmtMoney(t.total);
 }
 
-const copyBtn = value => `<button type="button" class="copy-btn" data-copy="${escapeHtml(value)}">Copiar</button>`;
+const copyBtn = value => `<button type="button" class="copy-btn" data-copy="${escapeHtml(value)}">Copia</button>`;
 const row = (label, value, copy = false) =>
   `<div class="row"><span>${label}</span><b>${escapeHtml(value)}${copy ? copyBtn(value) : ""}</b></div>`;
 
@@ -59,37 +59,37 @@ function renderInstructions() {
 
   if (m === "transfer") {
     const c = PAYMENT_CONFIG.transfer;
-    html = `<p>Realiza una transferencia con los siguientes datos. <strong>Indica la referencia exactamente en el concepto</strong> para que podamos identificar el pago.</p>
+    html = `<p>Fes una transferència amb aquestes dades. <strong>Indica la referència exactament al concepte</strong> perquè puguem identificar el pagament.</p>
       <div class="pay-instructions">
-        ${row("Beneficiario", c.beneficiary)}
+        ${row("Beneficiari", c.beneficiary)}
         ${row("IBAN", c.iban, true)}
         ${c.bic ? row("BIC / SWIFT", c.bic, true) : ""}
-        ${c.bank ? row("Entidad", c.bank) : ""}
-        ${row("Concepto", payment.reference, true)}
-        ${row("Importe", amount)}
+        ${c.bank ? row("Entitat", c.bank) : ""}
+        ${row("Concepte", payment.reference, true)}
+        ${row("Import", amount)}
       </div>
-      <p class="small muted" style="margin-top:14px">Las transferencias suelen tardar 1–2 días hábiles. Cuando la recibamos, el estado cambiará a «Pagado».</p>`;
+      <p class="small muted" style="margin-top:14px">Les transferències solen trigar 1–2 dies hàbils. Quan la rebem, l'estat canviarà a «Pagat».</p>`;
   } else if (m === "bizum") {
-    html = `<p>Envía un Bizum desde la app de tu banco con estos datos:</p>
+    html = `<p>Envia un Bizum des de l'app del teu banc amb aquestes dades:</p>
       <div class="pay-instructions">
-        ${row("Teléfono", PAYMENT_CONFIG.bizum.phone, true)}
-        ${row("Concepto", payment.reference, true)}
-        ${row("Importe", amount)}
+        ${row("Telèfon", PAYMENT_CONFIG.bizum.phone, true)}
+        ${row("Concepte", payment.reference, true)}
+        ${row("Import", amount)}
       </div>
-      <p class="small muted" style="margin-top:14px">Si el importe supera el límite de Bizum de tu banco, elige transferencia bancaria.</p>`;
+      <p class="small muted" style="margin-top:14px">Si l'import supera el límit de Bizum del teu banc, tria transferència bancària.</p>`;
   } else if (m === "card") {
     const url = new URL(PAYMENT_CONFIG.card.paymentUrl);
     url.searchParams.set("client_reference_id", payment.reference);
     url.searchParams.set("prefilled_email", user.email || "");
-    html = `<p>Serás redirigido a nuestra pasarela de pago segura. Paga el importe indicado y vuelve a esta página.</p>
+    html = `<p>Et redirigirem a la nostra passarel·la de pagament segura. Paga l'import indicat i torna a aquesta pàgina.</p>
       <div class="pay-instructions">
-        ${row("Referencia", payment.reference, true)}
-        ${row("Importe", amount)}
+        ${row("Referència", payment.reference, true)}
+        ${row("Import", amount)}
       </div>
       <p style="margin-top:18px"><a class="btn btn-dark btn-lg" href="${escapeHtml(url.href)}" target="_blank" rel="noopener">
-        <svg class="i"><use href="assets/img/icons.svg#card"/></svg>Pagar ${amount} con tarjeta
+        <svg class="i"><use href="assets/img/icons.svg#card"/></svg>Pagar ${amount} amb targeta
         <svg class="i"><use href="assets/img/icons.svg#external"/></svg></a></p>
-      <p class="small muted">Altercom21 no recibe ni guarda los datos de tu tarjeta.</p>`;
+      <p class="small muted">Altercom21 no rep ni guarda les dades de la teva targeta.</p>`;
   }
   $("#ins-body").innerHTML = html;
   show("instructions");
@@ -97,16 +97,16 @@ function renderInstructions() {
 
 function renderDone() {
   const paid = payment.status === "paid";
-  $("#done-title").textContent = paid ? "Pago confirmado" : "Pago registrado";
+  $("#done-title").textContent = paid ? "Pagament confirmat" : "Pagament registrat";
   $("#done-text").textContent = paid
-    ? `Hemos recibido el pago de ${fmtMoney(payment.total)} el ${fmtDate(payment.paid_at)}. Referencia ${payment.reference}.`
-    : `Gracias. Estamos verificando tu pago de ${fmtMoney(payment.total)} (referencia ${payment.reference}). Te avisaremos en cuanto se confirme.`;
+    ? `Hem rebut el pagament de ${fmtMoney(payment.total)} el ${fmtDate(payment.paid_at)}. Referència ${payment.reference}.`
+    : `Gràcies. Estem verificant el teu pagament de ${fmtMoney(payment.total)} (referència ${payment.reference}). T'avisarem quan es confirmi.`;
   show("done");
 }
 
 // ---------- Carga ----------
 if (!requestId) {
-  fail("No se ha indicado ninguna solicitud.");
+  fail("No s'ha indicat cap sol·licitud.");
 } else {
   const { data, error } = await supabase
     .from("audit_requests")
@@ -114,10 +114,10 @@ if (!requestId) {
     .eq("id", requestId)
     .maybeSingle();
 
-  if (error) fail(`No se ha podido cargar la solicitud: ${error.message}`);
-  else if (!data) fail("No se ha encontrado la solicitud o no tienes acceso a ella.");
-  else if (data.status === "quoted") fail("Primero debes aceptar el presupuesto desde tu área de cliente.");
-  else if (!["accepted", "in_progress", "completed"].includes(data.status) || data.budget_amount == null) fail("Esta solicitud no tiene un presupuesto pendiente de pago.");
+  if (error) fail(`No s'ha pogut carregar la sol·licitud: ${error.message}`);
+  else if (!data) fail("No s'ha trobat la sol·licitud o no hi tens accés.");
+  else if (data.status === "quoted") fail("Primer has d'acceptar el pressupost des de la teva àrea de client.");
+  else if (!["accepted", "in_progress", "completed"].includes(data.status) || data.budget_amount == null) fail("Aquesta sol·licitud no té cap pressupost pendent de pagament.");
   else {
     request = data;
     payment = (data.payments || []).find(p => ["pending", "under_review", "paid"].includes(p.status)) || null;
@@ -136,7 +136,7 @@ if (!requestId) {
     form.querySelectorAll('input[name="method"]').forEach(input => {
       if (!isMethodAvailable(input.value)) {
         input.disabled = true;
-        input.closest(".option").querySelector("small").textContent = "No disponible en este momento.";
+        input.closest(".option").querySelector("small").textContent = "No disponible ara mateix.";
       }
     });
     const preferred = payment?.method || ["transfer", "bizum", "card"].find(isMethodAvailable);
@@ -154,7 +154,7 @@ form.addEventListener("submit", async (e) => {
   e.preventDefault();
   if (!form.reportValidity()) return;
   const fd = new FormData(form);
-  if (!fd.get("method")) return showMessage(msg, "Elige un método de pago.", "error");
+  if (!fd.get("method")) return showMessage(msg, "Tria un mètode de pagament.", "error");
   const button = form.querySelector('button[type="submit"]');
   button.disabled = true;
   showMessage(msg, "", "");
@@ -177,7 +177,7 @@ $("#change-method").addEventListener("click", () => show("form"));
 
 $("#mark-sent").addEventListener("click", async (e) => {
   const button = e.currentTarget;
-  if (!confirm("¿Confirmas que ya has realizado el pago? Lo verificaremos y te avisaremos.")) return;
+  if (!confirm("Confirmes que ja has fet el pagament? El verificarem i t'avisarem.")) return;
   button.disabled = true;
   const { data, error } = await supabase.rpc("mark_payment_sent", { p_payment_id: payment.id });
   button.disabled = false;
@@ -191,8 +191,8 @@ document.addEventListener("click", async (e) => {
   if (!btn) return;
   try {
     await navigator.clipboard.writeText(btn.dataset.copy);
-    toast("Copiado al portapapeles");
+    toast("Copiat al porta-retalls");
   } catch {
-    toast("No se ha podido copiar", "error");
+    toast("No s'ha pogut copiar", "error");
   }
 });

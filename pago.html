@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="es">
+<html lang="ca">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Pago · Altercom21</title>
+  <title>Pagament · Altercom21</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -13,27 +13,27 @@
 <header class="app-header">
   <div class="container nav-inner">
     <a class="brand" href="index.html"><span class="brand-mark"><svg class="i"><use href="assets/img/icons.svg#shield-check"/></svg></span><span>Altercom<b>21</b></span></a>
-    <nav class="main-nav" aria-label="Área de cliente">
-      <a href="dashboard.html" class="active" aria-current="page">Mis solicitudes</a>
-      <a href="solicitud.html">Nueva solicitud</a>
-      <a href="profile.html">Perfil y facturación</a>
-      <a href="admin.html" data-admin-only hidden>Administración</a>
+    <nav class="main-nav" aria-label="Àrea de client">
+      <a href="dashboard.html" class="active" aria-current="page">Les meves sol·licituds</a>
+      <a href="solicitud.html">Nova sol·licitud</a>
+      <a href="profile.html">Perfil i facturació</a>
+      <a href="admin.html" data-admin-only hidden>Administració</a>
     </nav>
     <div class="nav-actions">
-      <a class="btn btn-ghost" href="login.html" data-guest hidden>Acceder</a>
+      <a class="btn btn-ghost" href="login.html" data-guest hidden>Accedeix</a>
       <span class="user-chip" data-member><span class="avatar" data-user-initials></span><span data-user-name></span></span>
-      <button class="btn btn-ghost btn-sm" id="logout" data-member type="button"><svg class="i"><use href="assets/img/icons.svg#logout"/></svg>Salir</button>
+      <button class="btn btn-ghost btn-sm" id="logout" data-member type="button"><svg class="i"><use href="assets/img/icons.svg#logout"/></svg>Surt</button>
     </div>
-    <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false"><svg class="i"><use href="assets/img/icons.svg#menu"/></svg></button>
+    <button class="nav-toggle" aria-label="Obre el menú" aria-expanded="false"><svg class="i"><use href="assets/img/icons.svg#menu"/></svg></button>
   </div>
 </header>
 <main class="app-main">
   <div class="container">
     <div class="page-head">
       <div>
-        <div class="breadcrumb"><a href="dashboard.html">Área de cliente</a> / Pago</div>
-        <h1>Pago del presupuesto</h1>
-        <p id="pay-sub">Cargando…</p>
+        <div class="breadcrumb"><a href="dashboard.html">Àrea de client</a> / Pagament</div>
+        <h1>Pagament del pressupost</h1>
+        <p id="pay-sub">Carregant…</p>
       </div>
     </div>
     <p id="pay-message" class="alert" role="status" hidden></p>
@@ -42,36 +42,36 @@
       <div>
         <!-- Paso: elegir método -->
         <form id="pay-form" class="card">
-          <div class="card-head"><h2>1. Datos de facturación</h2><a class="small" href="profile.html">Guardar en mi perfil</a></div>
+          <div class="card-head"><h2>1. Dades de facturació</h2><a class="small" href="profile.html">Desa-ho al meu perfil</a></div>
           <div class="card-body">
             <div class="form-grid">
-              <label class="field"><span>Razón social o nombre<span class="req">*</span></span><input name="billing_name" required minlength="2" maxlength="160"></label>
+              <label class="field"><span>Raó social o nom<span class="req">*</span></span><input name="billing_name" required minlength="2" maxlength="160"></label>
               <label class="field"><span>NIF / CIF<span class="req">*</span></span><input name="billing_tax_id" required minlength="5" maxlength="20" style="text-transform:uppercase"></label>
-              <label class="field full"><span>Dirección fiscal<span class="req">*</span></span><input name="billing_address" required minlength="5" maxlength="400" placeholder="Calle, número, código postal, ciudad"></label>
+              <label class="field full"><span>Adreça fiscal<span class="req">*</span></span><input name="billing_address" required minlength="5" maxlength="400" placeholder="Carrer, número, codi postal, població"></label>
             </div>
           </div>
-          <div class="card-head" style="border-top:1px solid var(--line)"><h2>2. Método de pago</h2></div>
+          <div class="card-head" style="border-top:1px solid var(--line)"><h2>2. Mètode de pagament</h2></div>
           <div class="card-body">
             <div class="options" id="methods">
-              <label class="option"><input type="radio" name="method" value="transfer"><span class="option-body"><span class="icon-box"><svg class="i"><use href="assets/img/icons.svg#bank"/></svg></span><span><strong>Transferencia bancaria</strong><small>Te mostraremos el IBAN y la referencia. Se verifica en 1–2 días hábiles.</small></span></span></label>
-              <label class="option"><input type="radio" name="method" value="bizum"><span class="option-body"><span class="icon-box"><svg class="i"><use href="assets/img/icons.svg#phone"/></svg></span><span><strong>Bizum</strong><small>Pago inmediato desde la app de tu banco. Límite según tu entidad.</small></span></span></label>
-              <label class="option"><input type="radio" name="method" value="card"><span class="option-body"><span class="icon-box"><svg class="i"><use href="assets/img/icons.svg#card"/></svg></span><span><strong>Tarjeta de crédito o débito</strong><small>Pasarela de pago segura externa. No almacenamos datos de tarjeta.</small></span></span></label>
+              <label class="option"><input type="radio" name="method" value="transfer"><span class="option-body"><span class="icon-box"><svg class="i"><use href="assets/img/icons.svg#bank"/></svg></span><span><strong>Transferència bancària</strong><small>Et mostrarem l'IBAN i la referència. Es verifica en 1–2 dies hàbils.</small></span></span></label>
+              <label class="option"><input type="radio" name="method" value="bizum"><span class="option-body"><span class="icon-box"><svg class="i"><use href="assets/img/icons.svg#phone"/></svg></span><span><strong>Bizum</strong><small>Pagament immediat des de l'app del teu banc. Límit segons la teva entitat.</small></span></span></label>
+              <label class="option"><input type="radio" name="method" value="card"><span class="option-body"><span class="icon-box"><svg class="i"><use href="assets/img/icons.svg#card"/></svg></span><span><strong>Targeta de crèdit o dèbit</strong><small>Passarel·la de pagament segura externa. No guardem dades de targeta.</small></span></span></label>
             </div>
             <div class="form-actions" style="margin-top:24px">
-              <span class="small muted"><svg class="i" style="width:14px;height:14px;display:inline;vertical-align:-2px"><use href="assets/img/icons.svg#lock"/></svg> Conexión cifrada · referencia única por pago</span>
-              <button class="btn btn-primary btn-lg" type="submit">Continuar</button>
+              <span class="small muted"><svg class="i" style="width:14px;height:14px;display:inline;vertical-align:-2px"><use href="assets/img/icons.svg#lock"/></svg> Connexió xifrada · referència única per pagament</span>
+              <button class="btn btn-primary btn-lg" type="submit">Continua</button>
             </div>
           </div>
         </form>
 
         <!-- Paso: instrucciones -->
         <section id="instructions" class="card" hidden>
-          <div class="card-head"><h2 id="ins-title">Instrucciones de pago</h2><span id="ins-badge"></span></div>
+          <div class="card-head"><h2 id="ins-title">Instruccions de pagament</h2><span id="ins-badge"></span></div>
           <div class="card-body">
             <div id="ins-body"></div>
             <div class="form-actions" style="margin-top:24px">
-              <button class="btn btn-ghost" type="button" id="change-method">Cambiar método</button>
-              <button class="btn btn-primary btn-lg" type="button" id="mark-sent"><svg class="i"><use href="assets/img/icons.svg#check"/></svg>Ya he realizado el pago</button>
+              <button class="btn btn-ghost" type="button" id="change-method">Canvia de mètode</button>
+              <button class="btn btn-primary btn-lg" type="button" id="mark-sent"><svg class="i"><use href="assets/img/icons.svg#check"/></svg>Ja he fet el pagament</button>
             </div>
           </div>
         </section>
@@ -80,30 +80,30 @@
         <section id="done" class="card" hidden>
           <div class="success-hero">
             <div class="icon-box"><svg class="i"><use href="assets/img/icons.svg#check"/></svg></div>
-            <h2 id="done-title">Pago registrado</h2>
+            <h2 id="done-title">Pagament registrat</h2>
             <p class="muted" id="done-text"></p>
-            <div class="hero-actions" style="justify-content:center;margin:22px 0 16px"><a class="btn btn-primary" href="dashboard.html">Volver a mis solicitudes</a></div>
+            <div class="hero-actions" style="justify-content:center;margin:22px 0 16px"><a class="btn btn-primary" href="dashboard.html">Torna a les meves sol·licituds</a></div>
           </div>
         </section>
       </div>
 
       <aside class="summary">
         <div class="quote-card">
-          <div class="quote-card-head"><div><span class="tag">Resumen</span><h3 style="margin:2px 0 0;font-size:1.02rem" id="sum-title"></h3></div></div>
+          <div class="quote-card-head"><div><span class="tag">Resum</span><h3 style="margin:2px 0 0;font-size:1.02rem" id="sum-title"></h3></div></div>
           <div class="quote-card-body">
-            <div class="quote-line"><span class="muted">Referencia</span><span class="mono" id="sum-ref"></span></div>
+            <div class="quote-line"><span class="muted">Referència</span><span class="mono" id="sum-ref"></span></div>
             <div class="quote-line"><span class="muted">Empresa</span><span id="sum-company"></span></div>
-            <div class="quote-line"><span class="muted">Base imponible</span><span id="sum-base"></span></div>
+            <div class="quote-line"><span class="muted">Base imposable</span><span id="sum-base"></span></div>
             <div class="quote-line"><span class="muted" id="sum-vat-label">IVA</span><span id="sum-vat"></span></div>
           </div>
           <div class="quote-total"><span>Total a pagar</span><b id="sum-total"></b></div>
         </div>
-        <div class="secure-note" style="margin-top:16px"><svg class="i"><use href="assets/img/icons.svg#shield-check"/></svg><span>Emitiremos la factura con los datos fiscales indicados cuando se confirme el cobro.</span></div>
+        <div class="secure-note" style="margin-top:16px"><svg class="i"><use href="assets/img/icons.svg#shield-check"/></svg><span>Emetrem la factura amb les dades fiscals indicades quan es confirmi el cobrament.</span></div>
       </aside>
     </div>
   </div>
 </main>
-<footer class="app-footer"><div class="container">© Altercom21 · Portal de clientes · <a href="index.html">Volver a la web</a></div></footer>
+<footer class="app-footer"><div class="container">© Altercom21 · Portal de clients · <a href="index.html">Torna a la web</a></div></footer>
 <script type="module" src="assets/js/pago.js"></script>
 </body>
 </html>

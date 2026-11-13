@@ -17,10 +17,10 @@ export const PAYMENT_CONFIG = {
   vatRate: 21, // IVA (%). Debe coincidir con el valor de supabase/02_presupuestos_pagos.sql
   transfer: {
     // CUENTA DE PRUEBA (proyecto de clase): sustituir por los datos reales antes de cobrar.
-    beneficiary: "Altercom21 (cuenta de prueba)",
+    beneficiary: "Altercom21 (compte de prova)",
     iban: "ES00 0000 0000 0000 0000 0000",
     bic: "",
-    bank: "Entorno de pruebas · no realices transferencias reales"
+    bank: "Entorn de proves · no facis transferències reals"
   },
   bizum: {
     phone: "" // ← p. ej. "600 000 000"; vacío = método desactivado

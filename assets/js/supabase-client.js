@@ -21,7 +21,7 @@ export async function requireUser() {
   if (error || !data.user) {
     const here = (location.pathname.split("/").pop() || "dashboard.html") + location.search;
     location.href = `login.html?next=${encodeURIComponent(here)}`;
-    throw new Error("Inicia sesión para continuar.");
+    throw new Error("Inicia la sessió per continuar.");
   }
   return data.user;
 }

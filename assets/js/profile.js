@@ -29,10 +29,10 @@ form.addEventListener("submit", async (e) => {
   const { error } = await supabase.from("profiles").update(update).eq("id", user.id);
   button.disabled = false;
   if (error) {
-    const hint = /column|schema cache/i.test(error.message) ? " (¿Has ejecutado supabase/02_presupuestos_pagos.sql?)" : "";
+    const hint = /column|schema cache/i.test(error.message) ? " (Has executat supabase/02_presupuestos_pagos.sql?)" : "";
     return showMessage(msg, error.message + hint, "error");
   }
   showMessage(msg, "", "");
-  toast("Perfil actualizado correctamente");
+  toast("Perfil actualitzat correctament");
   document.querySelectorAll("[data-user-name]").forEach(el => (el.textContent = update.full_name));
 });

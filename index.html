@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="es">
+<html lang="ca">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Altercom21 · Ciberseguridad profesional para empresas</title>
-  <meta name="description" content="Pentesting, auditorías de vulnerabilidades, seguridad cloud y cumplimiento normativo (RGPD, ENS, ISO 27001). Solicita tu presupuesto.">
+  <title>Altercom21 · Ciberseguretat professional per a empreses</title>
+  <meta name="description" content="Pentesting, auditories de vulnerabilitats, seguretat al núvol i compliment normatiu (RGPD, ENS, ISO 27001). Demana el teu pressupost.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -16,201 +16,300 @@
   <div class="container nav-inner">
     <a class="brand" href="index.html"><span class="brand-mark"><svg class="i"><use href="assets/img/icons.svg#shield-check"/></svg></span><span>Altercom<b>21</b></span></a>
     <nav class="main-nav" aria-label="Principal">
-      <a href="#servicios">Servicios</a>
-      <a href="#metodologia">Metodología</a>
-      <a href="#auditorias">Auditorías</a>
-      <a href="#presupuesto">Presupuesto</a>
-      <a href="#pagos">Pagos</a>
+      <a href="#mon">Món 3D</a>
+      <a href="#serveis">Serveis</a>
+      <a href="#auditories">Auditories</a>
+      <a href="#pressupost">Pressupost</a>
+      <a href="#pagaments">Pagaments</a>
+      <a href="#nosaltres">Sobre nosaltres</a>
       <a href="#nexus">NEXUS</a>
     </nav>
     <div class="nav-actions">
-      <a class="btn btn-ghost" href="login.html" data-guest>Acceder</a>
-      <a class="btn btn-ghost" href="dashboard.html" data-member hidden>Mi área</a>
-      <a class="btn btn-primary" href="solicitud.html">Solicitar presupuesto</a>
+      <a class="btn btn-ghost" href="login.html" data-guest>Accedeix</a>
+      <a class="btn btn-ghost" href="dashboard.html" data-member hidden>La meva àrea</a>
+      <a class="btn btn-primary" href="solicitud.html">Demana pressupost</a>
     </div>
-    <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false"><svg class="i"><use href="assets/img/icons.svg#menu"/></svg></button>
+    <button class="nav-toggle" aria-label="Obre el menú" aria-expanded="false"><svg class="i"><use href="assets/img/icons.svg#menu"/></svg></button>
   </div>
 </header>
 
 <main>
-  <!-- HERO -->
+  <!-- PORTADA -->
   <section class="hero">
     <div class="container hero-inner">
       <div>
-        <span class="eyebrow">Ciberseguridad ofensiva y defensiva</span>
-        <h1>Encontramos tus vulnerabilidades <em>antes que los atacantes</em></h1>
-        <p class="hero-lead">Auditorías, pentesting y cumplimiento normativo para pymes, centros educativos y grandes empresas. Informes claros, priorizados y con plan de corrección.</p>
+        <span class="eyebrow">Ciberseguretat ofensiva i defensiva</span>
+        <h1>Trobem les teves vulnerabilitats <em>abans que els atacants</em></h1>
+        <p class="hero-lead">Auditories, pentesting i compliment normatiu per a pimes, centres educatius i grans empreses. Informes clars, prioritzats i amb pla de correcció.</p>
         <div class="hero-actions">
-          <a class="btn btn-primary btn-lg" href="solicitud.html?tipo=presupuesto">Solicitar presupuesto <svg class="i"><use href="assets/img/icons.svg#arrow-right"/></svg></a>
-          <a class="btn btn-outline-light btn-lg" href="#auditorias">Ver auditorías</a>
+          <a class="btn btn-primary btn-lg" href="solicitud.html?tipo=presupuesto">Demana pressupost <svg class="i"><use href="assets/img/icons.svg#arrow-right"/></svg></a>
+          <a class="btn btn-outline-light btn-lg" href="#mon">Fes el recorregut 3D</a>
         </div>
         <div class="hero-trust">
-          <span><svg class="i"><use href="assets/img/icons.svg#check-circle"/></svg>Pruebas 100 % autorizadas</span>
-          <span><svg class="i"><use href="assets/img/icons.svg#check-circle"/></svg>Respuesta en 24–48 h</span>
-          <span><svg class="i"><use href="assets/img/icons.svg#check-circle"/></svg>Confidencialidad garantizada</span>
+          <span><svg class="i"><use href="assets/img/icons.svg#check-circle"/></svg>Proves 100 % autoritzades</span>
+          <span><svg class="i"><use href="assets/img/icons.svg#check-circle"/></svg>Resposta en 24–48 h</span>
+          <span><svg class="i"><use href="assets/img/icons.svg#check-circle"/></svg>Confidencialitat garantida</span>
         </div>
       </div>
 
-      <aside class="hero-panel" aria-label="Ejemplo de informe">
+      <aside class="hero-panel" aria-label="Exemple d'informe">
         <div class="hero-panel-head">
-          <strong>Informe de exposición</strong>
-          <span class="live-dot">Escaneo de ejemplo</span>
+          <strong>Informe d'exposició</strong>
+          <span class="live-dot">Escaneig d'exemple</span>
         </div>
-        <div class="risk-row"><span><span class="mono">445/tcp</span> · SMB expuesto</span><span class="sev sev-high">ALTO</span></div>
-        <div class="risk-row"><span><span class="mono">3389/tcp</span> · RDP público</span><span class="sev sev-high">ALTO</span></div>
-        <div class="risk-row"><span><span class="mono">3306/tcp</span> · MySQL accesible</span><span class="sev sev-med">MEDIO</span></div>
-        <div class="risk-row"><span><span class="mono">21/tcp</span> · FTP sin cifrar</span><span class="sev sev-med">MEDIO</span></div>
-        <div class="risk-row"><span><span class="mono">80/tcp</span> · HTTP sin TLS</span><span class="sev sev-low">BAJO</span></div>
-        <div class="hero-score"><span>5 hallazgos · 2 críticos a corregir</span><b>C+</b></div>
+        <div class="risk-row"><span><span class="mono">445/tcp</span> · SMB exposat</span><span class="sev sev-high">ALT</span></div>
+        <div class="risk-row"><span><span class="mono">3389/tcp</span> · RDP públic</span><span class="sev sev-high">ALT</span></div>
+        <div class="risk-row"><span><span class="mono">3306/tcp</span> · MySQL accessible</span><span class="sev sev-med">MITJÀ</span></div>
+        <div class="risk-row"><span><span class="mono">21/tcp</span> · FTP sense xifrar</span><span class="sev sev-med">MITJÀ</span></div>
+        <div class="risk-row"><span><span class="mono">80/tcp</span> · HTTP sense TLS</span><span class="sev sev-low">BAIX</span></div>
+        <div class="hero-score"><span>5 troballes · 2 crítiques per corregir</span><b>C+</b></div>
       </aside>
     </div>
   </section>
 
   <section class="stats-bar">
     <div class="container stats">
-      <div class="stat"><b>OWASP · PTES</b><span>Metodologías de referencia</span></div>
-      <div class="stat"><b>RGPD · ENS</b><span>Adecuación normativa</span></div>
-      <div class="stat"><b>ISO 27001</b><span>Buenas prácticas de gestión</span></div>
-      <div class="stat"><b>24–48 h</b><span>Primera respuesta a solicitudes</span></div>
+      <div class="stat"><b>OWASP · PTES</b><span>Metodologies de referència</span></div>
+      <div class="stat"><b>RGPD · ENS</b><span>Adequació normativa</span></div>
+      <div class="stat"><b>ISO 27001</b><span>Bones pràctiques de gestió</span></div>
+      <div class="stat"><b>24–48 h</b><span>Primera resposta a les sol·licituds</span></div>
     </div>
   </section>
 
-  <!-- SERVICIOS -->
-  <section id="servicios" class="section">
+  <!-- MÓN 3D (recorregut controlat pel scroll) -->
+  <section id="mon" class="world" aria-label="Recorregut 3D pels nostres serveis">
+    <div class="world-sticky">
+      <canvas id="world-canvas" aria-hidden="true"></canvas>
+      <div class="world-ui">
+        <article class="world-caption on">
+          <span class="num">01 · Reconeixement</span>
+          <h3>Mapem la teva superfície d'atac</h3>
+          <p>Abans de tocar res, identifiquem dominis, IP i serveis exposats a Internet, com ho faria un atacant.</p>
+          <div class="world-tags"><span>OSINT</span><span>Escaneig de ports</span><span>DNS</span></div>
+        </article>
+        <article class="world-caption">
+          <span class="num">02 · Xarxa</span>
+          <h3>Seguim cada paquet</h3>
+          <p>Revisem la segmentació, els tallafocs i les VPN per detectar connexions que no haurien d'existir.</p>
+          <div class="world-tags"><span>Tallafocs</span><span>VPN</span><span>Wi-Fi</span></div>
+        </article>
+        <article class="world-caption">
+          <span class="num">03 · Servidors i aplicacions</span>
+          <h3>Trobem la vulnerabilitat i la tanquem</h3>
+          <p>Pentesting controlat sobre servidors, webs i API. Cada troballa surt a l'informe amb la seva correcció.</p>
+          <div class="world-tags"><span>Pentesting</span><span>OWASP Top 10</span><span>Re-test</span></div>
+        </article>
+        <article class="world-caption">
+          <span class="num">04 · Núvol</span>
+          <h3>El teu núvol, sota control</h3>
+          <p>Auditem configuracions d'AWS, Azure i Google Cloud, identitats i permisos perquè res quedi obert per error.</p>
+          <div class="world-tags"><span>AWS</span><span>Azure</span><span>IAM</span></div>
+        </article>
+        <article class="world-caption">
+          <span class="num">05 · Protecció contínua</span>
+          <h3>Una cúpula de seguretat 24/7</h3>
+          <p>Monitoratge SOC, còpies de seguretat i compliment normatiu perquè la teva empresa continuï protegida.</p>
+          <div class="world-tags"><span>SOC</span><span>Còpies</span><span>RGPD · ENS</span></div>
+          <div class="hero-actions" style="margin-top:18px">
+            <a class="btn btn-primary" href="solicitud.html?tipo=presupuesto">Demana pressupost</a>
+            <a class="btn btn-outline-light" href="#serveis">Tots els serveis</a>
+          </div>
+        </article>
+        <ol class="world-nav" aria-label="Escenes del recorregut">
+          <li><button type="button" aria-current="true"><span>Reconeixement</span></button></li>
+          <li><button type="button"><span>Xarxa</span></button></li>
+          <li><button type="button"><span>Servidors</span></button></li>
+          <li><button type="button"><span>Núvol</span></button></li>
+          <li><button type="button"><span>Protecció</span></button></li>
+        </ol>
+        <p class="world-hint"><svg class="i" style="width:16px;height:16px"><use href="assets/img/icons.svg#arrow-right"/></svg>Fes scroll per volar pel nostre món</p>
+        <div class="world-progress"><span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVEIS -->
+  <section id="serveis" class="section">
     <div class="container">
       <div class="section-head">
-        <span class="eyebrow">Servicios</span>
-        <h2>Protección completa, de la red a las personas</h2>
-        <p>Cubrimos todo el ciclo de seguridad: identificar riesgos, corregirlos y vigilar que no vuelvan a aparecer.</p>
+        <span class="eyebrow">Serveis</span>
+        <h2>Protecció completa, de la xarxa a les persones</h2>
+        <p>Cobrim tot el cicle de la seguretat: identificar els riscos, corregir-los i vigilar que no tornin a aparèixer.</p>
       </div>
       <div class="grid grid-3">
-        <article class="feature"><div class="icon-box"><svg class="i"><use href="assets/img/icons.svg#target"/></svg></div><h3>Pentesting</h3><p>Pruebas de intrusión controladas y autorizadas sobre redes, webs y aplicaciones para descubrir fallos reales.</p></article>
-        <article class="feature"><div class="icon-box"><svg class="i"><use href="assets/img/icons.svg#search"/></svg></div><h3>Análisis de vulnerabilidades</h3><p>Escaneo de puertos, servicios y configuraciones con informe de riesgos priorizado: alto, medio y bajo.</p></article>
-        <article class="feature"><div class="icon-box"><svg class="i"><use href="assets/img/icons.svg#network"/></svg></div><h3>Seguridad de redes</h3><p>Segmentación, cortafuegos, VPN, control de acceso y monitorización del tráfico.</p></article>
-        <article class="feature"><div class="icon-box"><svg class="i"><use href="assets/img/icons.svg#code"/></svg></div><h3>Seguridad web y apps</h3><p>Revisión del OWASP Top 10: inyección SQL, XSS, autenticación débil y APIs expuestas.</p></article>
-        <article class="feature"><div class="icon-box"><svg class="i"><use href="assets/img/icons.svg#cloud"/></svg></div><h3>Seguridad en la nube</h3><p>Auditoría de configuraciones en AWS, Azure y Google Cloud, identidades y permisos.</p></article>
-        <article class="feature"><div class="icon-box"><svg class="i"><use href="assets/img/icons.svg#mail"/></svg></div><h3>Formación y phishing</h3><p>Concienciación para la plantilla y simulacros de phishing para medir y reducir el riesgo humano.</p></article>
-        <article class="feature"><div class="icon-box"><svg class="i"><use href="assets/img/icons.svg#siren"/></svg></div><h3>SOC y respuesta a incidentes</h3><p>Vigilancia continua, alertas en tiempo real, contención, análisis forense y recuperación.</p></article>
-        <article class="feature"><div class="icon-box"><svg class="i"><use href="assets/img/icons.svg#clipboard"/></svg></div><h3>Cumplimiento normativo</h3><p>Adecuación a RGPD, ENS e ISO 27001 con políticas, registros y planes de seguridad.</p></article>
-        <article class="feature"><div class="icon-box"><svg class="i"><use href="assets/img/icons.svg#database"/></svg></div><h3>Copias y continuidad</h3><p>Estrategias de copia de seguridad, planes de recuperación ante desastres y pruebas de restauración.</p></article>
+        <article class="feature"><div class="icon-box"><svg class="i"><use href="assets/img/icons.svg#target"/></svg></div><h3>Pentesting</h3><p>Proves d'intrusió controlades i autoritzades sobre xarxes, webs i aplicacions per descobrir errors reals.</p></article>
+        <article class="feature"><div class="icon-box"><svg class="i"><use href="assets/img/icons.svg#search"/></svg></div><h3>Anàlisi de vulnerabilitats</h3><p>Escaneig de ports, serveis i configuracions amb un informe de riscos prioritzat: alt, mitjà i baix.</p></article>
+        <article class="feature"><div class="icon-box"><svg class="i"><use href="assets/img/icons.svg#network"/></svg></div><h3>Seguretat de xarxes</h3><p>Segmentació, tallafocs, VPN, control d'accés i monitoratge del trànsit.</p></article>
+        <article class="feature"><div class="icon-box"><svg class="i"><use href="assets/img/icons.svg#code"/></svg></div><h3>Seguretat web i apps</h3><p>Revisió de l'OWASP Top 10: injecció SQL, XSS, autenticació feble i API exposades.</p></article>
+        <article class="feature"><div class="icon-box"><svg class="i"><use href="assets/img/icons.svg#cloud"/></svg></div><h3>Seguretat al núvol</h3><p>Auditoria de configuracions a AWS, Azure i Google Cloud, identitats i permisos.</p></article>
+        <article class="feature"><div class="icon-box"><svg class="i"><use href="assets/img/icons.svg#mail"/></svg></div><h3>Formació i phishing</h3><p>Conscienciació per a la plantilla i simulacres de phishing per mesurar i reduir el risc humà.</p></article>
+        <article class="feature"><div class="icon-box"><svg class="i"><use href="assets/img/icons.svg#siren"/></svg></div><h3>SOC i resposta a incidents</h3><p>Vigilància contínua, alertes en temps real, contenció, anàlisi forense i recuperació.</p></article>
+        <article class="feature"><div class="icon-box"><svg class="i"><use href="assets/img/icons.svg#clipboard"/></svg></div><h3>Compliment normatiu</h3><p>Adequació a l'RGPD, l'ENS i la ISO 27001 amb polítiques, registres i plans de seguretat.</p></article>
+        <article class="feature"><div class="icon-box"><svg class="i"><use href="assets/img/icons.svg#database"/></svg></div><h3>Còpies i continuïtat</h3><p>Estratègies de còpia de seguretat, plans de recuperació davant desastres i proves de restauració.</p></article>
       </div>
     </div>
   </section>
 
-  <!-- METODOLOGÍA -->
+  <!-- METODOLOGIA -->
   <section id="metodologia" class="section section-dark">
     <div class="container">
       <div class="section-head">
-        <span class="eyebrow" style="color:var(--accent)">Metodología</span>
-        <h2>Un proceso claro, de principio a fin</h2>
-        <p>Cada proyecto empieza con un acuerdo de alcance firmado. Nunca analizamos un sistema sin autorización expresa.</p>
+        <span class="eyebrow" style="color:var(--accent)">Metodologia</span>
+        <h2>Un procés clar, de principi a fi</h2>
+        <p>Cada projecte comença amb un acord d'abast signat. Mai analitzem un sistema sense autorització expressa.</p>
       </div>
       <div class="process">
-        <div class="process-step"><h3>Reconocimiento</h3><p>Definimos el alcance, los activos autorizados y las ventanas de prueba.</p></div>
-        <div class="process-step"><h3>Análisis</h3><p>Escaneo y pruebas manuales siguiendo OWASP y PTES, sin interrumpir tu actividad.</p></div>
-        <div class="process-step"><h3>Informe</h3><p>Resumen ejecutivo y detalle técnico con cada hallazgo clasificado por riesgo.</p></div>
-        <div class="process-step"><h3>Corrección</h3><p>Plan de remediación priorizado y re-test para verificar que todo queda resuelto.</p></div>
+        <div class="process-step"><h3>Reconeixement</h3><p>Definim l'abast, els actius autoritzats i les finestres de proves.</p></div>
+        <div class="process-step"><h3>Anàlisi</h3><p>Escaneig i proves manuals seguint OWASP i PTES, sense interrompre la teva activitat.</p></div>
+        <div class="process-step"><h3>Informe</h3><p>Resum executiu i detall tècnic amb cada troballa classificada per risc.</p></div>
+        <div class="process-step"><h3>Correcció</h3><p>Pla de remediació prioritzat i re-test per verificar que tot queda resolt.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- AUDITORÍAS -->
-  <section id="auditorias" class="section">
+  <!-- AUDITORIES -->
+  <section id="auditories" class="section">
     <div class="container">
       <div class="section-head center">
-        <span class="eyebrow">Auditorías de seguridad</span>
-        <h2>Elige el nivel de auditoría que necesitas</h2>
-        <p>Todas incluyen informe ejecutivo, informe técnico y reunión de presentación de resultados.</p>
+        <span class="eyebrow">Auditories de seguretat</span>
+        <h2>Tria el nivell d'auditoria que necessites</h2>
+        <p>Totes inclouen informe executiu, informe tècnic i reunió de presentació de resultats.</p>
       </div>
       <div class="grid grid-3">
         <article class="plan">
-          <h3>Esencial</h3>
-          <p class="plan-for">Pymes que quieren conocer su exposición a Internet.</p>
-          <div class="plan-meta"><div><b>3–5 días</b>Duración</div><div><b>Externa</b>Perímetro</div></div>
+          <h3>Essencial</h3>
+          <p class="plan-for">Pimes que volen conèixer la seva exposició a Internet.</p>
+          <div class="plan-meta"><div><b>3–5 dies</b>Durada</div><div><b>Externa</b>Perímetre</div></div>
           <ul class="check-list">
-            <li>Escaneo de puertos y servicios expuestos</li>
-            <li>Detección de versiones vulnerables</li>
-            <li>Revisión de TLS, DNS y correo (SPF/DMARC)</li>
-            <li>Informe con riesgos priorizados</li>
+            <li>Escaneig de ports i serveis exposats</li>
+            <li>Detecció de versions vulnerables</li>
+            <li>Revisió de TLS, DNS i correu (SPF/DMARC)</li>
+            <li>Informe amb riscos prioritzats</li>
           </ul>
-          <a class="btn btn-secondary btn-block" href="solicitud.html?tipo=auditoria&amp;plan=esencial">Solicitar auditoría</a>
+          <a class="btn btn-secondary btn-block" href="solicitud.html?tipo=auditoria&amp;plan=essencial">Sol·licita l'auditoria</a>
         </article>
         <article class="plan featured">
-          <span class="plan-tag">Más solicitada</span>
-          <h3>Avanzada</h3>
-          <p class="plan-for">Empresas con aplicaciones web o red interna propia.</p>
-          <div class="plan-meta"><div><b>1–2 semanas</b>Duración</div><div><b>Ext. + interna</b>Perímetro</div></div>
+          <span class="plan-tag">La més demanada</span>
+          <h3>Avançada</h3>
+          <p class="plan-for">Empreses amb aplicacions web o xarxa interna pròpia.</p>
+          <div class="plan-meta"><div><b>1–2 setmanes</b>Durada</div><div><b>Ext. + interna</b>Perímetre</div></div>
           <ul class="check-list">
-            <li>Todo lo incluido en Esencial</li>
-            <li>Pentesting de aplicación web (OWASP Top 10)</li>
-            <li>Auditoría de red interna y Wi-Fi</li>
-            <li>Re-test de verificación incluido</li>
+            <li>Tot el que inclou l'Essencial</li>
+            <li>Pentesting d'aplicació web (OWASP Top 10)</li>
+            <li>Auditoria de xarxa interna i Wi-Fi</li>
+            <li>Re-test de verificació inclòs</li>
           </ul>
-          <a class="btn btn-primary btn-block" href="solicitud.html?tipo=auditoria&amp;plan=avanzada">Solicitar auditoría</a>
+          <a class="btn btn-primary btn-block" href="solicitud.html?tipo=auditoria&amp;plan=avancada">Sol·licita l'auditoria</a>
         </article>
         <article class="plan">
           <h3>Integral</h3>
-          <p class="plan-for">Organizaciones con requisitos normativos o datos sensibles.</p>
-          <div class="plan-meta"><div><b>A medida</b>Duración</div><div><b>Completo</b>Perímetro</div></div>
+          <p class="plan-for">Organitzacions amb requisits normatius o dades sensibles.</p>
+          <div class="plan-meta"><div><b>A mida</b>Durada</div><div><b>Complet</b>Perímetre</div></div>
           <ul class="check-list">
-            <li>Todo lo incluido en Avanzada</li>
-            <li>Cloud (AWS, Azure, GCP) e identidades</li>
-            <li>Simulación de phishing a la plantilla</li>
-            <li>Mapeo a RGPD, ENS e ISO 27001</li>
+            <li>Tot el que inclou l'Avançada</li>
+            <li>Núvol (AWS, Azure, GCP) i identitats</li>
+            <li>Simulació de phishing a la plantilla</li>
+            <li>Mapatge a l'RGPD, l'ENS i la ISO 27001</li>
           </ul>
-          <a class="btn btn-secondary btn-block" href="solicitud.html?tipo=auditoria&amp;plan=integral">Solicitar auditoría</a>
+          <a class="btn btn-secondary btn-block" href="solicitud.html?tipo=auditoria&amp;plan=integral">Sol·licita l'auditoria</a>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- PRESUPUESTO -->
-  <section id="presupuesto" class="section section-alt">
+  <!-- PRESSUPOST -->
+  <section id="pressupost" class="section section-alt">
     <div class="container split">
       <div>
-        <span class="eyebrow">Presupuesto</span>
-        <h2 style="font-size:clamp(1.8rem,3.4vw,2.5rem);letter-spacing:-.03em">Presupuesto cerrado, sin sorpresas</h2>
-        <p class="muted" style="font-size:1.08rem;margin-bottom:32px">Cuéntanos qué necesitas y te enviaremos una propuesta detallada a tu área de cliente. Desde allí podrás aceptarla y pagarla en un par de clics.</p>
+        <span class="eyebrow">Pressupost</span>
+        <h2 style="font-size:clamp(1.8rem,3.4vw,2.5rem);letter-spacing:-.03em">Pressupost tancat, sense sorpreses</h2>
+        <p class="muted" style="font-size:1.08rem;margin-bottom:32px">Explica'ns què necessites i t'enviarem una proposta detallada a la teva àrea de client. Des d'allà la podràs acceptar i pagar en un parell de clics.</p>
         <ol class="steps-list">
-          <li><span class="num">1</span><div><h4>Envía tu solicitud</h4><p>Formulario guiado: empresa, servicio, urgencia y alcance.</p></div></li>
-          <li><span class="num">2</span><div><h4>Recibe la propuesta</h4><p>Alcance, entregables, plazos e importe con IVA desglosado.</p></div></li>
-          <li><span class="num">3</span><div><h4>Acepta y paga online</h4><p>Transferencia, Bizum o tarjeta. Factura con tus datos fiscales.</p></div></li>
-          <li><span class="num">4</span><div><h4>Seguimiento en tiempo real</h4><p>Consulta el estado del proyecto desde tu portal de cliente.</p></div></li>
+          <li><span class="num">1</span><div><h4>Envia la sol·licitud</h4><p>Formulari guiat: empresa, servei, urgència i abast.</p></div></li>
+          <li><span class="num">2</span><div><h4>Rep la proposta</h4><p>Abast, lliurables, terminis i import amb l'IVA desglossat.</p></div></li>
+          <li><span class="num">3</span><div><h4>Accepta i paga en línia</h4><p>Transferència, Bizum o targeta. Factura amb les teves dades fiscals.</p></div></li>
+          <li><span class="num">4</span><div><h4>Seguiment en temps real</h4><p>Consulta l'estat del projecte des del teu portal de client.</p></div></li>
         </ol>
         <div class="hero-actions" style="margin-top:34px">
-          <a class="btn btn-primary btn-lg" href="solicitud.html?tipo=presupuesto">Solicitar presupuesto</a>
-          <a class="btn btn-secondary btn-lg" href="register.html" data-guest>Crear cuenta</a>
+          <a class="btn btn-primary btn-lg" href="solicitud.html?tipo=presupuesto">Demana pressupost</a>
+          <a class="btn btn-secondary btn-lg" href="register.html" data-guest>Crea un compte</a>
         </div>
       </div>
 
-      <div class="quote-card" aria-label="Estructura de una propuesta">
-        <div class="quote-card-head"><div><span class="tag">Propuesta</span><h3 style="margin:2px 0 0;font-size:1.05rem">Auditoría de seguridad web</h3></div><span class="badge badge-warning">Pendiente de aceptación</span></div>
+      <div class="quote-card" aria-label="Estructura d'una proposta">
+        <div class="quote-card-head"><div><span class="tag">Proposta</span><h3 style="margin:2px 0 0;font-size:1.05rem">Auditoria de seguretat web</h3></div><span class="badge badge-warning">Pendent d'acceptació</span></div>
         <div class="quote-card-body">
-          <div class="quote-line"><span class="muted">Alcance</span><span>Dominio principal + API</span></div>
-          <div class="quote-line"><span class="muted">Metodología</span><span>OWASP WSTG</span></div>
-          <div class="quote-line"><span class="muted">Entregables</span><span>Informe ejecutivo y técnico</span></div>
-          <div class="quote-line"><span class="muted">Plazo de ejecución</span><span>10 días laborables</span></div>
-          <div class="quote-line"><span class="muted">Validez de la oferta</span><span>30 días</span></div>
+          <div class="quote-line"><span class="muted">Abast</span><span>Domini principal + API</span></div>
+          <div class="quote-line"><span class="muted">Metodologia</span><span>OWASP WSTG</span></div>
+          <div class="quote-line"><span class="muted">Lliurables</span><span>Informe executiu i tècnic</span></div>
+          <div class="quote-line"><span class="muted">Termini d'execució</span><span>10 dies laborables</span></div>
+          <div class="quote-line"><span class="muted">Validesa de l'oferta</span><span>30 dies</span></div>
         </div>
-        <div class="quote-total"><span>Total (IVA incluido)</span><b>Precio cerrado</b></div>
+        <div class="quote-total"><span>Total (IVA inclòs)</span><b>Preu tancat</b></div>
       </div>
     </div>
   </section>
 
-  <!-- PAGOS -->
-  <section id="pagos" class="section">
+  <!-- PAGAMENTS -->
+  <section id="pagaments" class="section">
     <div class="container">
       <div class="section-head">
-        <span class="eyebrow">Métodos de pago</span>
-        <h2>Paga como prefieras, con total seguridad</h2>
-        <p>Una vez aceptado el presupuesto, eliges el método de pago desde tu área de cliente. Cada pago tiene una referencia única y queda registrado.</p>
+        <span class="eyebrow">Mètodes de pagament</span>
+        <h2>Paga com prefereixis, amb total seguretat</h2>
+        <p>Un cop acceptat el pressupost, tries el mètode de pagament des de la teva àrea de client. Cada pagament té una referència única i queda registrat.</p>
       </div>
       <div class="pay-methods">
-        <div class="pay-method"><div class="icon-box"><svg class="i"><use href="assets/img/icons.svg#bank"/></svg></div><div><h3>Transferencia bancaria</h3><p>Ideal para empresas. Te mostramos el IBAN y la referencia a indicar en el concepto.</p></div></div>
-        <div class="pay-method"><div class="icon-box"><svg class="i"><use href="assets/img/icons.svg#phone"/></svg></div><div><h3>Bizum</h3><p>Pago inmediato desde la app de tu banco, para autónomos y pequeños importes.</p></div></div>
-        <div class="pay-method"><div class="icon-box"><svg class="i"><use href="assets/img/icons.svg#card"/></svg></div><div><h3>Tarjeta</h3><p>Visa, Mastercard y otras, a través de una pasarela de pago externa y segura.</p></div></div>
+        <div class="pay-method"><div class="icon-box"><svg class="i"><use href="assets/img/icons.svg#bank"/></svg></div><div><h3>Transferència bancària</h3><p>Ideal per a empreses. Et mostrem l'IBAN i la referència que has d'indicar al concepte.</p></div></div>
+        <div class="pay-method"><div class="icon-box"><svg class="i"><use href="assets/img/icons.svg#phone"/></svg></div><div><h3>Bizum</h3><p>Pagament immediat des de l'app del teu banc, per a autònoms i imports petits.</p></div></div>
+        <div class="pay-method"><div class="icon-box"><svg class="i"><use href="assets/img/icons.svg#card"/></svg></div><div><h3>Targeta</h3><p>Visa, Mastercard i altres, a través d'una passarel·la de pagament externa i segura.</p></div></div>
       </div>
-      <div class="secure-note"><svg class="i"><use href="assets/img/icons.svg#lock"/></svg><span>Nunca almacenamos datos de tarjeta. Los pagos con tarjeta se procesan íntegramente en la pasarela del proveedor de pago.</span></div>
+      <div class="secure-note"><svg class="i"><use href="assets/img/icons.svg#lock"/></svg><span>Mai guardem dades de targeta. Els pagaments amb targeta es processen íntegrament a la passarel·la del proveïdor de pagament.</span></div>
+    </div>
+  </section>
+
+  <!-- SOBRE NOSALTRES -->
+  <section id="nosaltres" class="section section-alt">
+    <div class="container">
+      <div class="section-head center">
+        <span class="eyebrow">Sobre nosaltres</span>
+        <h2>Tres especialistes, un mateix objectiu</h2>
+        <p>Som l'Aaron, el Lluc i el Ramon, estudiants de 2n d'ASIX. Hem creat Altercom21 per oferir ciberseguretat ètica, clara i a l'abast de qualsevol empresa.</p>
+      </div>
+      <div class="grid grid-3">
+        <article class="team-card">
+          <div class="team-avatar">AG</div>
+          <h3>Aaron Garcia</h3>
+          <p class="team-role">Desenvolupament web i plataforma</p>
+          <p>Dissenya i programa la web i el portal de clients: sol·licituds, pressupostos, pagaments i la base de dades a Supabase.</p>
+          <ul class="check-list">
+            <li>Web i àrea de client</li>
+            <li>Base de dades i seguretat d'accés (RLS)</li>
+            <li>Integració amb l'app NEXUS</li>
+          </ul>
+        </article>
+        <article class="team-card">
+          <div class="team-avatar">LJ</div>
+          <h3>Lluc Jornet</h3>
+          <p class="team-role">Pentesting i auditories</p>
+          <p>Planifica i executa les proves d'intrusió, analitza les vulnerabilitats trobades i redacta els informes per al client.</p>
+          <ul class="check-list">
+            <li>Pentesting de xarxes i webs</li>
+            <li>Anàlisi de vulnerabilitats</li>
+            <li>Informes i re-test</li>
+          </ul>
+        </article>
+        <article class="team-card">
+          <div class="team-avatar">RR</div>
+          <h3>Ramon Roda</h3>
+          <p class="team-role">Xarxes, sistemes i núvol</p>
+          <p>S'encarrega de la infraestructura: disseny de xarxes, tallafocs i VPN, servidors, núvol i adequació a la normativa.</p>
+          <ul class="check-list">
+            <li>Xarxes, tallafocs i VPN</li>
+            <li>Servidors i núvol</li>
+            <li>RGPD, ENS i ISO 27001</li>
+          </ul>
+        </article>
+      </div>
     </div>
   </section>
 
@@ -218,32 +317,32 @@
   <section id="nexus" class="section section-dark">
     <div class="container">
       <div class="section-head">
-        <span class="eyebrow" style="color:var(--accent)">Herramienta gratuita</span>
+        <span class="eyebrow" style="color:var(--accent)">Eina gratuïta</span>
         <h2>NEXUS Network Security Scanner</h2>
-        <p>Nuestra herramienta educativa de análisis de redes, desarrollada en Python y Tkinter.</p>
+        <p>La nostra eina educativa d'anàlisi de xarxes, desenvolupada amb Python i Tkinter.</p>
       </div>
       <div class="download">
         <div class="panel-dark">
           <div class="icon-box" style="background:rgba(45,212,191,.1);border-color:rgba(45,212,191,.25);color:var(--accent)"><svg class="i"><use href="assets/img/icons.svg#activity"/></svg></div>
-          <h3 style="margin-top:18px">Qué incluye</h3>
+          <h3 style="margin-top:18px">Què inclou</h3>
           <ul class="check-list" style="color:#cbd5e1">
-            <li>Escáner de puertos con detección de servicios</li>
-            <li>Banner grabbing, ping y traceroute</li>
+            <li>Escàner de ports amb detecció de serveis</li>
+            <li>Banner grabbing, ping i traceroute</li>
             <li>Consulta WHOIS</li>
-            <li>Indicadores de riesgo por servicio</li>
+            <li>Indicadors de risc per servei</li>
           </ul>
-          <a class="btn btn-primary" href="descargas/NEXUS.zip" download><svg class="i"><use href="assets/img/icons.svg#download"/></svg>Descargar ZIP</a>
-          <p class="small" style="margin:16px 0 0">Úsala únicamente en equipos y redes en los que tengas autorización.</p>
+          <a class="btn btn-primary" href="descargas/NEXUS.zip" download><svg class="i"><use href="assets/img/icons.svg#download"/></svg>Descarrega el ZIP</a>
+          <p class="small" style="margin:16px 0 0">Fes-la servir només en equips i xarxes on tinguis autorització.</p>
         </div>
         <div class="panel-dark">
-          <h3>Instalación</h3>
+          <h3>Instal·lació</h3>
           <ol>
-            <li>Instala <a href="https://www.python.org/downloads/" style="color:var(--accent)">Python 3.8 o superior</a>. En Windows, marca «Add Python to PATH».</li>
-            <li>Descomprime el ZIP y abre un terminal en la carpeta.</li>
+            <li>Instal·la <a href="https://www.python.org/downloads/" style="color:var(--accent)">Python 3.8 o superior</a>. A Windows, marca «Add Python to PATH».</li>
+            <li>Descomprimeix el ZIP i obre un terminal a la carpeta.</li>
             <li>Linux / macOS:<code class="code">chmod +x nexus.py
 ./nexus.py</code></li>
             <li>Windows (PowerShell o CMD):<code class="code">python nexus.py</code></li>
-            <li>En Linux, si hace falta: <code>sudo apt install python3-tk traceroute</code></li>
+            <li>A Linux, si cal: <code>sudo apt install python3-tk traceroute</code></li>
           </ol>
         </div>
       </div>
@@ -255,12 +354,12 @@
     <div class="container">
       <div class="cta">
         <div>
-          <h2>Tu portal de cliente</h2>
-          <p>Consulta tus solicitudes, acepta presupuestos, paga y sigue el estado de cada proyecto desde un único lugar.</p>
+          <h2>El teu portal de client</h2>
+          <p>Consulta les teves sol·licituds, accepta pressupostos, paga i segueix l'estat de cada projecte des d'un únic lloc.</p>
         </div>
         <div class="hero-actions">
-          <a class="btn btn-light btn-lg" href="dashboard.html">Ir a mi área</a>
-          <a class="btn btn-outline-light btn-lg" href="register.html" data-guest>Crear cuenta</a>
+          <a class="btn btn-light btn-lg" href="dashboard.html">Vés a la meva àrea</a>
+          <a class="btn btn-outline-light btn-lg" href="register.html" data-guest>Crea un compte</a>
         </div>
       </div>
     </div>
@@ -272,24 +371,24 @@
     <div class="footer-grid">
       <div>
         <a class="brand" href="index.html"><span class="brand-mark"><svg class="i"><use href="assets/img/icons.svg#shield-check"/></svg></span><span>Altercom<b>21</b></span></a>
-        <p style="max-width:320px">Ciberseguridad ética y autorizada para empresas y centros educativos.</p>
+        <p style="max-width:320px">Ciberseguretat ètica i autoritzada per a empreses i centres educatius.</p>
       </div>
       <div>
-        <h4>Servicios</h4>
-        <ul><li><a href="#servicios">Pentesting</a></li><li><a href="#auditorias">Auditorías</a></li><li><a href="#servicios">Cumplimiento</a></li><li><a href="#nexus">NEXUS</a></li></ul>
+        <h4>Serveis</h4>
+        <ul><li><a href="#serveis">Pentesting</a></li><li><a href="#auditories">Auditories</a></li><li><a href="#serveis">Compliment normatiu</a></li><li><a href="#nexus">NEXUS</a></li></ul>
       </div>
       <div>
-        <h4>Clientes</h4>
-        <ul><li><a href="solicitud.html">Solicitar presupuesto</a></li><li><a href="dashboard.html">Área de cliente</a></li><li><a href="#pagos">Métodos de pago</a></li></ul>
+        <h4>Clients</h4>
+        <ul><li><a href="solicitud.html">Demana pressupost</a></li><li><a href="dashboard.html">Àrea de client</a></li><li><a href="#pagaments">Mètodes de pagament</a></li></ul>
       </div>
       <div>
-        <h4>Contacto</h4>
-        <ul><li><a href="mailto:contacto@altercom21.com">contacto@altercom21.com</a></li><li>Aaron Garcia · Lluc Jornet · Ramon Roda</li></ul>
+        <h4>Contacte</h4>
+        <ul><li><a href="mailto:contacto@altercom21.com">contacto@altercom21.com</a></li><li><a href="#nosaltres">Aaron Garcia · Lluc Jornet · Ramon Roda</a></li></ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© <span id="year"></span> Altercom21. Proyecto intermodular.</span>
-      <span>Ciberseguridad ética y autorizada.</span>
+      <span>© <span id="year"></span> Altercom21. Projecte intermodular.</span>
+      <span>Ciberseguretat ètica i autoritzada.</span>
     </div>
   </div>
 </footer>
@@ -304,5 +403,6 @@
     document.querySelectorAll("[data-member]").forEach(el => (el.hidden = false));
   }
 </script>
+<script type="module" src="assets/js/world3d.js"></script>
 </body>
 </html>

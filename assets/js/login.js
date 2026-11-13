@@ -16,7 +16,7 @@ form.addEventListener("submit", async (e) => {
   const fd = new FormData(form);
   const button = form.querySelector("button[type=submit]");
   button.disabled = true;
-  showMessage(msg, "Comprobando acceso…", "info");
+  showMessage(msg, "Comprovant l'accés…", "info");
   const { error } = await supabase.auth.signInWithPassword({
     email: String(fd.get("email")).trim(),
     password: fd.get("password")
@@ -24,9 +24,9 @@ form.addEventListener("submit", async (e) => {
   button.disabled = false;
   if (error) {
     const text = error.message === "Invalid login credentials"
-      ? "Correo o contraseña incorrectos."
+      ? "Correu o contrasenya incorrectes."
       : error.message === "Email not confirmed"
-        ? "Confirma tu correo electrónico antes de iniciar sesión."
+        ? "Confirma el teu correu electrònic abans d'iniciar la sessió."
         : error.message;
     return showMessage(msg, text, "error");
   }
