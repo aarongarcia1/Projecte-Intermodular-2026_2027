@@ -23,7 +23,7 @@ export const PAYMENT_CONFIG = {
     bank: "Entorn de proves · no facis transferències reals"
   },
   bizum: {
-    phone: "684 112 184" // vacío = método desactivado
+    phone: "" // vacío = método desactivado (Bizum mostraría el teléfono personal)
   },
   card: {
     paymentUrl: "" // ← URL de pago seguro (Stripe Payment Link, Redsys…); vacío = desactivado
