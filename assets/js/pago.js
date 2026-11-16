@@ -1,5 +1,5 @@
 import { supabase, requireUser, getProfile, signOut } from "./supabase-client.js";
-import { PAYMENT_CONFIG } from "./config.js";
+import { PAYMENT_CONFIG, SUPABASE_ANON_KEY } from "./config.js";
 import {
   initAppShell, escapeHtml, fmtMoney, fmtDate, shortRef, calcTotals, paymentBadge,
   showMessage, toast, isMethodAvailable, PAYMENT_METHODS
@@ -56,8 +56,19 @@ function renderInstructions() {
   $("#ins-title").textContent = PAYMENT_METHODS[m].label;
   $("#ins-badge").innerHTML = paymentBadge(payment.status);
   let html = "";
+  $("#mark-sent").hidden = m === "redsys"; // Redsys confirma el pagament automàticament
 
-  if (m === "transfer") {
+  if (m === "redsys") {
+    html = `<p>Pagaràs amb targeta al <strong>TPV segur de Redsys</strong>, la plataforma de pagaments dels bancs espanyols. En acabar tornaràs aquí i el pagament es confirmarà automàticament.</p>
+      <div class="pay-instructions">
+        ${row("Referència", payment.reference)}
+        ${row("Import", amount)}
+      </div>
+      ${PAYMENT_CONFIG.redsys.testMode ? `<div class="alert alert-warning" style="margin-top:16px"><strong>Mode de proves:</strong> no es cobren diners reals. Fes servir la targeta de proves <span class="mono">4548 8100 0000 0003</span>, caducitat <span class="mono">12/49</span> i CVV <span class="mono">123</span>.</div>` : ""}
+      <p style="margin-top:18px"><button type="button" class="btn btn-dark btn-lg" id="redsys-pay">
+        <svg class="i"><use href="assets/img/icons.svg#lock"/></svg>Paga ${amount} amb targeta</button></p>
+      <p class="small muted">Les dades de la targeta s'introdueixen només a la pàgina de Redsys. Altercom21 no les rep ni les guarda.</p>`;
+  } else if (m === "transfer") {
     const c = PAYMENT_CONFIG.transfer;
     html = `<p>Fes una transferència amb aquestes dades. <strong>Indica la referència exactament al concepte</strong> perquè puguem identificar el pagament.</p>
       <div class="pay-instructions">
@@ -124,6 +135,51 @@ function renderDone() {
   show("done");
 }
 
+// ---------- Passarel·la Redsys ----------
+async function startRedsys(button) {
+  button.disabled = true;
+  showMessage(msg, "Connectant amb el TPV segur…", "info");
+  try {
+    const { data: { session } } = await supabase.auth.getSession();
+    const res = await fetch(`${PAYMENT_CONFIG.redsys.endpoint}/pay`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${session?.access_token ?? ""}` },
+      body: JSON.stringify({ payment_id: payment.id })
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || `Error ${res.status}`);
+    // Formulari que s'envia directament a Redsys (el client hi entra les dades de la targeta).
+    const f = document.createElement("form");
+    f.method = "POST";
+    f.action = data.url;
+    for (const name of ["Ds_SignatureVersion", "Ds_MerchantParameters", "Ds_Signature"]) {
+      const input = document.createElement("input");
+      input.type = "hidden"; input.name = name; input.value = data[name];
+      f.append(input);
+    }
+    document.body.append(f);
+    f.submit();
+  } catch (err) {
+    button.disabled = false;
+    const text = /Failed to fetch|NetworkError/i.test(err.message)
+      ? "No s'ha pogut connectar amb la passarel·la. Comprova que la funció «redsys» està instal·lada a Supabase."
+      : err.message;
+    showMessage(msg, text, "error");
+  }
+}
+
+// Retorn des de Redsys: la confirmació arriba per un altre camí (notificació al servidor), així que s'espera.
+async function waitForRedsys() {
+  showMessage(msg, "Estem confirmant el pagament amb el banc…", "info");
+  for (let i = 0; i < 15; i++) {
+    await new Promise(r => setTimeout(r, 2000));
+    const { data } = await supabase.from("payments").select("*").eq("id", payment.id).maybeSingle();
+    if (data?.status === "paid") { payment = data; showMessage(msg, "", ""); renderSummary(); renderDone(); return; }
+    if (data?.status === "failed") { showMessage(msg, "El banc ha denegat el pagament. Pots tornar-ho a provar amb una altra targeta.", "error"); payment = null; show("form"); return; }
+  }
+  showMessage(msg, "El banc encara no ha confirmat el pagament. Torna a carregar aquesta pàgina d'aquí a uns minuts.", "warning");
+}
+
 // ---------- Carga ----------
 if (!requestId) {
   fail("No s'ha indicat cap sol·licitud.");
@@ -159,13 +215,20 @@ if (!requestId) {
         input.closest(".option").hidden = true; // mètode no configurat: no es mostra
       }
     });
-    const preferred = payment?.method || ["transfer", "bizum", "card"].find(isMethodAvailable);
+    const preferred = payment?.method || ["redsys", "transfer", "bizum", "card"].find(isMethodAvailable);
     const radio = form.querySelector(`input[name="method"][value="${preferred}"]`);
     if (radio && !radio.disabled) radio.checked = true;
 
+    const redsysResult = new URLSearchParams(location.search).get("redsys");
     if (payment?.status === "paid" || payment?.status === "under_review") renderDone();
-    else if (payment?.status === "pending" && isMethodAvailable(payment.method)) renderInstructions();
-    else show("form");
+    else if (payment?.status === "pending" && isMethodAvailable(payment.method)) {
+      renderInstructions();
+      if (payment.method === "redsys" && redsysResult === "ok") waitForRedsys();
+      if (payment.method === "redsys" && redsysResult === "ko") showMessage(msg, "El pagament amb targeta no s'ha completat. Pots tornar-ho a provar.", "error");
+    } else {
+      show("form");
+      if (redsysResult === "ko") showMessage(msg, "El pagament amb targeta no s'ha completat. Pots tornar-ho a provar.", "error");
+    }
   }
 }
 
@@ -204,6 +267,11 @@ $("#mark-sent").addEventListener("click", async (e) => {
   if (error) return toast(error.message, "error");
   payment = data;
   renderDone();
+});
+
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest("#redsys-pay");
+  if (btn) startRedsys(btn);
 });
 
 document.addEventListener("click", async (e) => {

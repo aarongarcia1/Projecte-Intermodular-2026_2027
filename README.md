@@ -12,6 +12,28 @@ Portal estático para GitHub Pages con autenticación y base de datos en Supabas
 - Panel de administración (`admin.html`): solicitudes con filtros y buscador, envío de presupuestos con validez, verificación de cobros y listado de clientes.
 - SQL con tablas, triggers, políticas RLS y funciones seguras (`respond_quote`, `create_payment`, `mark_payment_sent`).
 
+## Passarel·la de pagament Redsys (targeta)
+El mètode «Targeta bancària» porta el client al TPV virtual de **Redsys** i el pagament es confirma sol:
+Redsys avisa la Edge Function `redsys` (`supabase/functions/redsys/index.ts`), que comprova la signatura
+i marca el pagament com a pagat. La clau secreta del comerç només viu a Supabase, mai a la web.
+
+Per defecte funciona amb l'**entorn de proves públic de Redsys** (no es cobren diners reals).
+Targeta de proves: `4548 8100 0000 0003`, caducitat `12/49`, CVV `123`; al simulador 3D Secure tria
+«Autenticación con éxito».
+
+### Instal·lació (una sola vegada)
+1. A Supabase → **SQL Editor**, executa `supabase/04_redsys.sql`.
+2. A Supabase → **Edge Functions** → **Deploy a new function** → **Via Editor**. Posa-li el nom `redsys`,
+   enganxa-hi el contingut de `supabase/functions/redsys/index.ts` i prem **Deploy**.
+3. Obre la funció `redsys` → **Details** i desactiva **Enforce JWT Verification** (Redsys no envia cap
+   token; la ruta `/pay` ja comprova ella mateixa la sessió de l'usuari). Desa.
+
+### Cobrar de veritat
+Cal un contracte de TPV virtual amb un banc (CaixaBank, Sabadell, BBVA…). El banc et donarà el codi de
+comerç (FUC), el terminal i la clau SHA-256. Posa'ls a Supabase → **Edge Functions** → **Secrets**:
+`REDSYS_ENV=live`, `REDSYS_MERCHANT_CODE`, `REDSYS_TERMINAL`, `REDSYS_SECRET_KEY`. Després, a
+`assets/js/config.js`, posa `testMode: false`.
+
 ## Món 3D (pàgina d'inici)
 La secció «Món 3D» d'`index.html` és un recorregut de càmera controlat pel scroll, inspirat en
 [scroll-world](https://github.com/oso95/scroll-world). En comptes de vídeos generats amb IA (de pagament),
