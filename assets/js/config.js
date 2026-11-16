@@ -26,6 +26,8 @@ export const PAYMENT_CONFIG = {
     phone: "" // vacío = método desactivado (Bizum mostraría el teléfono personal)
   },
   card: {
-    paymentUrl: "" // ← URL de pago seguro (Stripe Payment Link, Redsys…); vacío = desactivado
+    // Enllaç públic de Revolut: el client paga amb targeta o Revolut i només veu el perfil de Revolut,
+    // no el telèfon ni l'IBAN. També admet un Stripe Payment Link. Buit = desactivat.
+    paymentUrl: "https://revolut.me/agarciabayo07"
   }
 };
