@@ -22,9 +22,10 @@ export const PAYMENT_STATUS = {
 };
 
 export const PAYMENT_METHODS = {
+  redsys:   { label: "Targeta bancària (TPV Redsys)", short: "Targeta (Redsys)" },
   transfer: { label: "Transferència bancària", short: "Transferència" },
   bizum:    { label: "Bizum",                  short: "Bizum" },
-  card:     { label: "Targeta o Revolut",          short: "Targeta / Revolut" }
+  card:     { label: "Revolut",                    short: "Revolut" }
 };
 
 export const REQUEST_KIND = { budget: "Pressupost", audit: "Auditoria" };
@@ -80,6 +81,7 @@ export function timelineHtml(status) {
 }
 
 export function isMethodAvailable(method) {
+  if (method === "redsys") return Boolean(PAYMENT_CONFIG.redsys?.endpoint);
   if (method === "transfer") return Boolean(PAYMENT_CONFIG.transfer?.iban);
   if (method === "bizum") return Boolean(PAYMENT_CONFIG.bizum?.phone);
   if (method === "card") return Boolean(PAYMENT_CONFIG.card?.paymentUrl);

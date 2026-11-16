@@ -14,6 +14,13 @@ export const COMPANY = {
 // - Nunca se piden ni se guardan datos de tarjeta en esta web: el pago con
 //   tarjeta se hace en una pasarela externa (p. ej. un Stripe Payment Link).
 export const PAYMENT_CONFIG = {
+  // Passarel·la de pagament amb targeta (TPV virtual Redsys). La signatura la fa la Edge Function
+  // supabase/functions/redsys; aquí només hi ha l'adreça. testMode: true = entorn de proves de Redsys
+  // (no es cobren diners reals). Posa endpoint: "" per desactivar-la.
+  redsys: {
+    endpoint: `${SUPABASE_URL}/functions/v1/redsys`,
+    testMode: true
+  },
   vatRate: 21, // IVA (%). Debe coincidir con el valor de supabase/02_presupuestos_pagos.sql
   transfer: {
     // CUENTA DE PRUEBA (proyecto de clase): sustituir por los datos reales antes de cobrar.

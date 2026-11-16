@@ -197,7 +197,7 @@ function renderPayments() {
       return `<tr>
         <td><div class="cell-title mono">${escapeHtml(p.reference)}</div><div class="cell-sub">${escapeHtml(r?.service_type || "")}</div></td>
         <td><div class="cell-title">${escapeHtml(p.billing_name)}</div><div class="cell-sub">${escapeHtml(p.billing_tax_id)} · ${escapeHtml(clientName(p.user_id))}</div></td>
-        <td>${escapeHtml(PAYMENT_METHODS[p.method]?.short || p.method)}</td>
+        <td>${escapeHtml(PAYMENT_METHODS[p.method]?.short || p.method)}${p.redsys_auth_code ? `<div class="cell-sub">Aut. ${escapeHtml(p.redsys_auth_code)}</div>` : p.redsys_response ? `<div class="cell-sub">Redsys ${escapeHtml(p.redsys_response)}</div>` : ""}</td>
         <td class="num"><div class="cell-title">${fmtMoney(p.total)}</div><div class="cell-sub">${fmtMoney(p.subtotal)} + IVA</div></td>
         <td>${paymentBadge(p.status)}</td>
         <td><div>${fmtDate(p.created_at)}</div><div class="cell-sub">${p.paid_at ? "Cobrat el " + fmtDate(p.paid_at) : p.client_marked_at ? "Avisat el " + fmtDate(p.client_marked_at) : ""}</div></td>
