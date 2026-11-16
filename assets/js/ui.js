@@ -24,7 +24,7 @@ export const PAYMENT_STATUS = {
 export const PAYMENT_METHODS = {
   transfer: { label: "Transferència bancària", short: "Transferència" },
   bizum:    { label: "Bizum",                  short: "Bizum" },
-  card:     { label: "Targeta de crèdit o dèbit", short: "Targeta" }
+  card:     { label: "Targeta o Revolut",          short: "Targeta / Revolut" }
 };
 
 export const REQUEST_KIND = { budget: "Pressupost", audit: "Auditoria" };

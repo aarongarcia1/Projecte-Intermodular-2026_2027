@@ -79,9 +79,29 @@ function renderInstructions() {
       <p class="small muted" style="margin-top:14px">Si l'import supera el límit de Bizum del teu banc, tria transferència bancària.</p>`;
   } else if (m === "card") {
     const url = new URL(PAYMENT_CONFIG.card.paymentUrl);
-    url.searchParams.set("client_reference_id", payment.reference);
-    url.searchParams.set("prefilled_email", user.email || "");
-    html = `<p>Et redirigirem a la nostra passarel·la de pagament segura. Paga l'import indicat i torna a aquesta pàgina.</p>
+    const revolut = /(^|\.)revolut\.me$/.test(url.hostname);
+    if (!revolut) {
+      // Stripe Payment Link: referència i correu per identificar el pagament.
+      url.searchParams.set("client_reference_id", payment.reference);
+      url.searchParams.set("prefilled_email", user.email || "");
+    }
+    const plain = Number(payment.total).toFixed(2).replace(".", ",");
+    html = revolut
+      ? `<p>Pagaràs a través de <strong>Revolut</strong>, amb targeta de crèdit o dèbit, Apple Pay, Google Pay o el teu compte de Revolut.</p>
+      <ol class="small" style="margin:0 0 4px;padding-left:20px;display:grid;gap:4px">
+        <li>Prem el botó per obrir la pàgina de pagament de Revolut.</li>
+        <li>Escriu <strong>exactament</strong> l'import indicat.</li>
+        <li>Escriu la <strong>referència</strong> a la nota del pagament perquè el puguem identificar.</li>
+      </ol>
+      <div class="pay-instructions">
+        ${row("Import", plain + " €", true)}
+        ${row("Referència per a la nota", payment.reference, true)}
+      </div>
+      <p style="margin-top:18px"><a class="btn btn-dark btn-lg" href="${escapeHtml(url.href)}" target="_blank" rel="noopener">
+        <svg class="i"><use href="assets/img/icons.svg#card"/></svg>Paga ${amount} amb Revolut
+        <svg class="i"><use href="assets/img/icons.svg#external"/></svg></a></p>
+      <p class="small muted">El pagament es fa a la pàgina segura de Revolut. Altercom21 no rep ni guarda les dades de la teva targeta.</p>`
+      : `<p>Et redirigirem a la nostra passarel·la de pagament segura. Paga l'import indicat i torna a aquesta pàgina.</p>
       <div class="pay-instructions">
         ${row("Referència", payment.reference, true)}
         ${row("Import", amount)}
@@ -136,7 +156,7 @@ if (!requestId) {
     form.querySelectorAll('input[name="method"]').forEach(input => {
       if (!isMethodAvailable(input.value)) {
         input.disabled = true;
-        input.closest(".option").querySelector("small").textContent = "No disponible ara mateix.";
+        input.closest(".option").hidden = true; // mètode no configurat: no es mostra
       }
     });
     const preferred = payment?.method || ["transfer", "bizum", "card"].find(isMethodAvailable);
